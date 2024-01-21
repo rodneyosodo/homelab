@@ -1,0 +1,18 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: check-shebang-scripts-are-executable
+      - id: check-merge-conflict
+      - id: detect-private-key
+  - repo: https://github.com/IamTheFij/docker-pre-commit
+    rev: v3.0.1
+    hooks:
+      - id: docker-compose-check
