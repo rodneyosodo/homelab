@@ -15,5 +15,6 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST=postgres
       # TODO: Add SMTP settings
+      - NEXTCLOUD_TRUSTED_DOMAINS=${NEXTCLOUD_TRUSTED_DOMAINS} # or edit config/config.php https://docs.nextcloud.com/server/28/admin_manual/installation/installation_wizard.html#trusted-domains
     security_opt:
       - no-new-privileges:true
