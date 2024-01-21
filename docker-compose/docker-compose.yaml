@@ -41,6 +41,3 @@ include:
   - path: ./pihole/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
-  - path: ./code-server/docker-compose.yaml
-    project_directory: ..
-    env_file: docker-compose/.env
