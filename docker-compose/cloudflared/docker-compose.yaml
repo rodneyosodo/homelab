@@ -1,0 +1,12 @@
+services:
+  cloudflared:
+    container_name: cloudflared
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN}
+    networks:
+      - homelab-network
+    environment:
+      - ${CLOUDFLARE_TOKEN}=${CLOUDFLARE_TOKEN}
+    security_opt:
+      - no-new-privileges:true

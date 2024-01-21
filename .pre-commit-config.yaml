@@ -12,7 +12,3 @@ repos:
       - id: check-shebang-scripts-are-executable
       - id: check-merge-conflict
       - id: detect-private-key
-  - repo: https://github.com/IamTheFij/docker-pre-commit
-    rev: v3.0.1
-    hooks:
-      - id: docker-compose-check

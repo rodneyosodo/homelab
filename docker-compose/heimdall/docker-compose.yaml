@@ -1,0 +1,18 @@
+services:
+  heimdall:
+    container_name: heimdall
+    image: linuxserver/heimdall:2.5.8
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Africa/Nairobi
+    volumes:
+      - ~/docker-volumes/heimdall-config:/config
+    ports:
+      - 2010:80
+      - 2011:443
+    security_opt:
+      - no-new-privileges:true

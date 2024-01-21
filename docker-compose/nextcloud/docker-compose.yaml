@@ -1,0 +1,19 @@
+services:
+  nextcloud:
+    container_name: nextcloud
+    image: nextcloud:28.0.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    ports:
+      - 2030:80
+    volumes:
+      - ~/docker-volumes/nextcloud:/var/www/html
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=postgres
+      # TODO: Add SMTP settings
+    security_opt:
+      - no-new-privileges:true

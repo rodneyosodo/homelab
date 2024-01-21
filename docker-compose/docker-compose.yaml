@@ -1,0 +1,46 @@
+version: "3.7"
+name: "homelab"
+
+networks:
+  homelab-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+          ip_range: 172.30.0.0/24
+          gateway: 172.30.0.1
+
+include:
+  - path: ./portainer/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./uptime-kuma/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./heimdall/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./postgres/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./nextcloud/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./littlelink/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./ntp/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./cloudflared/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./wireguard/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./pihole/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./code-server/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env

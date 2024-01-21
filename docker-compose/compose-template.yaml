@@ -1,0 +1,8 @@
+services:
+  service_name:
+    container_name: service_name
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
