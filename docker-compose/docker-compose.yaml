@@ -41,3 +41,6 @@ include:
   - path: ./pihole/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./swagger-editor/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env

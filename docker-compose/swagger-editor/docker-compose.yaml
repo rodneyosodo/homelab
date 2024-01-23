@@ -1,0 +1,11 @@
+services:
+  swagger-editor:
+    container_name: swagger-editor
+    image: swaggerapi/swagger-editor:v4.12.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 2080:8080
