@@ -1,0 +1,16 @@
+services:
+  redis:
+    container_name: redis
+    image: redis:7.2.4-alpine
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    command: /bin/sh -c "redis-server --requirepass ${REDIS_PASSWORD}"
+    volumes:
+      - ~/docker-volumes/redis:/data
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}

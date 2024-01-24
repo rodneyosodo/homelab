@@ -44,3 +44,9 @@ include:
   - path: ./swagger-editor/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./immich/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./redis/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
