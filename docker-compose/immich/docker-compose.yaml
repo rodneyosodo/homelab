@@ -15,7 +15,7 @@ services:
       - 2090:3001
     depends_on:
       - redis
-      - database
+      - immich-postgres
     environment:
       - TZ=Africa/Nairobi
       - REDIS_HOSTNAME=redis
@@ -37,25 +37,13 @@ services:
       - no-new-privileges:true
     devices:
       - /dev/dri:/dev/dri # If using Intel QuickSync or VAAPI
-    # volumes:
-    #   - /usr/lib/wsl:/usr/lib/wsl # If using VAAPI in WSL2
-    # environment:
-    #   - LD_LIBRARY_PATH=/usr/lib/wsl/lib # If using VAAPI in WSL2
-    #   - LIBVA_DRIVER_NAME=d3d12 # If using VAAPI in WSL2
-    # deploy: # Uncomment this section if using NVIDIA GPU
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: 1
-    #           capabilities: [gpu,video]
     command: ["start.sh", "microservices"]
     volumes:
       - ~/docker-volumes/immich-images:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - redis
-      - database
+      - immich-postgres
     environment:
       - TZ=Africa/Nairobi
       - REDIS_HOSTNAME=redis
@@ -78,7 +66,7 @@ services:
     volumes:
       - ~/docker-volumes/immich-cache:/cache
 
-  database:
+  immich-postgres:
     container_name: immich-postgres
     restart: unless-stopped
     networks:
