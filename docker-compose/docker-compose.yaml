@@ -35,9 +35,6 @@ include:
   - path: ./cloudflared/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
-  - path: ./wireguard/docker-compose.yaml
-    project_directory: ..
-    env_file: docker-compose/.env
   - path: ./pihole/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
