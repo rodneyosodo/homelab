@@ -47,3 +47,6 @@ include:
   - path: ./redis/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./vaultwarden/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
