@@ -50,3 +50,6 @@ include:
   - path: ./vaultwarden/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./opengist/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env

@@ -1,0 +1,17 @@
+services:
+  opengist:
+    container_name: opengist
+    image: ghcr.io/thomiceli/opengist:1.6.0
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 3020:6157 # HTTP port
+      # - 2222:2222 # SSH port, can be removed if you don't use SSH
+    volumes:
+      - ~/docker-volumes/opengist:/opengist
+    environment:
+      UID: 1000
+      GID: 1000
