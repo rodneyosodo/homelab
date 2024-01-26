@@ -26,6 +26,12 @@ services:
       - DB_USERNAME=${IMMICH_POSTGRES_USER}
       - DB_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
       - DB_DATABASE_NAME=${IMMICH_POSTGRES_DB}
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
 
   immich-microservices:
     container_name: immich-microservices
