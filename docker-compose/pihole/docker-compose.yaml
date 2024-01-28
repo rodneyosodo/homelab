@@ -1,7 +1,7 @@
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:latest
+    image: pihole/pihole:2024.01.0
     restart: unless-stopped
     networks:
       homelab-network:
@@ -29,7 +29,7 @@ services:
 
   unbound:
     container_name: unbound
-    image: mvance/unbound:latest
+    image: mvance/unbound:1.19.0
     restart: unless-stopped
     networks:
       homelab-network:
