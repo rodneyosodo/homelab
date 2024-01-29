@@ -45,7 +45,7 @@ sudo apt install nala
 sudo nala fetch
 ```
 
-## Install softwares
+## Install software
 
 ```bash
 sudo nala install ssh openssh-server git vim htop bpytop neofetch p7zip tar curl wget make thefuck python3-pip
@@ -112,13 +112,13 @@ sudo systemctl start sshd
 sudo systemctl enable sshd
 ```
 
-copy ssh key (github and personal)
+copy SSH key (GitHub and personal)
 
 ```bash
 scp ~/.ssh/homelab-pc.pub rodneyosodo@192.168.100.32:/home/rodneyosodo/.ssh/
 ```
 
-on the remote system add the key to authorized keys
+on the remote system add the key to the authorized keys
 
 ```bash
 cat ~/.ssh/homelab-pc.pub >> ~/.ssh/authorized_keys
