@@ -1,0 +1,27 @@
+services:
+  speedtest-tracker:
+    container_name: speedtest-tracker
+    image: ghcr.io/alexjustesen/speedtest-tracker:v0.14.4
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - '3030:80'
+      - '3031:443'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - DB_CONNECTION=pgsql
+      - DB_USERNAME=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_DATABASE=${POSTGRES_DB}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ~/docker-volumes/speedtest-tracker/config:/config
+      - ~/docker-volumes/speedtest-tracker/web:/etc/ssl/web
+    depends_on:
+      - postgres

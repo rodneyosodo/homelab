@@ -53,3 +53,6 @@ include:
   - path: ./opengist/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./speedtest-tracker/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
