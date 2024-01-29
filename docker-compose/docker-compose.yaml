@@ -56,3 +56,6 @@ include:
   - path: ./speedtest-tracker/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./stirling-pdf/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env

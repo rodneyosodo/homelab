@@ -1,0 +1,18 @@
+services:
+  stirling-pdf:
+    container_name: stirling-pdf
+    image: frooodle/s-pdf:0.20.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "3040:8080"
+    volumes:
+      - ~/docker-volumes/stirling-pdf/tessdata:/usr/share/tesseract-ocr/5/tessdata
+      - ~/docker-volumes/stirling-pdf/configs:/configs
+      - ~/docker-volumes/stirling-pdf/logs:/logs
+    environment:
+      - DOCKER_ENABLE_SECURITY=true
+      - SECURITY_ENABLE_LOGIN=true
