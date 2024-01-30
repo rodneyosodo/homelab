@@ -1,0 +1,13 @@
+services:
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:v6.1.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 3070:8080
