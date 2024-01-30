@@ -1,6 +1,6 @@
 # Rodney Osodo's Homelab
 
-Hello, I'm [Rodney Osodo][website] [@blackd0t][twitter] on Twitter. I'm a software engineer and this is my homelab. I use it to learn new technologies and to host my projects and other services. This repository contains the configuration files for my homelab.
+Hello, I'm [Rodney Osodo][website] [@blackd0t][twitter] on Twitter. I'm a software engineer and homelab. I use it to learn new technologies and to host myprojects and other services. This repository contains the configuration files for my homelab.
 
 ## Goals
 
@@ -24,9 +24,9 @@ I also have a Raspberry Pi 4 Model B with 4 GB RAM which is not running since I 
 
 Some photos of my homelab:
 
-![odin-server][odin-image]
-
 ![computers][computers]
+
+![odin-server][odin-image]
 
 More photos can be found in this [Immich-photo-album][Immich-photo-album].
 
@@ -48,7 +48,7 @@ Portainer is a lightweight management UI that allows me to easily manage my diff
 
 My portainer configuration files can be found in the [portainer-compose][portainer-compose] directory.
 
-This is my ![portainer dashboard][portainer-dashboard].
+![portainer dashboard][portainer-dashboard]
 
 ### uptime-kuma
 
@@ -56,7 +56,7 @@ uptime-kuma is a fancy self-hosted monitoring tool. It monitors the uptime of my
 
 My uptime-kuma configuration files can be found in the [uptime-kuma-compose][uptime-kuma-compose] directory.
 
-This is my ![uptime-kuma dashboard][uptime-kuma-dashboard].
+![uptime-kuma dashboard][uptime-kuma-dashboard]
 
 ### heimdall
 
@@ -64,7 +64,7 @@ Heimdall is a dashboard for all my web applications. It is a way to organize all
 
 My heimdall configuration files can be found in the [heimdall-compose][heimdall-compose] directory.
 
-This is my ![heimdall dashboard][heimdall-dashboard].
+![heimdall dashboard][heimdall-dashboard]
 
 ### postgres
 
@@ -78,7 +78,7 @@ Nextcloud is a suite of client-server software for creating and using file hosti
 
 My nextcloud configuration files can be found in the [nextcloud-compose][nextcloud-compose] directory.
 
-This is my ![nextcloud dashboard][nextcloud-dashboard].
+![nextcloud dashboard][nextcloud-dashboard]
 
 ### littlelink
 
@@ -104,7 +104,7 @@ Pi-hole is a Linux network-level advertisement and Internet tracker blocking app
 
 My pihole configuration files can be found in the [pihole-compose][pihole-compose] directory.
 
-This is my ![pihole dashboard][pihole-dashboard].
+![pihole dashboard][pihole-dashboard]
 
 ### swagger-editor
 
@@ -124,7 +124,7 @@ Immich is a photo album that I use to store all my photos. I use it to store all
 
 My immich configuration files can be found in the [immich-compose][immich-compose] directory.
 
-This is my ![immich dashboard][immich-dashboard].
+![immich dashboard][immich-dashboard]
 
 ### redis
 
@@ -143,6 +143,34 @@ My vaultwarden configuration files can be found in the [vaultwarden-compose][vau
 OpenGist is a lightweight implementation of the GitHub Gist API, written in Rust, supports creating, editing, deleting, and listing gists, and can be self-hosted. I use it to store my code snippets.
 
 My opengist configuration files can be found in the [opengist-compose][opengist-compose] directory.
+
+### speedtest-tracker
+
+Speedtest Tracker is a self-hosted internet performance tracking application that runs speedtest checks against Ookla's Speedtest service. I use it to track my internet speeds.
+
+My speedtest-tracker configuration files can be found in the [speedtest-tracker-compose][speedtest-tracker-compose] directory.
+
+![speedtest-tracker dashboard][speedtest-tracker-dashboard]
+
+### kavita
+
+Kavita is a fast, feature rich, cross platform reading server. Built with a focus for manga and the goal of being a full solution for all your reading needs. Setup your own server and share your reading collection with your friends and family.
+
+My kavita configuration files can be found in the [kavita-compose][kavita-compose] directory.
+
+## endlessh
+
+endlessh is an SSH tarpit that slowly sends an endless banner. It keeps SSH clients locked up for hours or even days at a time. The purpose is to put your real SSH server on another port and then let the script kiddies get stuck in this tarpit instead of bothering a real server.
+
+My endlessh configuration files can be found in the [endlessh-compose][endlessh-compose] directory.
+
+## dozzle
+
+dozzle is a simple container log viewer for Docker. It is designed to be very minimalistic and fit into the Docker ecosystem without extra dependencies.
+
+My dozzle configuration files can be found in the [dozzle-compose][dozzle-compose] directory.
+
+![dozzle dashboard][dozzle-dashboard]
 
 [website]: https://rodneyosodo.com
 [twitter]: https://twitter.com/b1ackd0t
@@ -172,3 +200,9 @@ My opengist configuration files can be found in the [opengist-compose][opengist-
 [redis-compose]: ./docker-compose/redis/
 [vaultwarden-compose]: ./docker-compose/vaultwarden/
 [opengist-compose]: ./docker-compose/opengist/
+[speedtest-tracker-compose]: ./docker-compose/speedtest-tracker/
+[speedtest-tracker-dashboard]: ./assets/speedtest.png
+[kavita-compose]: ./docker-compose/kavita/
+[endlessh-compose]: ./docker-compose/endlessh/
+[dozzle-compose]: ./docker-compose/dozzle/
+[dozzle-dashboard]: ./assets/dozzle.png
