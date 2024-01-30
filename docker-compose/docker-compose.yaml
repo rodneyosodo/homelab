@@ -59,6 +59,12 @@ include:
   - path: ./kavita/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./dozzle/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
+  - path: ./endlessh/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env  
   - path: ./private-gpt/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env

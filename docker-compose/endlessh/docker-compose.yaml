@@ -1,0 +1,20 @@
+services:
+  endlessh:
+    container_name: endlessh
+    image: linuxserver/endlessh:latest
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Africa/Nairobi
+      - MSDELAY=10000
+      - MAXLINES=32
+      - MAXCLIENTS=4096
+      - LOGFILE=false
+      - BINDFAMILY=
+    ports:
+      - 22:2222
