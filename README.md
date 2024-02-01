@@ -36,6 +36,8 @@ I use Proxmox VE as my hypervisor. I currently have 1 VM running Debian 12 (Book
 
 I use ZFS for my storage. I have a single pool made up of 1x 2 TB SSD. I'm planning to add another pool for my backups. Currently, backups are stored on the SSD which hosts the OS.
 
+![proxmox-dashboard][proxmox-dashboard]
+
 ## Services
 
 I use the following services:
@@ -179,6 +181,7 @@ My dozzle configuration files can be found in the [dozzle-compose][dozzle-compos
 [computers]: ./assets/computers.jpg
 [Immich-photo-album]: https://immich.rodneyosodo.com/share/dgJE3wNLnS0ntsFlABuRwvkzCGHZeMBueTNo2NmtVKT-3mM1SYaK--p-ENXRGxph0oY
 [linux-unplugged]: https://linuxunplugged.com/
+[proxmox-dashboard]: ./assets/proxmox.png
 [services]: ./assets/homelab-arch.png
 [portainer-compose]: ./docker-compose/portainer/
 [portainer-dashboard]: ./assets/portainer.png
