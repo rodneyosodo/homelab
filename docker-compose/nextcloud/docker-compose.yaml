@@ -1,7 +1,7 @@
 services:
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:28.0.1
+    image: nextcloud:28.0.2
     restart: unless-stopped
     networks:
       - homelab-network
