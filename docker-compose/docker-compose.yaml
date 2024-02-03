@@ -65,6 +65,6 @@ include:
   - path: ./endlessh/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
-  - path: ./private-gpt/docker-compose.yaml
+  - path: ./ollama/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
