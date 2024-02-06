@@ -174,3 +174,10 @@ sudo systemctl restart sshd
 ```bash
 ssh -2 rodneyosodo@192.168.100.32
 ```
+
+## Install tailscale
+
+```bash
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up --ssh
+```

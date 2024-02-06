@@ -16,7 +16,8 @@ services:
       - WEBPASSWORD=${PIHOLE_WEBPASSWORD}
       - PIHOLE_DNS_=172.30.0.101#2051
       - DNSMASQ_LISTENING=all
-      - VIRTUAL_HOST=pihole.yourdomain.com
+      - PIHOLE_UID=1000
+      - PIHOLE_GID=1000
     volumes:
       - ~/docker-volumes/pihole:/etc/pihole
       - ~/docker-volumes/pihole/etc-dnsmasq.d:/etc/dnsmasq.d

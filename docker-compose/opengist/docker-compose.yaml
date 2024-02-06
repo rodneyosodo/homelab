@@ -13,5 +13,5 @@ services:
     volumes:
       - ~/docker-volumes/opengist:/opengist
     environment:
-      UID: 1000
-      GID: 1000
+      - UID=1000
+      - GID=1000

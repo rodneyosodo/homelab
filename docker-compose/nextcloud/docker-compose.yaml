@@ -16,6 +16,14 @@ services:
       - POSTGRES_HOST=postgres
       # TODO: Add SMTP settings
       - NEXTCLOUD_TRUSTED_DOMAINS=${NEXTCLOUD_TRUSTED_DOMAINS} # or edit config/config.php https://docs.nextcloud.com/server/28/admin_manual/installation/installation_wizard.html#trusted-domains
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_SECURE=${SMTP_SECURE}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_AUTHTYPE=${SMTP_AUTHTYPE}
+      - SMTP_NAME=${SMTP_NAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
+      - MAIL_DOMAIN=${MAIL_DOMAIN}
     security_opt:
       - no-new-privileges:true
     depends_on:

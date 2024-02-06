@@ -18,7 +18,7 @@ I have a single server running Proxmox VE 6.5.11-7-pve with the following specs:
 - SSD: 1x 1 TB NVMe SSD
 - Disk: 1x 2 TB SATA SSD
 
-I have a 10 Mbps uplink and a 10 Mbps downlink internet connection from Safaricom (planning to upgrade depending on upload usage). I don't have a static IP address so I use [cloudflare-tunnel][cft] to expose my services to the internet.
+I have a 20 Mbps uplink and a 20 Mbps downlink internet connection from Safaricom (planning to upgrade depending on upload usage). I don't have a static IP address so I use [cloudflare-tunnel][cft] to expose my services to the internet.
 
 I also have a Raspberry Pi 4 Model B with 4 GB RAM which is not running since I have a few issues with running proxmox backup server on it. I had a backup 4TB HDD connected to it but it had 4096 bytes per sector and proxmox backup server only supports 512 bytes per sector. I'm planning to get a new HDD and try again with a mini PC instead of the Raspberry Pi. Another issue is that the proxmox backup server doesn't support ARM64 architecture.
 
