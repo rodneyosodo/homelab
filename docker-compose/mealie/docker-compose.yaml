@@ -1,0 +1,25 @@
+services:
+  mealie:
+    container_name: mealie
+    image: hkotel/mealie:v1.1.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ~/docker-volumes/mealie:/app/data/
+    ports:
+      - 3040:9000
+    environment:
+      - TZ=Africa/Nairobi
+      - ALLOW_SIGNUP=true
+      - BASE_URL=https://mealie.rodneyosodo.com
+      - DB_ENGINE=sqlite # Postgres has some issues with migrations
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_FROM_NAME=${SMTP_NAME}
+      - SMTP_AUTH_STRATEGY=TLS
+      - SMTP_FROM_EMAIL=${MAIL_FROM_ADDRESS}
+      - SMTP_USER=${SMTP_NAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}

@@ -62,3 +62,6 @@ include:
   - path: ./endlessh/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./mealie/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
