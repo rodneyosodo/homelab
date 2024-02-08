@@ -56,9 +56,6 @@ include:
   - path: ./speedtest-tracker/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
-  - path: ./kavita/docker-compose.yaml
-    project_directory: ..
-    env_file: docker-compose/.env
   - path: ./dozzle/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
