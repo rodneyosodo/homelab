@@ -1,0 +1,43 @@
+services:
+  hedgedoc:
+    container_name: hedgedoc
+    image: quay.io/hedgedoc/hedgedoc:1.9.9
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - CMD_PORT=3050
+      - CMD_PROTOCOL_USESSL=true
+      - CMD_ALLOW_EMAIL_REGISTER=${HEDGEDOC_ALLOW_EMAIL_REGISTER}
+      - CMD_IMAGE_UPLOAD_TYPE=filesystem
+      - CMD_DOMAIN=${HEDGEDOC_DOMAIN_URL}
+      - CMD_SESSION_SECRET=${HEDGEDOC_SESSION_SECRET}
+      - CMD_DB_URL=${HEDGEDOC_POSTGRES_URL}
+    volumes:
+      - ~/docker-volumes/hedgedoc/uploads:/hedgedoc/public/uploads
+    ports:
+      - 3050:3050
+    depends_on:
+      - hedgedoc-db
+
+  hedgedoc-db:
+    container_name: hedgedoc-db
+    image: postgres:16.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ~/docker-volumes/hedgedoc/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${HEDGEDOC_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${HEDGEDOC_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${HEDGEDOC_POSTGRES_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
