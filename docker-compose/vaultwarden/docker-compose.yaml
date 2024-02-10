@@ -9,5 +9,8 @@ services:
       - no-new-privileges:true
     volumes:
       - ~/docker-volumes/vaultwarden-data:/data
+    environment:
+      - SIGNUPS_ALLOWED=false
+      - DOMAIN=${VAULTWARDEN_DOMAIN}
     ports:
       - 3010:80

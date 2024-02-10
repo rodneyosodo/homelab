@@ -1,7 +1,3 @@
-volumes:
-  portainer-data:
-    driver: local
-
 services:
   portainer:
     container_name: portainer

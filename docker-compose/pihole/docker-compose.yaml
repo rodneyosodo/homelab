@@ -7,10 +7,10 @@ services:
       homelab-network:
         ipv4_address: 172.30.0.100
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp"
-      - "2050:80/tcp"
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 2050:80/tcp
     environment:
       - TZ=Africa/Nairobi
       - WEBPASSWORD=${PIHOLE_WEBPASSWORD}
@@ -21,8 +21,6 @@ services:
     volumes:
       - ~/docker-volumes/pihole:/etc/pihole
       - ~/docker-volumes/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
-    cap_add:
-      - NET_ADMIN
     security_opt:
       - no-new-privileges:true
     depends_on:
@@ -38,7 +36,7 @@ services:
     volumes:
       - ./docker-compose/pihole/unbound/unbound.conf:/opt/unbound/etc/unbound/unbound.conf
     ports:
-      - "2051:53/tcp"
-      - "2051:53/udp"
+      - 2051:53/tcp
+      - 2051:53/udp
     security_opt:
       - no-new-privileges:true

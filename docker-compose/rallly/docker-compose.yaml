@@ -14,7 +14,7 @@ services:
     environment:
       - DATABASE_URL=${RALLY_POSTGRES_URL}
       - SECRET_PASSWORD=${SECRET_PASSWORD}
-      - NEXT_PUBLIC_BASE_URL=https://rally.rodneyosodo.com
+      - NEXT_PUBLIC_BASE_URL=${RALLY_BASE_URL}
       - ALLOWED_EMAILS=*@rodneyosodo.com
       - NOREPLY_EMAIL=${SMTP_NAME}
       - SUPPORT_EMAIL=${SMTP_NAME}

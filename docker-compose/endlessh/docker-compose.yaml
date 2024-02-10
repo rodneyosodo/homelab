@@ -15,6 +15,5 @@ services:
       - MAXLINES=32
       - MAXCLIENTS=4096
       - LOGFILE=false
-      - BINDFAMILY=
     ports:
       - 22:2222

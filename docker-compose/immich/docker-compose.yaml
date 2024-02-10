@@ -18,8 +18,8 @@ services:
       - immich-postgres
     environment:
       - TZ=Africa/Nairobi
-      - REDIS_HOSTNAME=redis
-      - REDIS_PORT=6379
+      - REDIS_HOSTNAME=${REDIS_HOSTNAME}
+      - REDIS_PORT=${REDIS_PORT}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - DB_HOSTNAME=immich-postgres
       - DB_PORT=5432
@@ -52,8 +52,8 @@ services:
       - immich-postgres
     environment:
       - TZ=Africa/Nairobi
-      - REDIS_HOSTNAME=redis
-      - REDIS_PORT=6379
+      - REDIS_HOSTNAME=${REDIS_HOSTNAME}
+      - REDIS_PORT=${REDIS_PORT}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - DB_HOSTNAME=immich-postgres
       - DB_PORT=5432
@@ -81,8 +81,8 @@ services:
     security_opt:
       - no-new-privileges:true
     environment:
-      POSTGRES_PASSWORD: ${IMMICH_POSTGRES_PASSWORD}
-      POSTGRES_USER: ${IMMICH_POSTGRES_USER}
-      POSTGRES_DB: ${IMMICH_POSTGRES_DB}
+      - POSTGRES_PASSWORD=${IMMICH_POSTGRES_PASSWORD}
+      - POSTGRES_USER=${IMMICH_POSTGRES_USER}
+      - POSTGRES_DB=${IMMICH_POSTGRES_DB}
     volumes:
       - ~/docker-volumes/immich-postgres-data:/var/lib/postgresql/data

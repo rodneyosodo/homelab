@@ -1,7 +1,7 @@
 services:
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v6.2.1
+    image: amir20/dozzle:v6.2.4
     restart: unless-stopped
     networks:
       - homelab-network

@@ -1,7 +1,7 @@
 services:
   mealie:
     container_name: mealie
-    image: hkotel/mealie:v1.1.1
+    image: hkotel/mealie:v1.2.0
     restart: unless-stopped
     networks:
       - homelab-network
@@ -14,7 +14,7 @@ services:
     environment:
       - TZ=Africa/Nairobi
       - ALLOW_SIGNUP=true
-      - BASE_URL=https://mealie.rodneyosodo.com
+      - BASE_URL=${MEALIE_BASE_URL}
       - DB_ENGINE=sqlite # Postgres has some issues with migrations
       - SMTP_HOST=${SMTP_HOST}
       - SMTP_PORT=${SMTP_PORT}
