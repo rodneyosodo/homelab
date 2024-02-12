@@ -68,3 +68,6 @@ include:
   - path: ./rallly/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./hemmelig/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env

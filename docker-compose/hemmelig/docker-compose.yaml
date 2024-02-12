@@ -1,0 +1,31 @@
+services:
+  hemmelig:
+    container_name: hemmelig
+    image: hemmeligapp/hemmelig:v5.19.4
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    init: true
+    stop_grace_period: 1m
+    volumes:
+      - ~/docker-volumes/hemmelig/data:/var/tmp/hemmelig/upload/files
+      # - ~/docker-volumes/hemmelig/database:/home/node/hemmelig/database/ # Getting error: Error: unable to open database file: ../database/hemmelig.db
+    environment:
+      - SECRET_PORT=3080
+      - SECRET_HOST=0.0.0.0
+      - SECRET_ROOT_USER=${HEMMELIG_ROOT_USER}
+      - SECRET_ROOT_PASSWORD=${HEMMELIG_ROOT_PASSWORD}
+      - SECRET_ROOT_EMAIL=${HEMMELIG_ROOT_EMAIL}
+      - SECRET_FILE_SIZE=10 # Set the total allowed upload file size in mb
+      - SECRET_FORCED_LANGUAGE=en
+      - SECRET_JWT_SECRET=${HEMMELIG_JWT_SECRET}
+      - SECRET_MAX_TEXT_SIZE=1024 # The max text size for the secret. Is set in kb. i.e. 256 for 256kb
+    ports:
+      - 3080:3080
+    healthcheck:
+      test: "wget -O /dev/null localhost:3080 || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 5
