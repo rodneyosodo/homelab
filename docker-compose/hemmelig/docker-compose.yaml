@@ -14,7 +14,7 @@ services:
       # - ~/docker-volumes/hemmelig/database:/home/node/hemmelig/database/ # Getting error: Error: unable to open database file: ../database/hemmelig.db
     environment:
       - SECRET_PORT=3080
-      - SECRET_HOST=0.0.0.0
+      - SECRET_HOST=${HEMMELIG_HOST}
       - SECRET_ROOT_USER=${HEMMELIG_ROOT_USER}
       - SECRET_ROOT_PASSWORD=${HEMMELIG_ROOT_PASSWORD}
       - SECRET_ROOT_EMAIL=${HEMMELIG_ROOT_EMAIL}
