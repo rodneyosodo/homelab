@@ -1,7 +1,7 @@
 services:
   speedtest-tracker:
     container_name: speedtest-tracker
-    image: ghcr.io/alexjustesen/speedtest-tracker:v0.15.2
+    image: ghcr.io/alexjustesen/speedtest-tracker:v0.16.4
     restart: unless-stopped
     networks:
       - homelab-network
