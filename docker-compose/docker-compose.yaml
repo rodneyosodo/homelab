@@ -74,3 +74,6 @@ include:
   - path: ./jupyter/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./docuseal/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
