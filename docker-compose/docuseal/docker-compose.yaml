@@ -1,0 +1,37 @@
+services:
+  docuseal:
+    container_name: docuseal
+    image: docuseal/docuseal:1.4.4
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ~/docker-volumes/docuseal/data:/data
+    ports:
+      - 4010:3000
+    depends_on:
+      - docuseal-db
+    environment:
+      - DATABASE_URL=${DOCUSEAL_POSTGRES_URL}
+
+  docuseal-db:
+    container_name: docuseal-db
+    image: postgres:16.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ~/docker-volumes/docuseal/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DOCUSEAL_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${DOCUSEAL_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DOCUSEAL_POSTGRES_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
