@@ -77,3 +77,6 @@ include:
   - path: ./docuseal/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./gitea/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
