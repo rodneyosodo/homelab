@@ -1,0 +1,50 @@
+services:
+  gitea:
+    container_name: gitea
+    image: gitea/gitea:1.21.7
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=postgres
+      - GITEA__database__HOST=${GITEA_POSTGRES_HOST}
+      - GITEA__database__NAME=${GITEA_POSTGRES_DB}
+      - GITEA__database__USER=${GITEA_POSTGRES_USER}
+      - GITEA__database__PASSWD=${GITEA_POSTGRES_PASSWORD}
+      - GITEA__mailer__ENABLED=true
+      - GITEA__mailer__FROM=${MAIL_FROM_ADDRESS}
+      - GITEA__mailer__PROTOCOL=smtps
+      - GITEA__mailer__HOST=${SMTP_HOST}
+      - GITEA__mailer__USER=${SMTP_NAME}
+      - GITEA__mailer__PASSWD="""${SMTP_PASSWORD}"""
+    volumes:
+      - ~/docker-volumes/gitea/data:/data/
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 4020:3000
+      - 4021:22
+
+  gitea-db:
+    container_name: gitea-db
+    image: postgres:16.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ~/docker-volumes/gitea/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${GITEA_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${GITEA_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${GITEA_POSTGRES_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
