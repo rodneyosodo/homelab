@@ -80,3 +80,6 @@ include:
   - path: ./gitea/docker-compose.yaml
     project_directory: ..
     env_file: docker-compose/.env
+  - path: ./hedgedoc/docker-compose.yaml
+    project_directory: ..
+    env_file: docker-compose/.env
