@@ -1,0 +1,14 @@
+[Unit]
+Description=Connect to wifi
+After=network.target
+Requires=network.target
+
+[Service]
+Type=simple
+# Add the environment variables to the service
+Environment="WIFI_PASSWORD=ssid" "WIFI_SSID=password"
+ExecStart=/usr/bin/nmcli d wifi connect $WIFI_SSID password $WIFI_PASSWORD
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

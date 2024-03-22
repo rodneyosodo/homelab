@@ -1,0 +1,12 @@
+[Unit]
+Description=Sync the time with bohr NTP server
+After=tailscaled.service
+Requires=tailscaled.service
+
+[Timer]
+OnCalendar=daily
+OnBootSec=5min
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target

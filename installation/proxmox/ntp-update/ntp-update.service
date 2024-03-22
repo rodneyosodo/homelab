@@ -1,0 +1,12 @@
+[Unit]
+Description=Sync the time with bohr NTP server
+After=tailscaled.service
+Requires=tailscaled.service
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/ntpdate bohr
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
