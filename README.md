@@ -25,6 +25,7 @@ I also have a Raspberry Pi 4 Model B with 4 GB RAM which is not running since I 
 Some photos of my homelab:
 
 ![computers][computers]
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frodneyosodo%2Fhomelab.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Frodneyosodo%2Fhomelab?ref=badge_shield)
 
 ![odin-server][odin-image]
 
@@ -209,3 +210,7 @@ My dozzle configuration files can be found in the [dozzle-compose][dozzle-compos
 [endlessh-compose]: ./docker-compose/endlessh/
 [dozzle-compose]: ./docker-compose/dozzle/
 [dozzle-dashboard]: ./assets/dozzle.png
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frodneyosodo%2Fhomelab.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Frodneyosodo%2Fhomelab?ref=badge_large)
