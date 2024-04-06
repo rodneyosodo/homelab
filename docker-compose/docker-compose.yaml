@@ -13,73 +13,73 @@ networks:
 include:
   - path: ./portainer/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./uptime-kuma/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./heimdall/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./postgres/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./nextcloud/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./littlelink/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./ntp/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./cloudflared/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./pihole/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./swagger-editor/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./immich/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./redis/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./vaultwarden/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./opengist/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./speedtest-tracker/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./dozzle/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./endlessh/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./mealie/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./rallly/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./hemmelig/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./jupyter/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./docuseal/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./gitea/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
   - path: ./hedgedoc/docker-compose.yaml
     project_directory: ..
-    env_file: docker-compose/.env
+    env_file: .env
