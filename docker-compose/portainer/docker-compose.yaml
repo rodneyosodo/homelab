@@ -1,7 +1,7 @@
 services:
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.19.4
+    image: portainer/portainer-ce:2.20.3
     restart: unless-stopped
     networks:
       - homelab-network

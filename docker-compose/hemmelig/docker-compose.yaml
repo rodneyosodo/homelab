@@ -1,7 +1,7 @@
 services:
   hemmelig:
     container_name: hemmelig
-    image: hemmeligapp/hemmelig:v5.19.6
+    image: hemmeligapp/hemmelig:v5.19.24
     restart: unless-stopped
     networks:
       - homelab-network
