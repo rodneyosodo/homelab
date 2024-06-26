@@ -1,12 +1,17 @@
 services:
   endlessh:
     container_name: endlessh
-    image: linuxserver/endlessh:latest
+    image: ghcr.io/shizunge/endlessh-go:latest
     restart: unless-stopped
     networks:
       - homelab-network
     security_opt:
       - no-new-privileges:true
+    command:
+      - "-enable_prometheus"
+      - "-logtostderr"
+      - "-v=3"
+      - "-geoip_supplier=ip-api"
     environment:
       - PUID=1000
       - PGID=1000
@@ -17,3 +22,4 @@ services:
       - LOGFILE=false
     ports:
       - 22:2222
+      - 2112:2112
