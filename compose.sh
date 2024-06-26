@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-# This script is used to start and stop docker-compose services
+# This script is used to start, restart and stop docker-compose services
 # It can also be used to generate a new docker-compose file
 
 if [ "$1" == "start" ]; then
     docker compose -f docker-compose/docker-compose.yaml --env-file docker-compose/.env up -d
+elif [ "$1" == "restart" ]; then
+    docker compose -f docker-compose/docker-compose.yaml --env-file docker-compose/.env up -d --force-recreate
 elif [ "$1" == "stop" ]; then
     docker compose -f docker-compose/docker-compose.yaml --env-file docker-compose/.env down
 elif [ "$1" == "generate" ]; then
