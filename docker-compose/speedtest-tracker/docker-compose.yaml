@@ -1,7 +1,7 @@
 services:
   speedtest-tracker:
     container_name: speedtest-tracker
-    image: ghcr.io/alexjustesen/speedtest-tracker:v0.19.0
+    image: linuxserver/speedtest-tracker:0.20.7
     restart: unless-stopped
     networks:
       - homelab-network
@@ -13,14 +13,19 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
+      - TZ=Africa/Nairobi
       - DB_CONNECTION=pgsql
       - DB_USERNAME=${POSTGRES_USER}
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - DB_DATABASE=${POSTGRES_DB}
       - DB_HOST=${POSTGRES_HOST}
       - DB_PORT=${POSTGRES_PORT}
+      - APP_KEY=${SPEEDTEST_TRACKER_APP_KEY}
+      - APP_TIMEZONE=Africa/Nairobi
+      - DISPLAY_TIMEZONE=Africa/Nairobi
+      - SPEEDTEST_SCHEDULE="*/15 * * * *"
+      - SPEEDTEST_SERVERS="40028,37726,14389"
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - ~/docker-volumes/speedtest-tracker/config:/config
       - ~/docker-volumes/speedtest-tracker/web:/etc/ssl/web
     depends_on:
