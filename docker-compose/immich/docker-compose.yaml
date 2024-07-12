@@ -1,7 +1,7 @@
 services:
   immich-server:
     container_name: immich-server
-    image: ghcr.io/immich-app/immich-server:v1.106.4
+    image: ghcr.io/immich-app/immich-server:v1.108.0
     restart: unless-stopped
     networks:
       - homelab-network
@@ -36,7 +36,7 @@ services:
 
   immich-machine-learning:
     container_name: immich-machine-learning
-    image: ghcr.io/immich-app/immich-machine-learning:v1.106.4
+    image: ghcr.io/immich-app/immich-machine-learning:v1.108.0
     restart: unless-stopped
     networks:
       - homelab-network
