@@ -8,4 +8,4 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
-      - 2080:8080
+      - 2080:80
