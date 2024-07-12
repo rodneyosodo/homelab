@@ -1,0 +1,42 @@
+services:
+  linkwarden:
+    container_name: linkwarden
+    image: ghcr.io/linkwarden/linkwarden:v2.5.3
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - NEXTAUTH_SECRET=${LINKWARDEN_NEXTAUTH_SECRET}
+      - NEXTAUTH_URL=${LINKWARDEN_NEXTAUTH_URL}
+      - DATABASE_URL=${LINKWARDEN_POSTGRES_URL}
+      - PAGINATION_TAKE_COUNT=20
+      - STORAGE_FOLDER=/data
+      - AUTOSCROLL_TIMEOUT=60
+    ports:
+      - 4030:3000
+    volumes:
+      - ~/docker-volumes/linkwarden/data:/var/lib/postgresql/data
+    depends_on:
+      - linkwarden-db
+
+  linkwarden-db:
+    container_name: linkwarden-db
+    image: postgres:16.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ~/docker-volumes/linkwarden/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${LINKWARDEN_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${LINKWARDEN_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${LINKWARDEN_POSTGRES_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

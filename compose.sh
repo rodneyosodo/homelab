@@ -19,7 +19,7 @@ elif [ "$1" == "generate" ]; then
     {
         echo "  - path: ./$serviceName/docker-compose.yaml"
         echo "    project_directory: .."
-        echo "    env_file: docker-compose/.env"
+        echo "    env_file: .env"
         echo ""
     } >>docker-compose/docker-compose.yaml
     echo "Docker-compose file for $serviceName generated"
