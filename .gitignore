@@ -1,2 +1,5 @@
 # Environment Variables
 .env
+
+# Kener configuration
+/docker-compose/kener/config/static

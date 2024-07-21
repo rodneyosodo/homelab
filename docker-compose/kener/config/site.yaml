@@ -1,0 +1,39 @@
+title: "Kener"
+home: "/"
+logo: "/logo.png"
+github:
+  owner: "rodneyosodo"
+  repo: "homelab"
+  incidentSince: 72
+metaTags:
+  description: "rodneyosodo - Kener: Open-source modern looking Node.js status page tool, designed to make service monitoring and incident handling a breeze. It offers a sleek and user-friendly interface that simplifies tracking service outages and improves how we communicate during incidents. And the best part? Kener integrates seamlessly with GitHub, making incident management a team effort—making it easier for us to track and fix issues together in a collaborative and friendly environment."
+  keywords: "rodneyosodo, Node.js status page, Incident management tool, Service monitoring, Service outage tracking, Real-time status updates, GitHub integration for incidents, Open-source status page, Node.js monitoring application, Service reliability, User-friendly incident management, Collaborative incident resolution, Seamless outage communication, Service disruption tracker, Real-time incident alerts, Node.js status reporting"
+  og:description: "rodneyosodo - Kener: Open-source Node.js status page tool, designed to make service monitoring and incident handling a breeze. It offers a sleek and user-friendly interface that simplifies tracking service outages and improves how we communicate during incidents. And the best part? Kener integrates seamlessly with GitHub, making incident management a team effort—making it easier for us to track and fix issues together in a collaborative and friendly environment."
+  og:image: "https://kener.ing/ss.png"
+  og:title: "rodneyosodo - Kener - Open-Source and Modern looking Node.js Status Page for Effortless Incident Management"
+  og:type: "website"
+  og:site_name: "rodneyosodo - Kener"
+  twitter:card: "summary_large_image"
+  twitter:site: "@_rajnandan_"
+  twitter:creator: "@_rajnandan_"
+  twitter:image: "https://kener.ing/ss.png"
+  twitter:title: "rodneyosodo - Kener: Open-Source and Modern looking Node.js Status Page for Effortless Incident Management"
+  twitter:description: "rodneyosodo - Kener: Open-source Node.js status page tool, designed to make service monitoring and incident handling a breeze. It offers a sleek and user-friendly interface that simplifies tracking service outages and improves how we communicate during incidents. And the best part? Kener integrates seamlessly with GitHub, making incident management a team effort—making it easier for us to track and fix issues together in a collaborative and friendly environment."
+nav:
+  - name: "Documentation"
+    url: "/docs"
+  - name: "Github"
+    url: "https://github.com/rodneyosodo/homelab"
+hero:
+  title: rodneyosodo services
+  subtitle: Anything and everything that can break, will break. Be prepared.
+footerHTML: |
+  Made using 
+  <a href="https://github.com/rajnandan1/kener" target="_blank" rel="noreferrer" class="font-medium underline underline-offset-4">
+    Kener
+  </a>
+  an open source status page system built with Svelte and TailwindCSS.
+i18n:
+  defaultLocale: "en"
+  locales:
+    en: "English"

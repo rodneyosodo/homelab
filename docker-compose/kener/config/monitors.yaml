@@ -1,0 +1,55 @@
+- name: Website
+  description: Personal website
+  tag: "website"
+  image: "https://avatars.githubusercontent.com/u/28790446"
+  api:
+    method: GET
+    url: https://rodneyosodo.com
+
+- name: Gist
+  description: Self-hosted pastebin powered by Git, open-source alternative to Github Gist.
+  tag: "opengist"
+  image: "https://raw.githubusercontent.com/thomiceli/opengist/master/public/opengist.svg"
+  api:
+    method: GET
+    url: https://gist.rodneyosodo.com
+
+- name: Gitea
+  description: Gitea is a painless self-hosted all-in-one software development service, including Git hosting, code review, team collaboration, package registry and CI/CD.
+  tag: "gitea"
+  image: "https://about.gitea.com/gitea-text.svg"
+  api:
+    method: GET
+    url: https://gitea.rodneyosodo.com
+
+- name: Littlelink
+  description: A simple DIY tool to create custom and clean short links.
+  tag: "littlelink"
+  image: "https://avatars.githubusercontent.com/u/28790446"
+  api:
+    method: GET
+    url: https://links.rodneyosodo.com
+
+- name: Hedgedoc
+  description: HedgeDoc is an open-source, web-based, self-hosted, collaborative markdown editor.
+  tag: "hedgedoc"
+  image: "https://hedgedoc.org/images/banner/hedgedoc_banner_color_horizontal.svg"
+  api:
+    method: GET
+    url: https://hedgedoc.rodneyosodo.com
+
+- name: Immich
+  description: High-performance self-hosted photo and video management solution
+  tag: "immich"
+  image: "https://avatars.githubusercontent.com/u/109746326"
+  api:
+    method: GET
+    url: https://immich.rodneyosodo.com
+
+- name: Nextcloud
+  description: A safe home for all your data.
+  tag: "nextcloud"
+  image: "https://avatars.githubusercontent.com/u/19211038"
+  api:
+    method: GET
+    url: https://nextcloud.rodneyosodo.com

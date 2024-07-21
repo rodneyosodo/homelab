@@ -1,0 +1,17 @@
+services:
+  kener:
+    container_name: kener
+    image: rajnandan1/kener:latest
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - TZ=Africa/Nairobi
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - 4040:3000
+    volumes:
+      - "./docker-compose/kener/config:/config:rw"
