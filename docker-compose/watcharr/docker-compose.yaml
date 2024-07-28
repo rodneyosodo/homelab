@@ -1,0 +1,13 @@
+services:
+  watcharr:
+    container_name: watcharr
+    image: ghcr.io/sbondco/watcharr:v1.41.0
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 4060:3080
+    volumes:
+      - ~/docker-volumes/watcharr-data:/data

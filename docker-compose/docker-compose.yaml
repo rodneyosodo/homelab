@@ -91,4 +91,6 @@ include:
   - path: ./cal/docker-compose.yaml
     project_directory: ..
     env_file: .env
-
+  - path: ./watcharr/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
