@@ -88,3 +88,7 @@ include:
   - path: ./kener/docker-compose.yaml
     project_directory: ..
     env_file: .env
+  - path: ./cal/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
+
