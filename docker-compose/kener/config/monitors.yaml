@@ -20,7 +20,7 @@
   image: "https://about.gitea.com/gitea-text.svg"
   api:
     method: GET
-    url: https://gitea.rodneyosodo.com
+    url: https://git.rodneyosodo.com
 
 - name: Littlelink
   description: A simple DIY tool to create custom and clean short links.
