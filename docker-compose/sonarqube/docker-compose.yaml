@@ -1,0 +1,13 @@
+services:
+  sonarqube:
+    container_name: sonarqube
+    image: sonarqube:latest
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    ports:
+      - "4070:9000"

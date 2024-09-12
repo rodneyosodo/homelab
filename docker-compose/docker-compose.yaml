@@ -94,3 +94,6 @@ include:
   - path: ./watcharr/docker-compose.yaml
     project_directory: ..
     env_file: .env
+  - path: ./sonarqube/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
