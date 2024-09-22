@@ -1,7 +1,7 @@
 services:
   cal:
     container_name: cal
-    image: calcom/cal.com:v4.4.6
+    image: calcom/cal.com:v4.5.3
     restart: unless-stopped
     networks:
       - homelab-network

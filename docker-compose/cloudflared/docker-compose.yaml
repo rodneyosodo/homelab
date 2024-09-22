@@ -1,7 +1,7 @@
 services:
   cloudflared:
     container_name: cloudflared
-    image: cloudflare/cloudflared:2024.8.3
+    image: cloudflare/cloudflared:2024.9.1
     restart: unless-stopped
     command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN}
     networks:
