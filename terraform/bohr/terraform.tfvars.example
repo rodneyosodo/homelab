@@ -1,0 +1,12 @@
+# Proxmox
+proxmox_url=""
+proxmox_username=""
+proxmox_password=""
+
+# VM
+vm_username=""
+vm_username_gecos=""
+vm_password=""
+vm_hostname=""
+vm_fqdn=""
+tailscale_auth_key=""
