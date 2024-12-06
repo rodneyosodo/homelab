@@ -51,7 +51,7 @@ resource "proxmox_virtual_environment_vm" "debian_vm" {
 
   initialization {
     datastore_id      = "yatta"
-    user_data_file_id = proxmox_virtual_environment_file.cloud_init_config.id
+    user_data_file_id = proxmox_virtual_environment_file.cloud_config.id
 
     ip_config {
       ipv4 {
@@ -94,13 +94,13 @@ variable "tailscale_auth_key" {
   description = "Tailscale auth key"
 }
 
-resource "proxmox_virtual_environment_file" "cloud_init_config" {
+resource "proxmox_virtual_environment_file" "cloud_config" {
   content_type = "snippets"
   datastore_id = "local-btrfs"
   node_name    = "odin"
 
   source_raw {
     data      = templatefile("cloudinit.tfpl", { username = var.vm_username, vm_username_gecos = var.vm_username_gecos, password = var.vm_password, hostname = var.vm_hostname, fqdn = var.vm_fqdn, tailscale_auth_key = var.tailscale_auth_key })
-    file_name = "cloud-init-config.yaml"
+    file_name = "cloud-init.yaml"
   }
 }

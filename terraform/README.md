@@ -1,4 +1,4 @@
-# Terraform
+# Terraform Playbooks
 
 This directory contains the Terraform configuration files for my homelab.
 
