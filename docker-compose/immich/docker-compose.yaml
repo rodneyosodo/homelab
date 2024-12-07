@@ -19,8 +19,8 @@ services:
       - immich-postgres
     environment:
       - TZ=Africa/Nairobi
-      - REDIS_HOSTNAME=${IMMICH_REDIS_HOSTNAME}
-      - REDIS_PORT=${IMMICH_REDIS_PORT}
+      - REDIS_HOSTNAME=immich-redis
+      - REDIS_PORT=6379
       - REDIS_PASSWORD=${IMMICH_REDIS_PASSWORD}
       - DB_HOSTNAME=immich-postgres
       - DB_PORT=5432

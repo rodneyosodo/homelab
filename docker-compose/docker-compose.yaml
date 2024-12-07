@@ -19,9 +19,6 @@ include:
   - path: ./heimdall/docker-compose.yaml
     project_directory: ..
     env_file: .env
-  - path: ./postgres/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
   - path: ./nextcloud/docker-compose.yaml
     project_directory: ..
     env_file: .env
@@ -43,9 +40,6 @@ include:
   - path: ./immich/docker-compose.yaml
     project_directory: ..
     env_file: .env
-  - path: ./redis/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
   - path: ./vaultwarden/docker-compose.yaml
     project_directory: ..
     env_file: .env
@@ -62,9 +56,6 @@ include:
     project_directory: ..
     env_file: .env
   - path: ./mealie/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
-  - path: ./rallly/docker-compose.yaml
     project_directory: ..
     env_file: .env
   - path: ./hemmelig/docker-compose.yaml
@@ -86,9 +77,6 @@ include:
     project_directory: ..
     env_file: .env
   - path: ./kener/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
-  - path: ./cal/docker-compose.yaml
     project_directory: ..
     env_file: .env
   - path: ./watcharr/docker-compose.yaml
