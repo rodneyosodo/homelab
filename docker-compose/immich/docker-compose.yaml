@@ -10,18 +10,18 @@ services:
     devices:
       - /dev/dri:/dev/dri # If using Intel QuickSync or VAAPI
     volumes:
-      - ~/docker-volumes/immich-images:/usr/src/app/upload
+      - ~/docker-volumes/immich/images:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 2090:3001
     depends_on:
-      - redis
+      - immich-redis
       - immich-postgres
     environment:
       - TZ=Africa/Nairobi
-      - REDIS_HOSTNAME=${REDIS_HOSTNAME}
-      - REDIS_PORT=${REDIS_PORT}
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_HOSTNAME=${IMMICH_REDIS_HOSTNAME}
+      - REDIS_PORT=${IMMICH_REDIS_PORT}
+      - REDIS_PASSWORD=${IMMICH_REDIS_PASSWORD}
       - DB_HOSTNAME=immich-postgres
       - DB_PORT=5432
       - DB_USERNAME=${IMMICH_POSTGRES_USER}
@@ -43,7 +43,7 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - ~/docker-volumes/immich-cache:/cache
+      - ~/docker-volumes/immich/cache:/cache
 
   immich-postgres:
     container_name: immich-postgres
@@ -80,4 +80,20 @@ services:
         "wal_compression=on",
       ]
     volumes:
-      - ~/docker-volumes/immich-postgres-data:/var/lib/postgresql/data
+      - ~/docker-volumes/immich/postgres-data:/var/lib/postgresql/data
+
+  immich-redis:
+    container_name: immich-redis
+    image: redis:7.2.5
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    command: /bin/sh -c "redis-server --requirepass ${IMMICH_REDIS_PASSWORD}"
+    volumes:
+      - ~/docker-volumes/immich/redis:/data
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PASSWORD=${IMMICH_REDIS_PASSWORD}

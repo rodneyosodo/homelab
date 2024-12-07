@@ -15,11 +15,11 @@ services:
       - PGID=1000
       - TZ=Africa/Nairobi
       - DB_CONNECTION=pgsql
-      - DB_USERNAME=${POSTGRES_USER}
-      - DB_PASSWORD=${POSTGRES_PASSWORD}
-      - DB_DATABASE=${POSTGRES_DB}
-      - DB_HOST=${POSTGRES_HOST}
-      - DB_PORT=${POSTGRES_PORT}
+      - DB_USERNAME=${SPEEDTEST_TRACKER_POSTGRES_USER}
+      - DB_PASSWORD=${SPEEDTEST_TRACKER_POSTGRES_PASSWORD}
+      - DB_DATABASE=${SPEEDTEST_TRACKER_POSTGRES_DB}
+      - DB_HOST=speedtest-tracker-db
+      - DB_PORT=5432
       - APP_KEY=${SPEEDTEST_TRACKER_APP_KEY}
       - APP_TIMEZONE=Africa/Nairobi
       - DISPLAY_TIMEZONE=Africa/Nairobi
@@ -29,4 +29,24 @@ services:
       - ~/docker-volumes/speedtest-tracker/config:/config
       - ~/docker-volumes/speedtest-tracker/web:/etc/ssl/web
     depends_on:
-      - postgres
+      - speedtest-tracker-db
+
+  speedtest-tracker-db:
+    container_name: speedtest-tracker-db
+    image: postgres:16.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    environment:
+      - POSTGRES_USER=${SPEEDTEST_TRACKER_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${SPEEDTEST_TRACKER_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${SPEEDTEST_TRACKER_POSTGRES_DB}
+    volumes:
+      - ~/docker-volumes/speedtest-tracker/postgres-data:/var/lib/postgresql/data
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U '${SPEEDTEST_TRACKER_POSTGRES_USER}'"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
