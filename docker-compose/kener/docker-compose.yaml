@@ -15,3 +15,5 @@ services:
       - 4040:3000
     volumes:
       - "./docker-compose/kener/config:/config:rw"
+      - ~/docker-volumes/kener/data:/app/database
+

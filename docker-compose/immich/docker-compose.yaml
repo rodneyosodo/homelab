@@ -13,7 +13,7 @@ services:
       - ~/docker-volumes/immich/images:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - 2090:3001
+      - 2090:2283
     depends_on:
       - immich-redis
       - immich-postgres

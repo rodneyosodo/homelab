@@ -24,7 +24,7 @@ services:
       - APP_TIMEZONE=Africa/Nairobi
       - DISPLAY_TIMEZONE=Africa/Nairobi
       - SPEEDTEST_SCHEDULE="*/15 * * * *"
-      - SPEEDTEST_SERVERS="40028,37726,14389"
+      - SPEEDTEST_SERVERS="9072,39001,14389"
     volumes:
       - ~/docker-volumes/speedtest-tracker/config:/config
       - ~/docker-volumes/speedtest-tracker/web:/etc/ssl/web

@@ -18,7 +18,7 @@ services:
       - GITEA__mailer__ENABLED=true
       - GITEA__mailer__FROM=${MAIL_FROM_ADDRESS}
       - GITEA__mailer__PROTOCOL=smtps
-      - GITEA__mailer__HOST=${SMTP_HOST}
+      - GITEA__mailer__SMTP_ADDR=${SMTP_HOST}
       - GITEA__mailer__USER=${SMTP_NAME}
       - GITEA__mailer__PASSWD="""${SMTP_PASSWORD}"""
     volumes:

@@ -15,3 +15,5 @@ services:
     environment:
       - UID=1000
       - GID=1000
+      - OG_EXTERNAL_URL=https://gist.rodneyosodo.com
+      - OG_GIT_DEFAULT_BRANCH=main
