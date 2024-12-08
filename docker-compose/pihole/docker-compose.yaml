@@ -28,7 +28,7 @@ services:
 
   unbound:
     container_name: unbound
-    image: mvance/unbound:1.20.0
+    image: mvance/unbound:1.21.1
     restart: unless-stopped
     networks:
       homelab-network:

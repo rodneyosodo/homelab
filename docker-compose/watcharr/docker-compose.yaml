@@ -1,7 +1,7 @@
 services:
   watcharr:
     container_name: watcharr
-    image: ghcr.io/sbondco/watcharr:v1.43.0
+    image: ghcr.io/sbondco/watcharr:v1.44.2
     restart: unless-stopped
     networks:
       - homelab-network
