@@ -1,0 +1,57 @@
+- name: Setup Docker Server
+  hosts: "bohr"
+  become: yes
+  tasks:
+    - name: Update package lists
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Update all packages to their latest version
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+
+    - name: Remove useless packages from the cache
+      ansible.builtin.apt:
+        autoclean: yes
+
+    - name: Remove dependencies that are no longer required and purge their configuration files
+      ansible.builtin.apt:
+        autoremove: yes
+        purge: true
+
+    - name: Run the equivalent of "apt-get clean" as a separate step
+      ansible.builtin.apt:
+        clean: yes
+
+    - name: Install Applications
+      ansible.builtin.apt:
+        name:
+          - git
+          - tar
+          - p7zip
+          - unzip
+          - curl
+          - wget
+          - gcc
+          - g++
+          - make
+          - vim
+          - zsh
+          - python3
+          - ripgrep
+          - fd-find
+          - bpytop
+          - thefuck
+          - fontconfig
+          - nala
+          - qemu-guest-agent
+        state: present
+
+    - name: Setup Neovim
+      ansible.builtin.shell: |
+        curl -sL https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz | sudo tar -xzf - --strip-components=1 --overwrite -C /usr
+        rm -rf ~/.config/nvim
+        git clone https://github.com/LazyVim/starter ~/.config/nvim
+        rm -rf ~/.config/nvim/.git

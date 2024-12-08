@@ -1,0 +1,43 @@
+servers:
+  hosts:
+    odin:
+      ansible_host: odin
+      ansible_connection: ssh
+      ansible_user: root
+    bohr:
+      ansible_host: bohr
+      ansible_connection: ssh
+      ansible_user: rodneyosodo
+
+pc:
+  hosts:
+    thor:
+      ansible_host: thor
+      ansible_connection: ssh
+      ansible_user: rodneyosodo
+
+laptop:
+  hosts:
+    snotra:
+      ansible_host: snotra
+
+backup:
+  hosts:
+    heimdall:
+      ansible_host: heimdall
+      ansible_connection: ssh
+      ansible_user: rodneyosodo
+
+kubernetes:
+  hosts:
+    frigg:
+      ansible_host: frigg
+      ansible_connection: ssh
+
+    loki:
+      ansible_host: loki
+      ansible_connection: ssh
+
+    baldr:
+      ansible_host: baldr
+      ansible_connection: ssh

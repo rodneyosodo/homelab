@@ -1,0 +1,47 @@
+- name: Install zsh
+  hosts: "bohr"
+  vars:
+    nf_user: "{{ ansible_user }}"
+    nf_group: "{{ nf_user }}"
+    nf_single_fonts:
+      - "Meslo/L/Regular/MesloLGLNerdFontMono-Regular.ttf"
+  tasks:
+    - name: Install Git
+      ansible.builtin.package:
+        state: present
+        name: git
+      become: true
+
+    - name: Install Curl
+      ansible.builtin.package:
+        state: present
+        name: curl
+      become: true
+
+    - name: Install zsh
+      ansible.builtin.package:
+        name: zsh
+        state: present
+      become: true
+
+    - name: Install unzip
+      ansible.builtin.package:
+        name: unzip
+        state: present
+      become: true
+
+    - name: Ensure zsh is the default shell
+      user:
+        name: "{{ ansible_user }}"
+        shell: "/usr/bin/zsh"
+      become: true
+
+    - name: "Include ansible-role-nerdfonts"
+      include_role:
+        name: "ctorgalson.nerdfonts"
+
+    - name: Copy ZSHRC config
+      ansible.builtin.copy:
+        src: assets/.zshrc
+        dest: ~/.zshrc
+        mode: "0644"

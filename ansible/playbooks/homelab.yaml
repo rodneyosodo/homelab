@@ -1,0 +1,34 @@
+- name: Setup Docker Server
+  hosts: "bohr"
+  become: yes
+  tasks:
+    - name: Install Applications
+      ansible.builtin.apt:
+        name:
+          - git
+
+    - name: Setup Homelab
+      ansible.builtin.shell: |
+        cd /home/{{ ansible_user }}
+        mkdir -p docker-volumes
+        if [ ! -d "homelab" ]; then
+          git clone https://github.com/rodneyosodo/homelab.git
+          cd homelab
+        fi
+        cd homelab
+        if [ ! -f "docker-compose/default.env" ]; then
+          cp docker-compose/default.env docker-compose/.env
+        fi
+        docker compose -f docker-compose/docker-compose.yaml pull
+
+    - name: Recursively change ownership of a directory
+      ansible.builtin.file:
+        path: /home/{{ ansible_user }}/homelab/
+        state: directory
+        recurse: yes
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: Print message
+      ansible.builtin.debug:
+        msg: Populate environment variables in homelab/docker-compose/default.env

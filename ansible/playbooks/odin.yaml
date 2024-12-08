@@ -1,0 +1,121 @@
+- name: Setup proxmox server
+  hosts: "odin"
+  become: yes
+  tasks:
+    - name: Add Proxmox repository to sources.list
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list
+        line: deb http://download.proxmox.com/debian bookworm pve-no-subscription
+        state: present
+        create: true
+        mode: 0644
+        owner: root
+        group: root
+
+    - name: Comment out enterprise repository
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/pve-enterprise.list
+        line: deb https://enterprise.proxmox.com/debian/pve bookworm pve-enterprise
+        state: absent
+        create: true
+        mode: 0644
+        owner: root
+        group: root
+
+    - name: Comment out ceph repository
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/ceph.list
+        line: deb https://enterprise.proxmox.com/debian/ceph-quincy bookworm enterprise
+        state: absent
+        create: true
+        mode: 0644
+        owner: root
+        group: root
+
+    - name: Update package lists
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Update all packages to their latest version
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+
+    - name: Remove useless packages from the cache
+      ansible.builtin.apt:
+        autoclean: true
+
+    - name: Remove dependencies that are no longer required and purge their configuration files
+      ansible.builtin.apt:
+        autoremove: true
+        purge: true
+
+    - name: Run the equivalent of "apt-get clean" as a separate step
+      ansible.builtin.apt:
+        clean: true
+
+    - name: Enable IOMMU (PCI Passthrough)
+      ansible.builtin.replace:
+        backup: true
+        path: /etc/default/grub
+        regexp: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet"'
+        replace: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on"'
+
+    - name: Edit /etc/modules
+      ansible.builtin.blockinfile:
+        path: /etc/modules
+        prepend_newline: true
+        append_newline: true
+        backup: true
+        create: true
+        mode: 0644
+        owner: root
+        group: root
+        block: |
+          vfio
+          vfio_iommu_type1
+          vfio_pci
+          vfio_virqfd
+
+    - name: Update grub
+      ansible.builtin.command: update-grub
+
+    - name: Install Applications
+      ansible.builtin.apt:
+        name:
+          - sudo
+          - git
+          - tar
+          - unzip
+          - curl
+          - wget
+          - gcc
+          - g++
+          - make
+          - vim
+          - zsh
+          - python3
+          - ripgrep
+          - fd-find
+          - bpytop
+          - thefuck
+          - fontconfig
+        state: present
+
+    - name: Setup Neovim
+      ansible.builtin.shell: |
+        curl -sL https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz | sudo tar -xzf - --strip-components=1 --overwrite -C /usr
+        rm -rf ~/.config/nvim
+        git clone https://github.com/LazyVim/starter ~/.config/nvim
+        rm -rf ~/.config/nvim/.git
+
+    - name: Download microcode updates
+      ansible.builtin.get_url:
+        url: https://github.com/tteck/Proxmox/raw/main/misc/microcode.sh
+        dest: /tmp/install-microcode.sh
+        mode: 0755
+
+    - name: Print message
+      ansible.builtin.debug:
+        msg: Make sure to run bash /tmp/install-microcode.sh to install microcode updates
