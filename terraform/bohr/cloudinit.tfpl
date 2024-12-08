@@ -36,7 +36,6 @@ runcmd:
   - usermod -aG docker ${username}
   - sudo systemctl enable docker.service
   - sudo systemctl enable containerd.service
-  - newgrp docker
   - curl -fsSL https://tailscale.com/install.sh | sh
   - tailscale up --ssh --accept-routes --advertise-exit-node --authkey=${tailscale_auth_key}
   - qemu-ga -d

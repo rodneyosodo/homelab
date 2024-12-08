@@ -16,7 +16,8 @@
 
 1. Login to the server UI.
 2. Diable `ceph` and `pve-enterprise` repositories.
-3. Run the following commands:
+3. Change DNS to ```1.1.1.1``` and ```8.8.8.8```
+4. Run the following commands:
 
    ```bash
    apt update
@@ -25,13 +26,13 @@
    zpool import -f yatta
    ```
 
-4. Login to the tailscale UI.
-5. Run ansible playbooks.
+5. Login to the tailscale UI.
+6. Run ansible playbooks.
 
    ```bash
    cd ~/homelab/ansible
    make setup-odin
    ```
 
-6. Add cloud images to proxmox UI.
+7. Add cloud images to proxmox UI.
    - [Ubuntu 24.04 LTS (noble-server-amd64)](https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img)
