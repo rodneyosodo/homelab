@@ -1,7 +1,10 @@
-title: "Kener"
+title: "Kener -  Open-Source and Modern Status Page"
 siteName: "Kener.ing"
 home: "/"
 logo: "/logo.png"
+favicon: "/logo96.png"
+theme: "system"
+themeToggle: true
 github:
   owner: "rodneyosodo"
   repo: "homelab"
