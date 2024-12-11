@@ -1,13 +1,50 @@
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  sonarqube_temp:
+
 services:
   sonarqube:
     container_name: sonarqube
-    image: sonarqube:latest
+    image: sonarqube:community
     restart: unless-stopped
     networks:
       - homelab-network
     security_opt:
       - no-new-privileges:true
+    read_only: true      
     environment:
-      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+      - SONAR_JDBC_URL=${SONARQUBE_POSTGRES_URL}
+      - SONAR_JDBC_USERNAME=${SONARQUBE_POSTGRES_USER}
+      - SONAR_JDBC_PASSWORD=${SONARQUBE_POSTGRES_PASSWORD}
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_temp:/opt/sonarqube/temp      
+    depends_on:
+      sonarqube-db:
+        condition: service_healthy      
     ports:
       - "4070:9000"
+
+  sonarqube-db:
+    container_name: sonarqube-db
+    image: postgres:16.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    environment:
+      - POSTGRES_USER=${SONARQUBE_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${SONARQUBE_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${SONARQUBE_POSTGRES_DB}
+    volumes:
+      - ~/docker-volumes/sonarqube/postgres-data:/var/lib/postgresql/data
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U '${SONARQUBE_POSTGRES_USER}'"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
