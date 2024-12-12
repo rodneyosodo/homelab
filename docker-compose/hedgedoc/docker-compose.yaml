@@ -37,7 +37,7 @@ services:
       - POSTGRES_PASSWORD=${HEDGEDOC_POSTGRES_PASSWORD}
       - POSTGRES_DB=${HEDGEDOC_POSTGRES_DB}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U '${HEDGEDOC_POSTGRES_USER}'"]
+      test: ["CMD-SHELL", "pg_isready -U '${HEDGEDOC_POSTGRES_USER}' -d '${HEDGEDOC_POSTGRES_DB}'"]
       interval: 5s
       timeout: 5s
       retries: 5
