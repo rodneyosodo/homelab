@@ -1,7 +1,7 @@
 services:
   speedtest-tracker:
     container_name: speedtest-tracker
-    image: linuxserver/speedtest-tracker:0.25.1
+    image: linuxserver/speedtest-tracker:1.0.1
     restart: unless-stopped
     networks:
       - homelab-network
