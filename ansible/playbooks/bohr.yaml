@@ -48,7 +48,16 @@
           - nala
           - qemu-guest-agent
           - vainfo
+          - radeontop
         state: present
+    
+    - name: Setup AMDGPU Drivers
+      ansible.builtin.shell: |
+        cd /tmp
+        wget https://repo.radeon.com/amdgpu-install/6.3.1/ubuntu/jammy/amdgpu-install_6.3.60301-1_all.deb 
+        sudo apt install ./amdgpu-install_6.3.60301-1_all.deb
+        sudo apt update
+        amdgpu-install
 
     - name: Setup Neovim
       ansible.builtin.shell: |

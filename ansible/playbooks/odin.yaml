@@ -101,6 +101,8 @@
           - bpytop
           - thefuck
           - fontconfig
+          - libegl1
+          - libgl1
         state: present
 
     - name: Setup Neovim
