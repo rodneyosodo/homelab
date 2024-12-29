@@ -8,7 +8,7 @@ services:
     security_opt:
       - no-new-privileges:true
     devices:
-      - /dev/dri:/dev/dri # If using Intel QuickSync or VAAPI
+      - /dev/dri:/dev/dri
     volumes:
       - ~/docker-volumes/immich/images:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
@@ -33,6 +33,8 @@ services:
           memory: 4G
         reservations:
           memory: 2G
+    healthcheck:
+      disable: false
 
   immich-machine-learning:
     container_name: immich-machine-learning
@@ -44,6 +46,10 @@ services:
       - no-new-privileges:true
     volumes:
       - ~/docker-volumes/immich/cache:/cache
+    healthcheck:
+      disable: false
+    devices:
+      - /dev/dri:/dev/dri
 
   immich-postgres:
     container_name: immich-postgres

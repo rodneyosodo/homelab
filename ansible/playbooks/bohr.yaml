@@ -47,6 +47,7 @@
           - fontconfig
           - nala
           - qemu-guest-agent
+          - vainfo
         state: present
 
     - name: Setup Neovim

@@ -13,10 +13,9 @@
         mkdir -p docker-volumes
         if [ ! -d "homelab" ]; then
           git clone https://github.com/rodneyosodo/homelab.git
-          cd homelab
         fi
         cd homelab
-        if [ ! -f "docker-compose/default.env" ]; then
+        if [ ! -f "docker-compose/.env" ]; then
           cp docker-compose/default.env docker-compose/.env
         fi
         docker compose -f docker-compose/docker-compose.yaml pull
