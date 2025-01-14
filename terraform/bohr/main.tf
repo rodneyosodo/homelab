@@ -3,7 +3,7 @@ resource "proxmox_virtual_environment_vm" "debian_vm" {
   node_name = "odin"
   vm_id     = 300
   on_boot   = true
-  tags      = ["docker", "ubuntu", "production"]
+  tags      = ["docker", "debian", "production"]
   bios      = "ovmf"
 
   operating_system {
@@ -16,18 +16,13 @@ resource "proxmox_virtual_environment_vm" "debian_vm" {
     type         = "4m"
   }
 
-  tpm_state {
-    datastore_id = "yatta"
-    version      = "v2.0"
-  }
-
   agent {
     enabled = true
   }
 
   disk {
     datastore_id = "yatta"
-    file_id      = "local-btrfs:iso/noble-server-cloudimg-amd64.img"
+    file_id      = "local-btrfs:iso/debian-12-generic-amd64.img"
     size         = 500
     interface    = "scsi0"
   }
@@ -35,7 +30,6 @@ resource "proxmox_virtual_environment_vm" "debian_vm" {
   cpu {
     architecture = "x86_64"
     cores        = 8
-    flags        = ["+aes"]
     sockets      = 1
     type         = "x86-64-v2-AES"
   }
@@ -59,9 +53,26 @@ resource "proxmox_virtual_environment_vm" "debian_vm" {
         gateway = "192.168.100.1"
       }
     }
+
+    dns {
+      servers = ["1.1.1.1", "8.8.8.8", "100.100.100.100"]
+    }
+  }
+
+  serial_device {
+    device = "socket"
   }
 
   keyboard_layout = "en-us"
+
+  machine = "q35"
+
+  scsi_hardware = "virtio-scsi-single"
+
+  vga {
+    memory = 512
+    type   = "virtio-gl"
+  }
 }
 
 variable "vm_username" {

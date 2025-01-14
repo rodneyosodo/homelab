@@ -29,6 +29,7 @@ packages:
   - qemu-guest-agent
   - git
   - nala
+  - sshpass
 
 runcmd:
   - curl -fsSL https://get.docker.com | sh

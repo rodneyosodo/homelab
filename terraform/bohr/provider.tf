@@ -8,23 +8,23 @@ terraform {
 }
 
 variable "proxmox_url" {
-  type = string
+  type        = string
   description = "Proxmox URL"
 }
 
 variable "proxmox_username" {
-  type = string
+  type        = string
   description = "Proxmox username"
 }
 
 variable "proxmox_password" {
-  type = string
+  type        = string
   description = "Proxmox password for the user"
 }
 
 provider "proxmox" {
   endpoint = var.proxmox_url
-  insecure = true
   username = var.proxmox_username
   password = var.proxmox_password
+  insecure = true
 }
