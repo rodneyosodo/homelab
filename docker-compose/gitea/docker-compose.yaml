@@ -21,6 +21,7 @@ services:
       - GITEA__mailer__SMTP_ADDR=${SMTP_HOST}
       - GITEA__mailer__USER=${SMTP_NAME}
       - GITEA__mailer__PASSWD="""${SMTP_PASSWORD}"""
+      - GITEA__service__DISABLE_REGISTRATION=true
     volumes:
       - ~/docker-volumes/gitea/data:/data/
       - /etc/timezone:/etc/timezone:ro
