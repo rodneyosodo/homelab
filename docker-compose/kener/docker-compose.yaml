@@ -1,7 +1,7 @@
 services:
   kener:
     container_name: kener
-    image: rajnandan1/kener:2.0.0
+    image: rajnandan1/kener:3.0.3
     restart: unless-stopped
     networks:
       - homelab-network
@@ -12,9 +12,11 @@ services:
       - PUID=1000
       - PGID=1000
       - PORT=4040
+      - KENER_SECRET_KEY=${KENER_SECRET_KEY}
+      - ORIGIN=${KENER_ORIGIN}
     ports:
       - 4040:4040
     volumes:
-      - ./docker-compose/kener/config:/app/config
+      - ./docker-compose/kener/uploads:/app/uploads:rw
       - ~/docker-volumes/kener/data:/app/database:rw
 
