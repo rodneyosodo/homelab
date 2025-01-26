@@ -55,9 +55,6 @@ include:
   - path: ./mealie/docker-compose.yaml
     project_directory: ..
     env_file: .env
-  - path: ./jupyter/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
   - path: ./docuseal/docker-compose.yaml
     project_directory: ..
     env_file: .env
