@@ -1,0 +1,76 @@
+services:
+  seafile:
+    container_name: seafile
+    image: seafileltd/seafile-mc:12.0.7
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 4060:80
+    volumes:
+      - ~/docker-volumes/seafile/data:/shared
+    environment:
+      - DB_HOST=${SEAFILE_MYSQL_DB_HOST}
+      - DB_PORT=${SEAFILE_MYSQL_DB_PORT}
+      - DB_USER=${SEAFILE_MYSQL_DB_USER}
+      - DB_ROOT_PASSWD=${SEAFILE_MYSQL_ROOT_PASSWORD}
+      - DB_PASSWORD=${SEAFILE_MYSQL_DB_PASSWORD}
+      - SEAFILE_MYSQL_DB_CCNET_DB_NAME=${SEAFILE_MYSQL_DB_CCNET_DB_NAME}
+      - SEAFILE_MYSQL_DB_SEAFILE_DB_NAME=${SEAFILE_MYSQL_DB_SEAFILE_DB_NAME}
+      - SEAFILE_MYSQL_DB_SEAHUB_DB_NAME=${SEAFILE_MYSQL_DB_SEAHUB_DB_NAME}
+      - TIME_ZONE=Africa/Nairobi
+      - INIT_SEAFILE_ADMIN_EMAIL=${SEAFILE_ADMIN_EMAIL}
+      - INIT_SEAFILE_ADMIN_PASSWORD=${SEAFILE_ADMIN_PASSWORD}
+      - SEAFILE_SERVER_HOSTNAME=${SEAFILE_SERVER_HOSTNAME}
+      - SEAFILE_SERVER_PROTOCOL=${SEAFILE_SERVER_PROTOCOL}
+      - SITE_ROOT=/
+      - NON_ROOT=${SEAFILE_NON_ROOT}
+      - JWT_PRIVATE_KEY=${SEAFILE_JWT_PRIVATE_KEY}
+      - SEAFILE_LOG_TO_STDOUT=${SEAFILE_LOG_TO_STDOUT}
+      - ENABLE_SEADOC=${SEAFILE_ENABLE_SEADOC}
+      - SEADOC_SERVER_URL=${SEAFILE_SEADOC_SERVER_URL}
+    depends_on:
+      db:
+        condition: service_healthy
+      memcached:
+        condition: service_started
+
+  db:
+    container_name: seafile-mysql
+    image: mariadb:10.11
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - MYSQL_ROOT_PASSWORD=${SEAFILE_MYSQL_ROOT_PASSWORD}
+      - MYSQL_LOG_CONSOLE=true
+      - MARIADB_AUTO_UPGRADE=1
+    volumes:
+      - ~/docker-volumes/seafile/mysql-db:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/usr/local/bin/healthcheck.sh",
+          "--connect",
+          "--mariadbupgrade",
+          "--innodb_initialized",
+        ]
+      interval: 20s
+      start_period: 30s
+      timeout: 5s
+      retries: 10
+
+  memcached:
+    container_name: seafile-memcached
+    image: memcached:1.6.29
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    entrypoint: memcached -m 256
