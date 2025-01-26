@@ -8,7 +8,7 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
-      - 4060:80
+      - 4080:80
     volumes:
       - ~/docker-volumes/seafile/data:/shared
     environment:
@@ -32,12 +32,12 @@ services:
       - ENABLE_SEADOC=${SEAFILE_ENABLE_SEADOC}
       - SEADOC_SERVER_URL=${SEAFILE_SEADOC_SERVER_URL}
     depends_on:
-      db:
+      seafile-mysql:
         condition: service_healthy
-      memcached:
+      seafile-memcached:
         condition: service_started
 
-  db:
+  seafile-mysql:
     container_name: seafile-mysql
     image: mariadb:10.11
     restart: unless-stopped
@@ -46,7 +46,9 @@ services:
     security_opt:
       - no-new-privileges:true
     environment:
-      - MYSQL_ROOT_PASSWORD=${SEAFILE_MYSQL_ROOT_PASSWORD}
+      - MARIADB_USER=${SEAFILE_MYSQL_DB_USER}
+      - MARIADB_PASSWORD=${SEAFILE_MYSQL_DB_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${SEAFILE_MYSQL_ROOT_PASSWORD}
       - MYSQL_LOG_CONSOLE=true
       - MARIADB_AUTO_UPGRADE=1
     volumes:
@@ -65,7 +67,7 @@ services:
       timeout: 5s
       retries: 10
 
-  memcached:
+  seafile-memcached:
     container_name: seafile-memcached
     image: memcached:1.6.29
     restart: unless-stopped

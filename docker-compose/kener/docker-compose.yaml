@@ -17,6 +17,5 @@ services:
     ports:
       - 4040:4040
     volumes:
-      - ./docker-compose/kener/uploads:/app/uploads:rw
       - ~/docker-volumes/kener/data:/app/database:rw
-
+      - ~/docker-volumes/kener/uploads:/app/uploads:rw
