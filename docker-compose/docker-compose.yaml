@@ -22,9 +22,6 @@ include:
   - path: ./nextcloud/docker-compose.yaml
     project_directory: ..
     env_file: .env
-  - path: ./littlelink/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
   - path: ./ntp/docker-compose.yaml
     project_directory: ..
     env_file: .env

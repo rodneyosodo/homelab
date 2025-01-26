@@ -28,16 +28,6 @@
     method: GET
     url: https://git.rodneyosodo.com
 
-- name: Littlelink
-  description: A simple DIY tool to create custom and clean short links.
-  tag: "littlelink"
-  image: "https://avatars.githubusercontent.com/u/28790446"
-  cron: "*/5 * * * *"
-  defaultStatus: "UP"  
-  api:
-    method: GET
-    url: https://links.rodneyosodo.com
-
 - name: Hedgedoc
   description: HedgeDoc is an open-source, web-based, self-hosted, collaborative markdown editor.
   tag: "hedgedoc"

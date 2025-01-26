@@ -82,12 +82,6 @@ My nextcloud configuration files can be found in the [nextcloud-compose][nextclo
 
 ![nextcloud dashboard][nextcloud-dashboard]
 
-### littlelink
-
-Littlelink is a lightweight DIY alternative to services like Linktree, Retriever, and Linkin.bio. It is a single page that you can host on your server listing all your important links.
-
-My littlelink configuration files can be found in the [littlelink-compose][littlelink-compose] directory.
-
 ### ntp
 
 NTP is a networking protocol for clock synchronization between computer systems over packet-switched, variable-latency data networks. In operation since before 1985, NTP is one of the oldest Internet protocols in current use. I use it to synchronize the time on my local network.
@@ -192,7 +186,6 @@ My dozzle configuration files can be found in the [dozzle-compose][dozzle-compos
 [postgres-compose]: ./docker-compose/postgres/
 [nextcloud-compose]: ./docker-compose/nextcloud/
 [nextcloud-dashboard]: ./assets/nextcloud.png
-[littlelink-compose]: ./docker-compose/littlelink/
 [ntp-compose]: ./docker-compose/ntp/
 [cloudflared-compose]: ./docker-compose/cloudflared/
 [pihole-compose]: ./docker-compose/pihole/
