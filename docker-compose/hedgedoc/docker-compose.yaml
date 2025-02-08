@@ -1,7 +1,7 @@
 services:
   hedgedoc:
     container_name: hedgedoc
-    image: quay.io/hedgedoc/hedgedoc:1.10.0
+    image: quay.io/hedgedoc/hedgedoc:1.10.1
     restart: unless-stopped
     networks:
       - homelab-network
