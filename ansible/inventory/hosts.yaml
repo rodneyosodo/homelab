@@ -8,6 +8,10 @@ servers:
       ansible_host: bohr
       ansible_connection: ssh
       ansible_user: rodneyosodo
+    tana:
+      ansible_host: tana
+      ansible_connection: ssh
+      ansible_user: rodneyosodo
 
 pc:
   hosts:

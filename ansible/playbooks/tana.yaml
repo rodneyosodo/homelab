@@ -1,0 +1,48 @@
+- name: Setup Tana For Backup and Sync
+  hosts: "tana"
+  become: yes
+  tasks:
+    - name: Update package lists
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Update all packages to their latest version
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+
+    - name: Remove useless packages from the cache
+      ansible.builtin.apt:
+        autoclean: yes
+
+    - name: Remove dependencies that are no longer required and purge their configuration files
+      ansible.builtin.apt:
+        autoremove: yes
+        purge: true
+
+    - name: Run the equivalent of "apt-get clean" as a separate step
+      ansible.builtin.apt:
+        clean: yes
+
+    - name: Install Applications
+      ansible.builtin.apt:
+        name:
+          - git
+          - curl
+          - wget
+          - make
+          - vim
+          - bpytop
+          - qemu-guest-agent
+          - syncthing
+          - borgbackup
+        state: present
+      register: install
+
+    - name: Start Syncthing
+      ansible.builtin.systemd_service:
+        name: syncthing@rodneyosodo
+        state: started
+        enabled: true
+      register: syncthing

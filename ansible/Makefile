@@ -21,3 +21,7 @@ install-zsh:
 .PHONY: setup-homelab
 setup-homelab:
 	ansible-playbook playbooks/homelab.yaml
+
+.PHONY: setup-tana
+setup-tana:
+	ansible-playbook playbooks/tana.yaml
