@@ -76,9 +76,6 @@ include:
   - path: ./sonarqube/docker-compose.yaml
     project_directory: ..
     env_file: .env
-  - path: ./seafile/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
   - path: ./minio/docker-compose.yaml
     project_directory: ..
     env_file: .env
