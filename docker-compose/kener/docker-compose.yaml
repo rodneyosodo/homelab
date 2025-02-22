@@ -1,7 +1,7 @@
 services:
   kener:
     container_name: kener
-    image: rajnandan1/kener:3.0.10
+    image: rajnandan1/kener:3.1.7
     restart: unless-stopped
     networks:
       - homelab-network

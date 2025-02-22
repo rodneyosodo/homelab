@@ -1,7 +1,7 @@
 services:
   gitea:
     container_name: gitea
-    image: gitea/gitea:1.23.3
+    image: gitea/gitea:1.23.4
     restart: unless-stopped
     networks:
       - homelab-network
@@ -45,7 +45,11 @@ services:
       - POSTGRES_PASSWORD=${GITEA_POSTGRES_PASSWORD}
       - POSTGRES_DB=${GITEA_POSTGRES_DB}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U '${GITEA_POSTGRES_USER}' -d '${GITEA_POSTGRES_DB}'"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U '${GITEA_POSTGRES_USER}' -d '${GITEA_POSTGRES_DB}'",
+        ]
       interval: 5s
       timeout: 5s
       retries: 5

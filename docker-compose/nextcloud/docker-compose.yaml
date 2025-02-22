@@ -1,7 +1,7 @@
 services:
   nextcloud:
     container_name: nextcloud
-    image: nextcloud:30.0.5
+    image: nextcloud:30.0.6
     restart: unless-stopped
     networks:
       - homelab-network
@@ -43,7 +43,11 @@ services:
       - POSTGRES_PASSWORD=${NEXTCLOUD_POSTGRES_PASSWORD}
       - POSTGRES_DB=${NEXTCLOUD_POSTGRES_DB}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U '${NEXTCLOUD_POSTGRES_USER}' -d '${NEXTCLOUD_POSTGRES_DB}'"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U '${NEXTCLOUD_POSTGRES_USER}' -d '${NEXTCLOUD_POSTGRES_DB}'",
+        ]
       interval: 5s
       timeout: 5s
       retries: 5

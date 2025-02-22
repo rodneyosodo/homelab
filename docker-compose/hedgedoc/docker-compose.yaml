@@ -1,7 +1,7 @@
 services:
   hedgedoc:
     container_name: hedgedoc
-    image: quay.io/hedgedoc/hedgedoc:1.10.1
+    image: quay.io/hedgedoc/hedgedoc:1.10.2
     restart: unless-stopped
     networks:
       - homelab-network
@@ -37,7 +37,11 @@ services:
       - POSTGRES_PASSWORD=${HEDGEDOC_POSTGRES_PASSWORD}
       - POSTGRES_DB=${HEDGEDOC_POSTGRES_DB}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U '${HEDGEDOC_POSTGRES_USER}' -d '${HEDGEDOC_POSTGRES_DB}'"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U '${HEDGEDOC_POSTGRES_USER}' -d '${HEDGEDOC_POSTGRES_DB}'",
+        ]
       interval: 5s
       timeout: 5s
       retries: 5
