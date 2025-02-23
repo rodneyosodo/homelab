@@ -26,10 +26,6 @@ comment line
 
 ## Install software
 
-```bash
-sudo nala install ssh openssh-server git vim bpytop p7zip tar curl wget make thefuck
-```
-
 ## Install docker
 
 ```bash
@@ -53,15 +49,7 @@ sudo update-grub
 
 ## Setup git
 
-```bash
-git config --global user.email "socials@rodneyosodo.com"
-git config --global user.name "Rodney Osodo"
-git config --global push.autoSetupRemote true
-git config --global init.defaultBranch main
-git config --global commit.gpgsign true
-git config --global gpg.format ssh
-git config --global core.editor nvim
-```
+Use dotfiles found [here](https://github.com/rodneyosodo/dotfiles/tree/main/config)
 
 ```bash
 mkdir ~/.ssh
@@ -70,8 +58,8 @@ mkdir ~/.ssh
 copy ssh key
 
 ```bash
-scp ~/.ssh/github rodneyosodo@192.168.100.32:/home/rodneyosodo/.ssh/
-scp ~/.ssh/github.pub rodneyosodo@192.168.100.32:/home/rodneyosodo/.ssh/
+scp ~/.ssh/github rodneyosodo@bohr:/home/rodneyosodo/.ssh/
+scp ~/.ssh/github.pub rodneyosodo@bohr:/home/rodneyosodo/.ssh/
 ```
 
 ```bash
@@ -155,4 +143,12 @@ ssh -2 rodneyosodo@192.168.100.32
 ```bash
 curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up --ssh
+```
+
+## Setup Syncthing On Remote Host
+
+Port forward to localhost:1111
+
+```bash
+ssh rodneyosodo@tana -L 1111:localhost:8384
 ```
