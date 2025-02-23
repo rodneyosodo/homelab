@@ -31,9 +31,3 @@ terraform apply
 ```bash
 terraform destroy
 ```
-
-## Infrastructure
-
-### Bohr
-
-The [`bohr` directory](./bohr/README.md) contains the Terraform configuration files for my homelab server.

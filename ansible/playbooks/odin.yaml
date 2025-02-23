@@ -90,8 +90,6 @@
           - unzip
           - curl
           - wget
-          - gcc
-          - g++
           - make
           - vim
           - zsh
@@ -103,6 +101,9 @@
           - fontconfig
           - libegl1
           - libgl1
+          - iperf
+          - htop
+          - btop
         state: present
 
     - name: Setup Neovim

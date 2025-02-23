@@ -34,21 +34,19 @@
           - unzip
           - curl
           - wget
-          - gcc
-          - g++
           - make
           - vim
           - zsh
           - python3
           - ripgrep
           - fd-find
-          - bpytop
-          - thefuck
           - fontconfig
-          - nala
           - qemu-guest-agent
           - vainfo
           - radeontop
+          - iperf
+          - htop
+          - btop
         state: present
 
     - name: Download AMDGPU Installer

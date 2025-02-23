@@ -37,6 +37,9 @@
           - qemu-guest-agent
           - syncthing
           - borgbackup
+          - iperf
+          - htop
+          - btop
         state: present
       register: install
 
@@ -46,3 +49,11 @@
         state: started
         enabled: true
       register: syncthing
+
+    - name: Setup backups folder
+      ansible.builtin.file:
+        path: /home/rodneyosodo/backups
+        state: directory
+        owner: rodneyosodo
+        group: rodneyosodo
+        mode: 0755

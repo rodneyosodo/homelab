@@ -25,3 +25,17 @@ setup-homelab:
 .PHONY: setup-tana
 setup-tana:
 	ansible-playbook playbooks/tana.yaml
+
+.PHONY: help
+help:
+	@echo "This Makefile provides a set of commands to manage ansible services."
+	@echo "It allows you to setup, install, and manage various services on your ansible infrastructure."
+	@echo ""
+	@echo "Usage:"
+	@echo "  make install       - Install ansible roles"
+	@echo "  make ping          - Ping all hosts"
+	@echo "  make setup-odin    - Setup odin"
+	@echo "  make setup-bohr    - Setup bohr"
+	@echo "  make install-zsh   - Install zsh"
+	@echo "  make setup-homelab - Setup homelab"
+	@echo "  make setup-tana    - Setup tana"
