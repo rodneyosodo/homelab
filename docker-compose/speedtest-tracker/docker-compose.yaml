@@ -46,7 +46,11 @@ services:
     security_opt:
       - no-new-privileges:true
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U '${SPEEDTEST_TRACKER_POSTGRES_USER}' -d '${SPEEDTEST_TRACKER_POSTGRES_DB}'"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U '${SPEEDTEST_TRACKER_POSTGRES_USER}' -d '${SPEEDTEST_TRACKER_POSTGRES_DB}'",
+        ]
       interval: 5s
       timeout: 5s
       retries: 5

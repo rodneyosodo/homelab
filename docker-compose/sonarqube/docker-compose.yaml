@@ -13,7 +13,7 @@ services:
       - homelab-network
     security_opt:
       - no-new-privileges:true
-    read_only: true      
+    read_only: true
     environment:
       - SONAR_JDBC_URL=${SONARQUBE_POSTGRES_URL}
       - SONAR_JDBC_USERNAME=${SONARQUBE_POSTGRES_USER}
@@ -22,10 +22,10 @@ services:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_extensions:/opt/sonarqube/extensions
       - sonarqube_logs:/opt/sonarqube/logs
-      - sonarqube_temp:/opt/sonarqube/temp      
+      - sonarqube_temp:/opt/sonarqube/temp
     depends_on:
       sonarqube-db:
-        condition: service_healthy      
+        condition: service_healthy
     ports:
       - "4070:9000"
 
@@ -44,7 +44,11 @@ services:
     security_opt:
       - no-new-privileges:true
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U '${SONARQUBE_POSTGRES_USER}' -d '${SONARQUBE_POSTGRES_DB}'"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U '${SONARQUBE_POSTGRES_USER}' -d '${SONARQUBE_POSTGRES_DB}'",
+        ]
       interval: 5s
       timeout: 5s
       retries: 5

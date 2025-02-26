@@ -79,3 +79,6 @@ include:
   - path: ./minio/docker-compose.yaml
     project_directory: ..
     env_file: .env
+  - path: ./atuin/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
