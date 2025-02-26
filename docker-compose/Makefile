@@ -7,7 +7,7 @@ start:
 
 .PHONY: restart
 restart:
-	@docker compose -f $(MAIN_COMPOSE) --env-file .env -d --force-recreate
+	@docker compose -f $(MAIN_COMPOSE) --env-file .env up -d --force-recreate
 
 .PHONY: stop
 stop:
