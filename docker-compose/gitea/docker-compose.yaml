@@ -1,7 +1,7 @@
 services:
   gitea:
     container_name: gitea
-    image: gitea/gitea:1.23.4
+    image: gitea/gitea:1.23.5
     restart: unless-stopped
     networks:
       - homelab-network
