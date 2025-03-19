@@ -1,0 +1,36 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+disable_root: true
+
+users:
+  - default
+  - name: ${username}
+    gecos: ${vm_username_gecos}
+    groups: sudo
+    sudo:
+      - ALL=(ALL:ALL) NOPASSWD:ALL
+    shell: /bin/bash
+
+chpasswd:
+  list: |
+    ${username}:${password}
+  expire: false
+
+ssh_pwauth: false
+
+hostname: ${hostname}
+create_hostname_file: true
+fqdn: ${fqdn}
+
+packages:
+  - curl
+  - qemu-guest-agent
+  - git
+  - sshpass
+
+runcmd:
+  - curl -fsSL https://tailscale.com/install.sh | sh
+  - tailscale up --ssh --authkey=${tailscale_auth_key}
+  - qemu-ga -d
