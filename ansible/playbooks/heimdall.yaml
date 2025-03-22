@@ -1,0 +1,205 @@
+- name: Setup proxmox backup server
+  hosts: "backup"
+  become: yes
+  tasks:
+    - name: Configure network interfaces file
+      copy:
+        dest: /etc/network/interfaces
+        content: |
+          auto lo
+          iface lo inet loopback
+
+          iface wlo1 inet dhcp
+
+          auto enp1s0
+          iface enp1s0 inet dhcp
+
+          source /etc/network/interfaces.d/*
+        backup: yes
+
+    - name: Install network-manager
+      ansible.builtin.package:
+        state: present
+        name: network-manager
+
+    - name: Configure NetworkManager.conf
+      copy:
+        dest: /etc/NetworkManager/NetworkManager.conf
+        content: |
+          [main]
+          plugins=ifupdown,keyfile
+
+          [ifupdown]
+          managed=true
+        backup: yes
+
+    - name: Restart NetworkManager
+      ansible.builtin.systemd_service:
+        name: NetworkManager
+        state: restarted
+        daemon_reload: true
+
+    - name: Enable WiFi
+      command: nmcli r wifi on
+      ignore_errors: yes
+
+    - name: Connect to WiFi network
+      command: nmcli d wifi connect "{{ wifi_ssid }}" password "{{ wifi_password }}"
+      when: wifi_ssid is defined and wifi_password is defined
+      ignore_errors: yes
+
+    - name: Comment out enterprise repository
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/pbs-enterprise.list
+        line: deb https://enterprise.proxmox.com/debian/pbs bookworm pbs-enterprise
+        state: absent
+        create: true
+        mode: 0644
+        owner: root
+        group: root
+
+    - name: Add Proxmox repository to sources.list
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list
+        line: deb http://download.proxmox.com/debian bookworm pve-no-subscription
+        state: present
+        create: true
+        mode: 0644
+        owner: root
+        group: root
+
+    - name: Update package lists
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Update all packages to their latest version
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+
+    - name: Remove useless packages from the cache
+      ansible.builtin.apt:
+        autoclean: true
+
+    - name: Remove dependencies that are no longer required and purge their configuration files
+      ansible.builtin.apt:
+        autoremove: true
+        purge: true
+
+    - name: Run the equivalent of "apt-get clean" as a separate step
+      ansible.builtin.apt:
+        clean: true
+
+    - name: Enable IOMMU (PCI Passthrough)
+      ansible.builtin.replace:
+        backup: true
+        path: /etc/default/grub
+        regexp: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet"'
+        replace: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"'
+
+    - name: Edit /etc/modules
+      ansible.builtin.blockinfile:
+        path: /etc/modules
+        prepend_newline: true
+        append_newline: true
+        backup: true
+        create: true
+        mode: 0644
+        owner: root
+        group: root
+        block: |
+          vfio
+          vfio_iommu_type1
+          vfio_pci
+          vfio_virqfd
+
+    - name: Reduce the GRUB delay
+      ansible.builtin.replace:
+        backup: true
+        path: /etc/default/grub
+        regexp: 'GRUB_TIMEOUT="5"'
+        replace: 'GRUB_TIMEOUT="3"'
+
+    - name: Update grub
+      ansible.builtin.command: update-grub
+
+    - name: Install Applications
+      ansible.builtin.apt:
+        name:
+          - sudo
+          - git
+          - tar
+          - unzip
+          - curl
+          - wget
+          - make
+          - vim
+          - zsh
+          - python3
+          - ripgrep
+          - fd-find
+          - iperf
+          - htop
+          - btop
+          - ntpdate
+        state: present
+
+    - name: Update NTP
+      ansible.builtin.shell: ntpdate bohr
+
+    - name: Copy NTP Update systemd service
+      ansible.builtin.copy:
+        src: assets/ntp-update/ntp-update.service
+        dest: /etc/systemd/system/ntp-update.service
+        mode: "0644"
+
+    - name: Copy NTP Update systemd timer
+      ansible.builtin.copy:
+        src: assets/ntp-update/ntp-update.timer
+        dest: /etc/systemd/system/ntp-update.timer
+        mode: "0644"
+
+    - name: Start NTP Update
+      ansible.builtin.systemd_service:
+        name: ntp-update
+        state: started
+        enabled: true
+
+    - name: Copy WiFi Connect systemd service
+      ansible.builtin.template:
+        src: assets/wifi-connect/wifi-connect.service.j2
+        dest: /etc/systemd/system/wifi-connect.service
+        mode: "0644"
+      vars:
+        wifi_ssid: "{{ wifi_ssid }}"
+        wifi_password: "{{ wifi_password }}"
+
+    - name: Start NTP Update
+      ansible.builtin.systemd_service:
+        name: ntp-update
+        state: started
+        enabled: true
+
+    - name: Start WiFi Connect
+      ansible.builtin.systemd_service:
+        name: wifi-connect
+        state: started
+        enabled: true
+
+    - name: Setup Neovim
+      ansible.builtin.shell: |
+        curl -sL https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz | sudo tar -xzf - --strip-components=1 --overwrite -C /usr
+        rm -rf ~/.config/nvim
+        git clone https://github.com/LazyVim/starter ~/.config/nvim
+        rm -rf ~/.config/nvim/.git
+
+    - name: Download microcode updates
+      ansible.builtin.get_url:
+        url: https://github.com/community-scripts/ProxmoxVE/raw/main/misc/pbs_microcode.sh
+        dest: /tmp/install-microcode.sh
+        mode: 0755
+
+    - name: Print message
+      ansible.builtin.debug:
+        msg: Make sure to run bash /tmp/install-microcode.sh to install microcode updates

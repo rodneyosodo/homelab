@@ -10,6 +10,14 @@ ping:
 setup-odin:
 	ansible-playbook playbooks/odin.yaml
 
+.PHONY: setup-heimdall
+setup-heimdall:
+	@echo "Setting up Heimdall..."
+	@read -p "Enter WiFi SSID: " WIFI_SSID; \
+	read -sp "Enter WiFi Password: " WIFI_PASSWORD; \
+	echo ""; \
+	ansible-playbook playbooks/heimdall.yaml --ask-pass -e "wifi_ssid=$$WIFI_SSID wifi_password=$$WIFI_PASSWORD"
+
 .PHONY: setup-bohr
 setup-bohr:
 	ansible-playbook playbooks/bohr.yaml

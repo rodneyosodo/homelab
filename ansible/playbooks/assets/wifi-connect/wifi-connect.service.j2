@@ -6,7 +6,7 @@ Requires=network.target
 [Service]
 Type=simple
 # Add the environment variables to the service
-Environment="WIFI_PASSWORD=ssid" "WIFI_SSID=password"
+Environment="WIFI_SSID={{ wifi_ssid }}" "WIFI_PASSWORD={{ wifi_password }}"
 ExecStart=/usr/bin/nmcli d wifi connect $WIFI_SSID password $WIFI_PASSWORD
 Restart=on-failure
 

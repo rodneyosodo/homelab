@@ -152,3 +152,47 @@ Port forward to localhost:1111
 ```bash
 ssh rodneyosodo@tana -L 1111:localhost:8384
 ```
+
+### Clear disk storage
+
+```bash
+fdisk /dev/sda
+```
+
+```bash
+ Command (m for help): p
+ Command (m for help): d
+ Command (m for help): w
+```
+
+## Passthrough USB nic to VM:
+
+```bash
+usb-devices
+```
+
+```bash
+T:  Bus=04 Lev=01 Prnt=01 Port=00 Cnt=01 Dev#=  5 Spd=5000 MxCh= 0
+D:  Ver= 3.00 Cls=00(>ifc ) Sub=00 Prot=00 MxPS= 9 #Cfgs=  2
+P:  Vendor=0bda ProdID=8153 Rev=31.00
+S:  Manufacturer=Realtek
+S:  Product=USB 10/100/1000 LAN
+S:  SerialNumber=001000001
+C:  #Ifs= 1 Cfg#= 1 Atr=a0 MxPwr=288mA
+I:  If#= 0 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=00 Driver=r8152
+E:  Ad=02(O) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+E:  Ad=81(I) Atr=02(Bulk) MxPS=1024 Ivl=0ms
+E:  Ad=83(I) Atr=03(Int.) MxPS=   2 Ivl=16ms
+```
+
+```bash
+qm set 110 -usb0 host=0bda:8153,usb3=yes
+```
+
+## Create a new user and add it to the sudo group
+
+```bash
+adduser rodneyosodo
+usermod -aG sudo rodneyosodo
+su - rodneyosodo
+```

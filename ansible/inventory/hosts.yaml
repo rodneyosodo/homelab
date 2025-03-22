@@ -12,6 +12,10 @@ servers:
       ansible_host: tana
       ansible_connection: ssh
       ansible_user: rodneyosodo
+    heimdall:
+      ansible_host: heimdall
+      ansible_connection: ssh
+      ansible_user: root
 
 pc:
   hosts:
@@ -30,7 +34,12 @@ backup:
     heimdall:
       ansible_host: heimdall
       ansible_connection: ssh
-      ansible_user: rodneyosodo
+      ansible_user: root
+
+    local-heimdall:
+      ansible_host: 192.168.100.107
+      ansible_connection: ssh
+      ansible_user: root
 
 kubernetes:
   hosts:
