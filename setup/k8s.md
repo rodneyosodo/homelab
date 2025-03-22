@@ -2,9 +2,9 @@
 
 ## Requirements
 
-- [Galana](terraform/galana)
-- [Turkwel](terraform/turkwel)
-- [Yala](terraform/yala)
+- [Galana](../terraform/galana)
+- [Turkwel](../terraform/turkwel)
+- [Yala](../terraform/yala)
 
 ## Setup
 

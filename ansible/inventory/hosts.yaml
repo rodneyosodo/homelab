@@ -43,14 +43,17 @@ backup:
 
 kubernetes:
   hosts:
-    frigg:
-      ansible_host: frigg
+    galana:
+      ansible_host: tana
       ansible_connection: ssh
+      ansible_user: rodneyosodo
 
-    loki:
-      ansible_host: loki
+    turkwel:
+      ansible_host: turkwel
       ansible_connection: ssh
+      ansible_user: rodneyosodo
 
-    baldr:
-      ansible_host: baldr
+    yala:
+      ansible_host: yala
       ansible_connection: ssh
+      ansible_user: rodneyosodo
