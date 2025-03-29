@@ -16,17 +16,19 @@ Then, run the following command on the client, desktop:
 iperf -c 192.168.100.32 -p 5200 --hide-ips
 ```
 
+While using ethernet cable connected to the router:
+
 ```bash
 ------------------------------------------------------------
 Client connecting to (**hidden**), TCP port 5200
 TCP window size: 16.0 KByte (default)
 ------------------------------------------------------------
-[  1] local *.*.*.2 port 56454 connected with *.*.*.32 port 5200 (icwnd/mss/irtt=14/1448/1550)
+[  1] local *.*.*.79 port 55392 connected with *.*.*.85 port 5200
 [ ID] Interval       Transfer     Bandwidth
-[  1] 0.0000-10.3744 sec  87.5 MBytes  70.8 Mbits/sec
+[  1] 0.0000-10.0420 sec  1.03 GBytes   882 Mbits/sec
 ```
 
-The above output shows that the network bandwidth between my PC and the home server inside the WLAN is 70.8 Mbits/sec.
+The above output shows that the network bandwidth between my PC and the home server inside the LAN is 882 Mbits/sec.
 
 To run the test on the internet, we need to run the following command on the client:
 
@@ -39,9 +41,9 @@ iperf -c ping.online.net -p 5200 --hide-ips
 Client connecting to (**hidden**), TCP port 5200
 TCP window size: 16.0 KByte (default)
 ------------------------------------------------------------
-[  1] local *.*.*.2 port 41746 connected with *.*.*.21 port 5200 (icwnd/mss/irtt=13/1400/128092)
+[  1] local *.*.*.14 port 50456 connected with *.*.*.21 port 5200
 [ ID] Interval       Transfer     Bandwidth
-[  1] 0.0000-11.3599 sec  26.5 MBytes  19.6 Mbits/sec
+[  1] 0.0000-9.6136 sec  35.6 MBytes  31.1 Mbits/sec
 ```
 
 The above output shows that the network bandwidth between my PC and the server on the internet is 19.6 Mbits/sec.
@@ -55,44 +57,45 @@ lscpu
 ```
 
 ```bash
-Architecture:            x86_64
-  CPU op-mode(s):        32-bit, 64-bit
-  Address sizes:         48 bits physical, 48 bits virtual
-  Byte Order:            Little Endian
-CPU(s):                  16
-  On-line CPU(s) list:   0-15
-Vendor ID:               AuthenticAMD
-  BIOS Vendor ID:        Advanced Micro Devices, Inc.
-  Model name:            AMD Ryzen 7 4800H with Radeon Graphics
-    BIOS Model name:     AMD Ryzen 7 4800H with Radeon Graphics          Unknown CPU @ 2.9GHz
-    BIOS CPU family:     107
-    CPU family:          23
-    Model:               96
-    Thread(s) per core:  2
-    Core(s) per socket:  8
-    Socket(s):           1
-    Stepping:            1
-    Frequency boost:     enabled
-    CPU(s) scaling MHz:  93%
-    CPU max MHz:         2900.0000
-    CPU min MHz:         1400.0000
-    BogoMIPS:            5789.17
-    Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc r
-                         ep_good nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp
-                         _legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 c
-                         dp_l3 hw_pstate ssbd mba ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 cqm rdt_a rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 cqm_llc c
-                         qm_occup_llc cqm_mbm_total cqm_mbm_local clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeas
-                         sists pausefilter pfthreshold avic v_vmsave_vmload vgif v_spec_ctrl umip rdpid overflow_recov succor smca
+Architecture:             x86_64
+  CPU op-mode(s):         32-bit, 64-bit
+  Address sizes:          48 bits physical, 48 bits virtual
+  Byte Order:             Little Endian
+CPU(s):                   16
+  On-line CPU(s) list:    0-15
+Vendor ID:                AuthenticAMD
+  BIOS Vendor ID:         Advanced Micro Devices, Inc.
+  Model name:             AMD Ryzen 7 4800H with Radeon Graphics
+    BIOS Model name:      AMD Ryzen 7 4800H with Radeon Graphics          Unknown CPU @ 2.9GHz
+    BIOS CPU family:      107
+    CPU family:           23
+    Model:                96
+    Thread(s) per core:   2
+    Core(s) per socket:   8
+    Socket(s):            1
+    Stepping:             1
+    Frequency boost:      enabled
+    CPU(s) scaling MHz:   108%
+    CPU max MHz:          2900.0000
+    CPU min MHz:          1400.0000
+    BogoMIPS:             5789.09
+    Flags:                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rd
+                          tscp lm constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe
+                          popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce top
+                          oext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep
+                           bmi2 cqm rdt_a rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local clzero ir
+                          perf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshol
+                          d avic v_vmsave_vmload vgif v_spec_ctrl umip rdpid overflow_recov succor smca
 Virtualization features:
-  Virtualization:        AMD-V
+  Virtualization:         AMD-V
 Caches (sum of all):
-  L1d:                   256 KiB (8 instances)
-  L1i:                   256 KiB (8 instances)
-  L2:                    4 MiB (8 instances)
-  L3:                    8 MiB (2 instances)
+  L1d:                    256 KiB (8 instances)
+  L1i:                    256 KiB (8 instances)
+  L2:                     4 MiB (8 instances)
+  L3:                     8 MiB (2 instances)
 NUMA:
-  NUMA node(s):          1
-  NUMA node0 CPU(s):     0-15
+  NUMA node(s):           1
+  NUMA node0 CPU(s):      0-15
 ```
 
 ## 3. Memory
@@ -104,44 +107,17 @@ lsmem
 ```
 
 ```bash
-RANGE                                  SIZE  STATE REMOVABLE  BLOCK
-0x0000000000000000-0x00000000cfffffff  3.3G online       yes   0-25
-0x0000000100000000-0x000000080fffffff 28.3G online       yes 32-257
+RANGE                                 SIZE  STATE REMOVABLE BLOCK
+0x0000000000000000-0x000000107fffffff  66G online       yes  0-32
 
-Memory block size:       128M
-Total online memory:    31.5G
+Memory block size:         2G
+Total online memory:      66G
 Total offline memory:      0B
 ```
 
 ## 4. Disk
 
-We can use the `lsblk` tool to get the disk model.
-
-```bash
-lsblk
-```
-
-Results from odin:
-
-```bash
-NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-sda           8:0    0   1.8T  0 disk
-├─sda1        8:1    0   1.8T  0 part
-└─sda9        8:9    0     8M  0 part
-zd0         230:0    0     1M  0 disk
-zd16        230:16   0   500G  0 disk
-├─zd16p1    230:17   0   512M  0 part
-├─zd16p2    230:18   0  27.9G  0 part
-├─zd16p3    230:19   0   977M  0 part
-└─zd16p4    230:20   0 470.6G  0 part
-zd32        230:32   0     4M  0 disk
-nvme0n1     259:0    0 953.9G  0 disk
-├─nvme0n1p1 259:1    0  1007K  0 part
-├─nvme0n1p2 259:2    0     1G  0 part
-└─nvme0n1p3 259:3    0 952.9G  0 part
-```
-
-NVMe SSD: `nvme0n1` is used to install the operating system, proxmox and hold backups for the VMS locally. HDD: `sda` is used to hold the virtual machines.
+NVMe SSD is used to install the operating system, proxmox and hold backups for the VMS locally. HDD is used to hold the virtual machines.
 Currently, I have not configured any RAID level for the HDD.
 
 To test the disk performance, we can use the `dd` tool to write and read data from the disk.
@@ -155,7 +131,7 @@ Results from bohr:
 ```bash
 65536+0 records in
 65536+0 records out
-4294967296 bytes (4.3 GB, 4.0 GiB) copied, 21.0751 s, 204 MB/s
+4294967296 bytes (4.3 GB, 4.0 GiB) copied, 4.44474 s, 966 MB/s
 ```
 
 ### Benchmark utilities
@@ -168,47 +144,49 @@ wget -qO- bench.sh | bash
 
 ```bash
 -------------------- A Bench.sh Script By Teddysun -------------------
- Version            : v2023-10-15
+ Version            : v2024-11-11
  Usage              : wget -qO- bench.sh | bash
 ----------------------------------------------------------------------
  CPU Model          : AMD Ryzen 7 7735HS with Radeon Graphics
- CPU Cores          : 16 @ 3241.014 MHz
+ CPU Cores          : 16 @ 4341.376 MHz
  CPU Cache          : 512 KB
  AES-NI             : ✓ Enabled
  VM-x/AMD-V         : ✓ Enabled
- Total Disk         : 4.6 TB (1.4 TB Used)
- Total Mem          : 27.2 GB (16.6 GB Used)
- Total Swap         : 4.0 GB (3.0 GB Used)
- System uptime      : 1 days, 4 hour 21 min
- Load average       : 0.96, 0.93, 0.88
+ Total Disk         : 4.6 TB (3.0 TB Used)
+ Total Mem          : 27.1 GB (11.0 GB Used)
+ Total Swap         : 54.3 GB (14.5 MB Used)
+ System uptime      : 0 days, 7 hour 28 min
+ Load average       : 4.40, 2.48, 2.08
  OS                 : Arch Linux
  Arch               : x86_64 (64 Bit)
- Kernel             : 6.7.2-arch1-1
+ Kernel             : 6.13.8-arch1-1
  TCP CC             : cubic
  Virtualization     : Dedicated
  IPv4/IPv6          : ✓ Online / ✗ Offline
+Prepended http:// to 'ipinfo.io/org'
+Prepended http:// to 'ipinfo.io/city'
+Prepended http:// to 'ipinfo.io/country'
+Prepended http:// to 'ipinfo.io/region
  Organization       : AS33771 Safaricom Limited
  Location           : Nairobi / KE
  Region             : Nairobi Area
 ----------------------------------------------------------------------
- I/O Speed(1st run) : 1.2 GB/s
- I/O Speed(2nd run) : 1.3 GB/s
- I/O Speed(3rd run) : 1.3 GB/s
- I/O Speed(average) : 1297.1 MB/s
+I/O Speed(1st run) : 965 MB/s
+I/O Speed(2nd run) : 890 MB/s
+I/O Speed(3rd run) : 820 MB/s
+I/O Speed(average) : 891.7 MB/s
 ----------------------------------------------------------------------
- Node Name        Upload Speed      Download Speed      Latency
- Speedtest.net    19.20 Mbps        19.31 Mbps          12.99 ms
- Los Angeles, US  22.10 Mbps        22.02 Mbps          316.33 ms
- Dallas, US       21.19 Mbps        22.39 Mbps          291.47 ms
- Montreal, CA     20.69 Mbps        20.23 Mbps          224.89 ms
- Paris, FR        21.29 Mbps        22.34 Mbps          254.75 ms
- Amsterdam, NL    18.92 Mbps        22.88 Mbps          157.68 ms
- Shanghai, CN     21.90 Mbps        4.30 Mbps           406.80 ms
- Singapore, SG    19.97 Mbps        21.64 Mbps          213.06 ms
- Tokyo, JP        20.59 Mbps        21.79 Mbps          278.28 ms
+Node Name        Upload Speed      Download Speed      Latency
+Speedtest.net    28.81 Mbps        27.86 Mbps          11.37 ms
+Paris, FR        29.52 Mbps        32.82 Mbps          169.86 ms
+Amsterdam, NL    29.94 Mbps        29.65 Mbps          175.93 ms
+Shanghai, CN     1.91 Mbps         26.48 Mbps          566.82 ms
+Hong Kong, CN    27.50 Mbps        31.24 Mbps          188.28 ms
+Singapore, SG    30.39 Mbps        34.24 Mbps          247.31 ms
+Tokyo, JP        30.50 Mbps        29.29 Mbps          292.47 ms
 ----------------------------------------------------------------------
- Finished in        : 7 min 2 sec
- Timestamp          : 2024-02-01 22:38:00 EAT
+Finished in        : 4 min 15 sec
+Timestamp          : 2025-03-29 12:55:35 EAT
 ----------------------------------------------------------------------
 ```
 
@@ -219,48 +197,49 @@ wget -qO- bench.sh | bash
 ```
 
 ```bash
+Prepended http:// to 'wget.racing/nench.sh'
 -------------------------------------------------
  nench.sh v2019.07.20 -- https://git.io/nench.sh
- benchmark timestamp:    2024-02-01 19:38:37 UTC
+ benchmark timestamp:    2025-03-29 10:02:20 UTC
 -------------------------------------------------
 
 Processor:    AMD Ryzen 7 7735HS with Radeon Graphics
 CPU cores:    16
-Frequency:    4093.903 MHz
+Frequency:    4586.167 MHz
 RAM:          27Gi
-Swap:         4.0Gi
-Kernel:       Linux 6.7.2-arch1-1 x86_64
+Swap:         54Gi
+Kernel:       Linux 6.13.8-arch1-1 x86_64
 
 Disks:
 nvme0n1  931.5G  SSD
-zram0      4G  SSD
+zram0   54.3G  SSD
 
 CPU: SHA256-hashing 500 MB
-    0.315 seconds
+    0.312 seconds
 CPU: bzip2-compressing 500 MB
-    2.365 seconds
+    2.422 seconds
 CPU: AES-encrypting 500 MB
-    0.571 seconds
+    0.574 seconds
 
 ioping: seek rate
-    min/avg/max/mdev = 58.8 us / 73.4 us / 3.38 ms / 27.6 us
+    min/avg/max/mdev = 63.3 us / 77.9 us / 7.78 ms / 55.2 us
 ioping: sequential read speed
-    generated 20.4 k requests in 5.00 s, 4.97 GiB, 4.07 k iops, 1017.5 MiB/s
+    generated 21.9 k requests in 5.00 s, 5.36 GiB, 4.39 k iops, 1.07 GiB/s
 
 dd: sequential write speed
-    1st run:    858.31 MiB/s
-    2nd run:    1144.41 MiB/s
-    3rd run:    1144.41 MiB/s
+    1st run:    1049.04 MiB/s
+    2nd run:    1049.04 MiB/s
+    3rd run:    1049.04 MiB/s
     average:    1049.04 MiB/s
 
 IPv4 speedtests
     your IPv4:    105.163.158.xxxx
 
-    Cachefly CDN:         2.35 MiB/s
-    Leaseweb (NL):        0.00 MiB/s
+    Cachefly CDN:         3.57 MiB/s
+    Leaseweb (NL):        0.02 MiB/s
     Softlayer DAL (US):   0.00 MiB/s
-    Online.net (FR):      2.41 MiB/s
-    OVH BHS (CA):         2.04 MiB/s
+    Online.net (FR):      3.46 MiB/s
+    OVH BHS (CA):         3.00 MiB/s
 
 No IPv6 connectivity detected
 -------------------------------------------------
@@ -274,22 +253,21 @@ wget -qO- bench.sh | bash
 
 ```bash
 -------------------- A Bench.sh Script By Teddysun -------------------
- Version            : v2023-10-15
+ Version            : v2024-11-11
  Usage              : wget -qO- bench.sh | bash
 ----------------------------------------------------------------------
  CPU Model          : QEMU Virtual CPU version 2.5+
- CPU Cores          : 6 @ 2894.572 MHz
+ CPU Cores          : 8 @ 2894.560 MHz
  CPU Cache          : 512 KB
  AES-NI             : ✓ Enabled
  VM-x/AMD-V         : ✗ Disabled
- Total Disk         : 490.9 GB (69.2 GB Used)
- Total Mem          : 15.6 GB (3.0 GB Used)
- Total Swap         : 977.0 MB (0 Used)
- System uptime      : 1 days, 4 hour 28 min
- Load average       : 0.34, 0.27, 0.32
+ Total Disk         : 492.1 GB (221.8 GB Used)
+ Total Mem          : 19.5 GB (4.3 GB Used)
+ System uptime      : 0 days, 1 hour 1 min
+ Load average       : 0.46, 0.78, 1.09
  OS                 : Debian GNU/Linux 12
  Arch               : x86_64 (64 Bit)
- Kernel             : 6.1.0-17-amd64
+ Kernel             : 6.1.0-32-amd64
  TCP CC             :
  Virtualization     : KVM
  IPv4/IPv6          : ✓ Online / ✗ Offline
@@ -297,26 +275,22 @@ wget -qO- bench.sh | bash
  Location           : Nairobi / KE
  Region             : Nairobi Area
 ----------------------------------------------------------------------
- I/O Speed(1st run) : 190 MB/s
- I/O Speed(2nd run) : 200 MB/s
- I/O Speed(3rd run) : 110 MB/s
- I/O Speed(average) : 166.7 MB/s
+I/O Speed(1st run) : 792 MB/s
+I/O Speed(2nd run) : 917 MB/s
+I/O Speed(3rd run) : 765 MB/s
+I/O Speed(average) : 824.7 MB/s
 ----------------------------------------------------------------------
- Node Name        Upload Speed      Download Speed      Latency
- Speedtest.net    19.26 Mbps        19.29 Mbps          12.55 ms
- Los Angeles, US  21.78 Mbps        22.64 Mbps          347.51 ms
- Dallas, US       20.58 Mbps        22.16 Mbps          286.76 ms
- Montreal, CA     8.99 Mbps         11.58 Mbps          225.75 ms
- Paris, FR        21.35 Mbps        21.77 Mbps          192.05 ms
- Amsterdam, NL    20.32 Mbps        23.10 Mbps          153.59 ms
- Shanghai, CN     20.06 Mbps        17.74 Mbps          397.71 ms
- Hongkong, CN     19.93 Mbps        22.12 Mbps          275.27 ms
- Mumbai, IN       20.78 Mbps        21.18 Mbps          237.37 ms
- Singapore, SG    20.38 Mbps        21.77 Mbps          210.30 ms
- Tokyo, JP        20.71 Mbps        21.85 Mbps          272.67 ms
+Node Name        Upload Speed      Download Speed      Latency
+Speedtest.net    28.86 Mbps        28.90 Mbps          11.98 ms
+Paris, FR        29.67 Mbps        32.36 Mbps          176.92 ms
+Amsterdam, NL    29.83 Mbps        34.01 Mbps          176.65 ms
+Shanghai, CN     2.80 Mbps         31.05 Mbps          928.30 ms
+Hong Kong, CN    30.31 Mbps        33.44 Mbps          186.17 ms
+Singapore, SG    29.66 Mbps        32.97 Mbps          245.92 ms
+Tokyo, JP        32.60 Mbps        36.11 Mbps          294.09 ms
 ----------------------------------------------------------------------
- Finished in        : 7 min 35 sec
- Timestamp          : 2024-02-01 22:49:00 EAT
+Finished in        : 4 min 9 sec
+Timestamp          : 2025-03-29 10:08:54 UTC
 ----------------------------------------------------------------------
 ```
 
@@ -329,46 +303,46 @@ wget -qO- bench.sh | bash
 ```bash
 -------------------------------------------------
  nench.sh v2019.07.20 -- https://git.io/nench.sh
- benchmark timestamp:    2024-02-01 19:50:57 UTC
+ benchmark timestamp:    2025-03-29 10:09:26 UTC
 -------------------------------------------------
 
 Processor:    QEMU Virtual CPU version 2.5+
-CPU cores:    6
-Frequency:    2894.572 MHz
-RAM:          15Gi
+CPU cores:    8
+Frequency:    2894.560 MHz
+RAM:          19Gi
 bash: line 156: swapon: command not found
 Swap:         -
-Kernel:       Linux 6.1.0-17-amd64 x86_64
+Kernel:       Linux 6.1.0-32-amd64 x86_64
 
 Disks:
 sda    500G  HDD
 
 CPU: SHA256-hashing 500 MB
-    1.765 seconds
+    1.856 seconds
 CPU: bzip2-compressing 500 MB
-    3.521 seconds
+    3.691 seconds
 CPU: AES-encrypting 500 MB
-    0.653 seconds
+    0.633 seconds
 
 ioping: seek rate
-    min/avg/max/mdev = 35.7 us / 62.5 us / 851.5 us / 19.5 us
+    min/avg/max/mdev = 71.5 us / 151.2 us / 10.2 ms / 151.9 us
 ioping: sequential read speed
-    generated 31.9 k requests in 5.00 s, 7.79 GiB, 6.38 k iops, 1.56 GiB/s
+    generated 19.8 k requests in 5.00 s, 4.83 GiB, 3.96 k iops, 989.8 MiB/s
 
 dd: sequential write speed
-    1st run:    85.64 MiB/s
-    2nd run:    96.32 MiB/s
-    3rd run:    69.24 MiB/s
-    average:    83.73 MiB/s
+    1st run:    635.15 MiB/s
+    2nd run:    1049.04 MiB/s
+    3rd run:    1049.04 MiB/s
+    average:    911.08 MiB/s
 
 IPv4 speedtests
     your IPv4:    105.163.158.xxxx
 
-    Cachefly CDN:         2.46 MiB/s
-    Leaseweb (NL):        0.04 MiB/s
+    Cachefly CDN:         0.00 MiB/s
+    Leaseweb (NL):        0.01 MiB/s
     Softlayer DAL (US):   0.00 MiB/s
-    Online.net (FR):      2.34 MiB/s
-    OVH BHS (CA):         2.16 MiB/s
+    Online.net (FR):      3.34 MiB/s
+    OVH BHS (CA):         2.99 MiB/s
 
 No IPv6 connectivity detected
 -------------------------------------------------
@@ -382,21 +356,21 @@ wget -qO- bench.sh | bash
 
 ```bash
 -------------------- A Bench.sh Script By Teddysun -------------------
- Version            : v2023-10-15
+ Version            : v2024-11-11
  Usage              : wget -qO- bench.sh | bash
 ----------------------------------------------------------------------
  CPU Model          : AMD Ryzen 7 4800H with Radeon Graphics
- CPU Cores          : 16 @ 2271.872 MHz
+ CPU Cores          : 16 @ 3028.863 MHz
  CPU Cache          : 512 KB
  AES-NI             : ✓ Enabled
  VM-x/AMD-V         : ✓ Enabled
- Total Disk         : 0 (0 Used)
- Total Mem          : 30.8 GB (17.8 GB Used)
- System uptime      : 1 days, 4 hour 42 min
- Load average       : 0.43, 0.93, 0.69
+ Total Disk         : 2.7 TB (812.7 GB Used)
+ Total Mem          : 62.2 GB (28.6 GB Used)
+ System uptime      : 0 days, 1 hour 13 min
+ Load average       : 1.43, 2.68, 2.45
  OS                 : Debian GNU/Linux 12
  Arch               : x86_64 (64 Bit)
- Kernel             : 6.5.11-7-pve
+ Kernel             : 6.8.12-8-pve
  TCP CC             : cubic
  Virtualization     : Dedicated
  IPv4/IPv6          : ✓ Online / ✗ Offline
@@ -404,26 +378,22 @@ wget -qO- bench.sh | bash
  Location           : Nairobi / KE
  Region             : Nairobi Area
 ----------------------------------------------------------------------
- I/O Speed(1st run) : 2.1 GB/s
- I/O Speed(2nd run) : 2.1 GB/s
- I/O Speed(3rd run) : 2.1 GB/s
- I/O Speed(average) : 2150.4 MB/s
+I/O Speed(1st run) : 863 MB/s
+I/O Speed(2nd run) : 857 MB/s
+I/O Speed(3rd run) : 858 MB/s
+I/O Speed(average) : 859.3 MB/s
 ----------------------------------------------------------------------
- Node Name        Upload Speed      Download Speed      Latency
- Speedtest.net    19.31 Mbps        19.29 Mbps          12.30 ms
- Los Angeles, US  19.87 Mbps        22.55 Mbps          320.06 ms
- Dallas, US       20.40 Mbps        21.51 Mbps          287.91 ms
- Montreal, CA     20.79 Mbps        21.80 Mbps          219.82 ms
- Paris, FR        20.28 Mbps        21.72 Mbps          177.02 ms
- Amsterdam, NL    20.46 Mbps        22.88 Mbps          155.18 ms
- Shanghai, CN     22.10 Mbps        1.53 Mbps           397.51 ms
- Hongkong, CN     19.77 Mbps        22.60 Mbps          282.20 ms
- Mumbai, IN       19.71 Mbps        21.76 Mbps          239.42 ms
- Singapore, SG    20.64 Mbps        22.35 Mbps          208.81 ms
- Tokyo, JP        18.93 Mbps        22.67 Mbps          268.28 ms
+Node Name        Upload Speed      Download Speed      Latency
+Speedtest.net    28.88 Mbps        23.81 Mbps          12.06 ms
+Paris, FR        29.41 Mbps        30.77 Mbps          175.75 ms
+Amsterdam, NL    29.99 Mbps        20.28 Mbps          182.95 ms
+Shanghai, CN     0.75 Mbps         19.41 Mbps          569.65 ms
+Hong Kong, CN    30.65 Mbps        28.06 Mbps          187.84 ms
+Singapore, SG    29.69 Mbps        28.38 Mbps          256.93 ms
+Tokyo, JP        30.95 Mbps        28.11 Mbps          294.33 ms
 ----------------------------------------------------------------------
- Finished in        : 6 min 9 sec
- Timestamp          : 2024-02-01 23:00:16 EAT
+Finished in        : 4 min 4 sec
+Timestamp          : 2025-03-29 13:19:57 EAT
 ----------------------------------------------------------------------
 ```
 
@@ -436,49 +406,148 @@ wget -qO- bench.sh | bash
 ```bash
 -------------------------------------------------
  nench.sh v2019.07.20 -- https://git.io/nench.sh
- benchmark timestamp:    2024-02-01 20:01:43 UTC
+ benchmark timestamp:    2025-03-29 10:13:07 UTC
 -------------------------------------------------
 
 Processor:    AMD Ryzen 7 4800H with Radeon Graphics
 CPU cores:    16
-Frequency:    2900.000 MHz
-RAM:          30Gi
+Frequency:    4240.619 MHz
+RAM:          62Gi
 Swap:         -
-Kernel:       Linux 6.5.11-7-pve x86_64
+Kernel:       Linux 6.8.12-8-pve x86_64
 
 Disks:
 nvme0n1  953.9G  SSD
 sda    1.8T  HDD
-zd0    500G  SSD
-zd16      4M  SSD
-zd32      1M  SSD
 
 CPU: SHA256-hashing 500 MB
-    1.734 seconds
+    1.787 seconds
 CPU: bzip2-compressing 500 MB
-    3.561 seconds
+    3.584 seconds
 CPU: AES-encrypting 500 MB
-    0.657 seconds
+    0.667 seconds
 
 ioping: seek rate
-    min/avg/max/mdev = 3.84 us / 6.63 us / 36.2 us / 539 ns
+    min/avg/max/mdev = 39.3 us / 68.5 us / 76.4 ms / 286.4 us
 ioping: sequential read speed
-    generated 155.5 k requests in 5.00 s, 38.0 GiB, 31.1 k iops, 7.59 GiB/s
+    generated 22.2 k requests in 5.00 s, 5.42 GiB, 4.44 k iops, 1.08 GiB/s
 
 dd: sequential write speed
-    1st run:    1811.98 MiB/s
-    2nd run:    1811.98 MiB/s
-    3rd run:    1811.98 MiB/s
-    average:    1811.98 MiB/s
+    1st run:    872.61 MiB/s
+    2nd run:    899.31 MiB/s
+    3rd run:    872.61 MiB/s
+    average:    881.51 MiB/s
 
 IPv4 speedtests
     your IPv4:    105.163.158.xxxx
 
-    Cachefly CDN:         2.45 MiB/s
-    Leaseweb (NL):        0.04 MiB/s
+    Cachefly CDN:         3.26 MiB/s
+    Leaseweb (NL):        0.01 MiB/s
     Softlayer DAL (US):   0.00 MiB/s
-    Online.net (FR):      2.27 MiB/s
-    OVH BHS (CA):         2.22 MiB/s
+    Online.net (FR):      2.59 MiB/s
+    OVH BHS (CA):         0.05 MiB/s
+
+No IPv6 connectivity detected
+-------------------------------------------------
+```
+
+## bench.sh for heimdall
+
+```bash
+wget -qO- bench.sh | bash
+```
+
+```bash
+-------------------- A Bench.sh Script By Teddysun -------------------
+ Version            : v2024-11-11
+ Usage              : wget -qO- bench.sh | bash
+----------------------------------------------------------------------
+ CPU Model          : Intel(R) N100
+ CPU Cores          : 4 @ 3120.872 MHz
+ CPU Cache          : 6144 KB
+ AES-NI             : ✓ Enabled
+ VM-x/AMD-V         : ✓ Enabled
+ Total Disk         : 0 (0 Used)
+ Total Mem          : 15.4 GB (8.2 GB Used)
+ System uptime      : 1 days, 13 hour 26 min
+ Load average       : 0.30, 0.13, 0.05
+ OS                 : Debian GNU/Linux 12
+ Arch               : x86_64 (64 Bit)
+ Kernel             : 6.8.12-8-pve
+ TCP CC             : cubic
+ Virtualization     : Dedicated
+ IPv4/IPv6          : ✓ Online / ✗ Offline
+ Organization       : AS33771 Safaricom Limited
+ Location           : Nairobi / KE
+ Region             : Nairobi Area
+ ----------------------------------------------------------------------
+  I/O Speed(1st run) : 3.8 GB/s
+  I/O Speed(2nd run) : 3.8 GB/s
+  I/O Speed(3rd run) : 3.8 GB/s
+  I/O Speed(average) : 3891.2 MB/s
+ ----------------------------------------------------------------------
+  Node Name        Upload Speed      Download Speed      Latency
+  Speedtest.net    29.34 Mbps        28.20 Mbps          13.04 ms
+  Paris, FR        28.77 Mbps        32.70 Mbps          204.76 ms
+  Amsterdam, NL    32.06 Mbps        29.57 Mbps          197.91 ms
+  Hong Kong, CN    31.28 Mbps        33.47 Mbps          190.52 ms
+  Singapore, SG    29.12 Mbps        31.90 Mbps          259.39 ms
+  Tokyo, JP        33.39 Mbps        33.98 Mbps          306.92 ms
+ ----------------------------------------------------------------------
+  Finished in        : 3 min 51 sec
+  Timestamp          : 2025-03-29 14:06:11 EAT
+ ----------------------------------------------------------------------
+```
+
+## nench for heimdall
+
+```bash
+(wget -qO- wget.racing/nench.sh | bash; wget -qO- wget.racing/nench.sh | bash) 2>&1 | tee nench.log
+```
+
+```bash
+-------------------------------------------------
+ nench.sh v2019.07.20 -- https://git.io/nench.sh
+ benchmark timestamp:    2025-03-29 11:00:29 UTC
+-------------------------------------------------
+
+Processor:    Intel(R) N100
+CPU cores:    4
+Frequency:    2900.792 MHz
+RAM:          15Gi
+Swap:         -
+Kernel:       Linux 6.8.12-8-pve x86_64
+
+Disks:
+nvme0n1  476.9G  SSD
+sda    3.6T  HDD
+
+CPU: SHA256-hashing 500 MB
+    2.134 seconds
+CPU: bzip2-compressing 500 MB
+    3.813 seconds
+CPU: AES-encrypting 500 MB
+    0.630 seconds
+
+ioping: seek rate
+    min/avg/max/mdev = 1.63 us / 2.17 us / 106.3 us / 756 ns
+ioping: sequential read speed
+    generated 225.2 k requests in 5.00 s, 55.0 GiB, 45.0 k iops, 11.0 GiB/s
+
+dd: sequential write speed
+    1st run:    3051.76 MiB/s
+    2nd run:    2956.39 MiB/s
+    3rd run:    3051.76 MiB/s
+    average:    3019.97 MiB/s
+
+IPv4 speedtests
+    your IPv4:    105.163.158.xxxx
+
+    Cachefly CDN:         3.48 MiB/s
+    Leaseweb (NL):        0.02 MiB/s
+    Softlayer DAL (US):   0.00 MiB/s
+    Online.net (FR):      3.49 MiB/s
+    OVH BHS (CA):         0.83 MiB/s
 
 No IPv6 connectivity detected
 -------------------------------------------------
