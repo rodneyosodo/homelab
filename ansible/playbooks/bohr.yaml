@@ -47,6 +47,7 @@
           - iperf
           - htop
           - btop
+          - dosfstools
         state: present
 
     - name: Download AMDGPU Installer
