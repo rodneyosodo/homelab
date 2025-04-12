@@ -1,7 +1,7 @@
 services:
   atuin:
     container_name: atuin
-    image: ghcr.io/atuinsh/atuin:18.4.0
+    image: ghcr.io/atuinsh/atuin:18.5.0
     restart: unless-stopped
     networks:
       - homelab-network
