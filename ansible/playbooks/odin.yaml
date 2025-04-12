@@ -119,12 +119,13 @@
         dest: /tmp/install-microcode.sh
         mode: 0755
 
-    - name: Create cron job to reboot the server every day at 05:00 and 19:00
+    - name: Create cron job to reboot the server every week on Friday at 7:00 PM
       ansible.builtin.cron:
         backup: true
-        name: Reboot server every day at 05:00 and 19:00
+        name: Reboot server every week on Friday at 7:00 PM
+        weekday: "5"
         minute: "0"
-        hour: "5,19"
+        hour: "19"
         job: "/usr/sbin/reboot"
 
     - name: Print message
