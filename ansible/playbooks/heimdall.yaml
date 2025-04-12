@@ -196,7 +196,7 @@
 
     - name: Download microcode updates
       ansible.builtin.get_url:
-        url: https://github.com/community-scripts/ProxmoxVE/raw/main/misc/pbs_microcode.sh
+        url: https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/tools/pve/pbs_microcode.sh
         dest: /tmp/install-microcode.sh
         mode: 0755
 
