@@ -1,46 +1,46 @@
 services:
-  atuin:
-    container_name: atuin
-    image: ghcr.io/atuinsh/atuin:18.5.0
-    restart: unless-stopped
-    networks:
-      - homelab-network
-    security_opt:
-      - no-new-privileges:true
-    command: server start
-    volumes:
-      - ~/docker-volumes/atuin/config:/config
-    depends_on:
-      - atuin-db
-    ports:
-      - ${ATUIN_PORT}:${ATUIN_PORT}
-    environment:
-      - ATUIN_HOST=${ATUIN_HOST}
-      - ATUIN_PORT=${ATUIN_PORT}
-      - ATUIN_OPEN_REGISTRATION=${ATUIN_OPEN_REGISTRATION}
-      - ATUIN_DB_URI=${ATUIN_POSTGRES_URL}
-      - RUST_LOG=${ATUIN_RUST_LOG}
+    atuin:
+        container_name: atuin
+        image: ghcr.io/atuinsh/atuin:18.6.1
+        restart: unless-stopped
+        networks:
+            - homelab-network
+        security_opt:
+            - no-new-privileges:true
+        command: server start
+        volumes:
+            - ~/docker-volumes/atuin/config:/config
+        depends_on:
+            - atuin-db
+        ports:
+            - ${ATUIN_PORT}:${ATUIN_PORT}
+        environment:
+            - ATUIN_HOST=${ATUIN_HOST}
+            - ATUIN_PORT=${ATUIN_PORT}
+            - ATUIN_OPEN_REGISTRATION=${ATUIN_OPEN_REGISTRATION}
+            - ATUIN_DB_URI=${ATUIN_POSTGRES_URL}
+            - RUST_LOG=${ATUIN_RUST_LOG}
 
-  atuin-db:
-    container_name: atuin-db
-    image: postgres:16.1
-    restart: unless-stopped
-    networks:
-      - homelab-network
-    security_opt:
-      - no-new-privileges:true
-    volumes:
-      - ~/docker-volumes/atuin/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=${ATUIN_POSTGRES_USER}
-      - POSTGRES_PASSWORD=${ATUIN_POSTGRES_PASSWORD}
-      - POSTGRES_DB=${ATUIN_POSTGRES_DB}
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U '${ATUIN_POSTGRES_USER}' -d '${ATUIN_POSTGRES_DB}'",
-        ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+    atuin-db:
+        container_name: atuin-db
+        image: postgres:16.1
+        restart: unless-stopped
+        networks:
+            - homelab-network
+        security_opt:
+            - no-new-privileges:true
+        volumes:
+            - ~/docker-volumes/atuin/db:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=${ATUIN_POSTGRES_USER}
+            - POSTGRES_PASSWORD=${ATUIN_POSTGRES_PASSWORD}
+            - POSTGRES_DB=${ATUIN_POSTGRES_DB}
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "pg_isready -U '${ATUIN_POSTGRES_USER}' -d '${ATUIN_POSTGRES_DB}'",
+                ]
+            interval: 5s
+            timeout: 5s
+            retries: 5
