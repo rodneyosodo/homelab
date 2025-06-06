@@ -79,3 +79,6 @@ include:
   - path: ./atuin/docker-compose.yaml
     project_directory: ..
     env_file: .env
+  - path: ./karakeep/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
