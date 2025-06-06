@@ -14,8 +14,32 @@ services:
       - PORT=4040
       - KENER_SECRET_KEY=${KENER_SECRET_KEY}
       - ORIGIN=${KENER_ORIGIN}
+      - DATABASE_URL=${KENER_POSTGRES_URL}
     ports:
       - 4040:4040
     volumes:
-      - ~/docker-volumes/kener/data:/app/database:rw
       - ~/docker-volumes/kener/uploads:/app/uploads:rw
+
+  kener-db:
+    container_name: kener-db
+    image: postgres:16.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ~/docker-volumes/kener/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${KENER_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${KENER_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${KENER_POSTGRES_DB}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U '${KENER_POSTGRES_USER}' -d '${KENER_POSTGRES_DB}'",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
