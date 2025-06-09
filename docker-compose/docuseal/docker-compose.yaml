@@ -1,7 +1,7 @@
 services:
   docuseal:
     container_name: docuseal
-    image: docuseal/docuseal:2.0.1
+    image: docuseal/docuseal:2.0.2
     restart: unless-stopped
     networks:
       - homelab-network
