@@ -8,8 +8,7 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
-      - 4080:9090
-      - 8000:8000
+      - 4081:9090
     volumes:
       - ./docker-compose/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ~/docker-volumes/prometheus/data:/prometheus

@@ -1,7 +1,7 @@
 services:
   karakeep-app:
     container_name: karakeep-app
-    image: ghcr.io/karakeep-app/karakeep:0.25.0
+    image: ghcr.io/karakeep-app/karakeep:0.26.0
     restart: unless-stopped
     networks:
       - homelab-network
