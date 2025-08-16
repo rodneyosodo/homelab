@@ -1,0 +1,176 @@
+services:
+  dawarich-app:
+    container_name: dawarich-app
+    image: freikin/dawarich:0.30.8
+    volumes:
+      - ~/docker-volumes/dawarich/public:/var/app/public
+      - ~/docker-volumes/dawarich/watched:/var/app/tmp/imports/watched
+      - ~/docker-volumes/dawarich/storage:/var/app/storage
+      - ~/docker-volumes/dawarich/db_data:/dawarich_db_data
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 5000:5000
+      # - 9394:9394 # Prometheus exporter, uncomment if needed
+    stdin_open: true
+    tty: true
+    entrypoint: web-entrypoint.sh
+    command: ["bin/rails", "server", "-p", "5000", "-b", "::"]
+    restart: on-failure
+    environment:
+      - RAILS_ENV=production
+      - REDIS_URL=${DAWARICH_REDIS_URL}
+      - DATABASE_HOST=dawarich-db
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=${DAWARICH_POSTGRES_USER}
+      - DATABASE_PASSWORD=${DAWARICH_POSTGRES_PASSWORD}
+      - DATABASE_NAME=${DAWARICH_POSTGRES_DB}
+      - MIN_MINUTES_SPENT_IN_CITY=60
+      - APPLICATION_HOSTS=${DAWARICH_APPLICATION_HOSTS}
+      - TIME_ZONE=Africa/Nairobi
+      - DISTANCE_UNIT=km
+      - APPLICATION_PROTOCOL=http
+      - PROMETHEUS_EXPORTER_ENABLED=false
+      - PROMETHEUS_EXPORTER_HOST=0.0.0.0
+      - PROMETHEUS_EXPORTER_PORT=9394
+      - SECRET_KEY_BASE=${DAWARICH_SECRET_KEY_BASE}
+      - RAILS_LOG_TO_STDOUT="true"
+      - SELF_HOSTED=true
+      - STORE_GEODATA=true
+      - SMTP_SERVER=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_DOMAIN=${MAIL_DOMAIN}
+      - SMTP_USERNAME=${SMTP_NAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - SMTP_FROM=${MAIL_FROM_ADDRESS}
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -qO - http://127.0.0.1:5000/api/v1/health | grep -q '\"status\"\\s*:\\s*\"ok\"'",
+        ]
+      interval: 10s
+      retries: 30
+      start_period: 30s
+      timeout: 10s
+    depends_on:
+      dawarich-db:
+        condition: service_healthy
+        restart: true
+      dawarich-redis:
+        condition: service_healthy
+        restart: true
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50" # Limit CPU usage to 50% of one core
+          memory: "4G" # Limit memory usage to 4GB
+
+  dawarich-sidekiq:
+    container_name: dawarich-sidekiq
+    image: freikin/dawarich:0.30.8
+    volumes:
+      - ~/docker-volumes/dawarich/public:/var/app/public
+      - ~/docker-volumes/dawarich/watched:/var/app/tmp/imports/watched
+      - ~/docker-volumes/dawarich/storage:/var/app/storage
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    stdin_open: true
+    tty: true
+    entrypoint: sidekiq-entrypoint.sh
+    command: ["bundle", "exec", "sidekiq"]
+    restart: on-failure
+    environment:
+      - RAILS_ENV=production
+      - REDIS_URL=${DAWARICH_REDIS_URL}
+      - DATABASE_HOST=dawarich-db
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=${DAWARICH_POSTGRES_USER}
+      - DATABASE_PASSWORD=${DAWARICH_POSTGRES_PASSWORD}
+      - DATABASE_NAME=${DAWARICH_POSTGRES_DB}
+      - APPLICATION_HOSTS=${DAWARICH_APPLICATION_HOSTS}
+      - BACKGROUND_PROCESSING_CONCURRENCY=10
+      - APPLICATION_PROTOCOL=http
+      - PROMETHEUS_EXPORTER_ENABLED=false
+      - PROMETHEUS_EXPORTER_HOST=dawarich-app
+      - PROMETHEUS_EXPORTER_PORT=9394
+      - SECRET_KEY_BASE=${DAWARICH_SECRET_KEY_BASE}
+      - RAILS_LOG_TO_STDOUT="true"
+      - SELF_HOSTED=true
+      - STORE_GEODATA=true
+      - SMTP_SERVER=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_DOMAIN=${MAIL_DOMAIN}
+      - SMTP_USERNAME=${SMTP_NAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - SMTP_FROM=${MAIL_FROM_ADDRESS}
+
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f sidekiq"]
+      interval: 10s
+      retries: 30
+      start_period: 30s
+      timeout: 10s
+    depends_on:
+      dawarich-db:
+        condition: service_healthy
+        restart: true
+      dawarich-redis:
+        condition: service_healthy
+        restart: true
+      dawarich-app:
+        condition: service_healthy
+        restart: true
+
+  dawarich-db:
+    container_name: dawarich-db
+    image: postgis/postgis:17-3.5-alpine
+    restart: always
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    shm_size: 1G
+    volumes:
+      - ~/docker-volumes/dawarich/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DAWARICH_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${DAWARICH_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DAWARICH_POSTGRES_DB}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U '${DAWARICH_POSTGRES_USER}' -d '${DAWARICH_POSTGRES_DB}'",
+        ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  dawarich-redis:
+    container_name: dawarich-redis
+    image: redis:7.4-alpine
+    restart: always
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    command: /bin/sh -c "redis-server --requirepass ${DAWARICH_REDIS_PASSWORD}"
+    volumes:
+      - ~/docker-volumes/dawarich/redis:/data
+    # ports:
+    #   - 5001:6379
+    environment:
+      - REDIS_PASSWORD=${DAWARICH_REDIS_PASSWORD}
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
