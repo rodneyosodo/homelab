@@ -1,7 +1,7 @@
 services:
   cloudflared:
     container_name: cloudflared
-    image: cloudflare/cloudflared:2025.7.0
+    image: cloudflare/cloudflared:2025.8.1
     restart: unless-stopped
     command: tunnel --metrics 0.0.0.0:4090 --no-autoupdate run --token ${CLOUDFLARE_TOKEN}
     networks:
