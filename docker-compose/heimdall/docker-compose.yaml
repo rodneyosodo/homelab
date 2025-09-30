@@ -1,7 +1,7 @@
 services:
   heimdall:
     container_name: heimdall
-    image: linuxserver/heimdall:2.7.4
+    image: linuxserver/heimdall:2.7.6
     restart: unless-stopped
     networks:
       - homelab-network

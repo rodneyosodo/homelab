@@ -1,7 +1,7 @@
 services:
   dawarich-app:
     container_name: dawarich-app
-    image: freikin/dawarich:0.30.11
+    image: freikin/dawarich:0.32.0
     volumes:
       - ~/docker-volumes/dawarich/public:/var/app/public
       - ~/docker-volumes/dawarich/watched:/var/app/tmp/imports/watched
