@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "docker-compose"
+    directories: ["docker-compose/*/"]
+    schedule:
+      interval: "monthly"
