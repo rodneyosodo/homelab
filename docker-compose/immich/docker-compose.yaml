@@ -1,7 +1,7 @@
 services:
   immich-server:
     container_name: immich-server
-    image: ghcr.io/immich-app/immich-server:v2.0.0
+    image: ghcr.io/immich-app/immich-server:v2.3.1
     restart: unless-stopped
     networks:
       - homelab-network
@@ -18,7 +18,7 @@ services:
       - immich-redis
       - immich-postgres
     environment:
-      - IMMICH_VERSION=v2.0.0
+      - IMMICH_VERSION=v2.3.1
       - TZ=Africa/Nairobi
       - REDIS_HOSTNAME=immich-redis
       - REDIS_PORT=6379
@@ -39,7 +39,7 @@ services:
 
   immich-machine-learning:
     container_name: immich-machine-learning
-    image: ghcr.io/immich-app/immich-machine-learning:v2.0.0
+    image: ghcr.io/immich-app/immich-machine-learning:v2.3.1
     restart: unless-stopped
     networks:
       - homelab-network
