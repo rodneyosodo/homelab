@@ -23,7 +23,7 @@ services:
 
   linkwarden-db:
     container_name: linkwarden-db
-    image: postgres:16.1
+    image: postgres:18.1
     restart: unless-stopped
     networks:
       - homelab-network
