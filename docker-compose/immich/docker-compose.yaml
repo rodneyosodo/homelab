@@ -54,7 +54,7 @@ services:
 
   immich-postgres:
     container_name: immich-postgres
-    image: ghcr.io/immich-app/postgres:16-vectorchord0.4.3-pgvectors0.2.0
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
     restart: unless-stopped
     networks:
       - homelab-network
@@ -71,7 +71,7 @@ services:
 
   immich-redis:
     container_name: immich-redis
-    image: redis:8.4.0
+    image: redis:7.2.5
     restart: unless-stopped
     networks:
       - homelab-network
