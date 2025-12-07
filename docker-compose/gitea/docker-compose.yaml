@@ -32,7 +32,7 @@ services:
 
   gitea-db:
     container_name: gitea-db
-    image: postgres:16.1
+    image: postgres:18.1
     restart: unless-stopped
     networks:
       - homelab-network
