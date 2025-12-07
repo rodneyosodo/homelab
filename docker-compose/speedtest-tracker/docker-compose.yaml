@@ -33,7 +33,7 @@ services:
 
   speedtest-tracker-db:
     container_name: speedtest-tracker-db
-    image: postgres:16.1
+    image: postgres:18.1
     restart: unless-stopped
     networks:
       - homelab-network
