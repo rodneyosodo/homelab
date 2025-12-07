@@ -18,6 +18,7 @@ services:
       - immich-redis
       - immich-postgres
     environment:
+      - IMMICH_VERSION=v2.0.0
       - TZ=Africa/Nairobi
       - REDIS_HOSTNAME=immich-redis
       - REDIS_PORT=6379
