@@ -1,7 +1,7 @@
 services:
   docuseal:
     container_name: docuseal
-    image: docuseal/docuseal:2.1.7
+    image: docuseal/docuseal:2.2.4
     restart: unless-stopped
     networks:
       - homelab-network
@@ -18,7 +18,7 @@ services:
 
   docuseal-db:
     container_name: docuseal-db
-    image: postgres:16.1
+    image: postgres:18.1
     restart: unless-stopped
     networks:
       - homelab-network

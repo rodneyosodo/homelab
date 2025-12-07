@@ -155,7 +155,7 @@ services:
 
   dawarich-redis:
     container_name: dawarich-redis
-    image: redis:7.4-alpine
+    image: redis:8.4-alpine
     restart: always
     networks:
       - homelab-network
