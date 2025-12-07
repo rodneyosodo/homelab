@@ -44,7 +44,7 @@ services:
 
   karakeep-meilisearch:
     container_name: karakeep-meilisearch
-    image: getmeili/meilisearch:v1.28.2
+    image: getmeili/meilisearch:v1.13.3
     restart: unless-stopped
     networks:
       - homelab-network
