@@ -4,3 +4,7 @@ updates:
     directories: ["docker-compose/*/"]
     schedule:
       interval: "monthly"
+    groups:
+      docker-dependency:
+        patterns:
+          - "*"
