@@ -70,9 +70,6 @@ include:
   - path: ./watcharr/docker-compose.yaml
     project_directory: ..
     env_file: .env
-  - path: ./minio/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
   - path: ./atuin/docker-compose.yaml
     project_directory: ..
     env_file: .env
@@ -83,5 +80,8 @@ include:
     project_directory: ..
     env_file: .env
   - path: ./dawarich/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
+  - path: ./rustfs/docker-compose.yaml
     project_directory: ..
     env_file: .env

@@ -1,0 +1,60 @@
+services:
+  rustfs:
+    container_name: rustfs
+    image: rustfs/rustfs:latest
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "5010:5010" # S3 API port
+      - "5011:5011" # Console port
+    environment:
+      - RUSTFS_ADDRESS=0.0.0.0:5010
+      - RUSTFS_CONSOLE_ADDRESS=0.0.0.0:5011
+      - RUSTFS_CONSOLE_ENABLE=true
+      - RUSTFS_EXTERNAL_ADDRESS=:5010 # Same as internal since no port mapping
+      - RUSTFS_CORS_ALLOWED_ORIGINS=*
+      - RUSTFS_CONSOLE_CORS_ALLOWED_ORIGINS=*
+      - RUSTFS_ACCESS_KEY=${RUSTFS_ACCESS_KEY}
+      - RUSTFS_SECRET_KEY=${RUSTFS_SECRET_KEY}
+      - RUSTFS_OBS_LOGGER_LEVEL=info
+      # Object Cache
+      - RUSTFS_OBJECT_CACHE_ENABLE=true
+      - RUSTFS_OBJECT_CACHE_TTL_SECS=300
+    volumes:
+      - ~/docker-volumes/rustfs/data:/data
+      - ~/docker-volumes/rustfs/logs:/app/logs
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "sh",
+          "-c",
+          "curl -f http://localhost:5010/health && curl -f http://localhost:5011/rustfs/console/health",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  rustfs-redis:
+    container_name: rustfs-redis
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    command: /bin/sh -c "redis-server --requirepass ${RUSTFS_REDIS_PASSWORD}"
+    volumes:
+      - ~/docker-volumes/rustfs/redis:/data
+    environment:
+      - REDIS_PASSWORD=${RUSTFS_REDIS_PASSWORD}
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
