@@ -31,7 +31,7 @@ resource "proxmox_virtual_environment_vm" "debian_vm" {
     architecture = "x86_64"
     cores        = 8
     sockets      = 1
-    type         = "x86-64-v2-AES"
+    type         = "host" // https://github.com/rustfs/rustfs/issues/968
   }
 
   memory {
