@@ -1,7 +1,7 @@
 services:
   immich-server:
     container_name: immich-server
-    image: ghcr.io/immich-app/immich-server:v2.5.6
+    image: ghcr.io/immich-app/immich-server:v2.6.3
     restart: unless-stopped
     networks:
       - homelab-network
@@ -71,7 +71,7 @@ services:
 
   immich-redis:
     container_name: immich-redis
-    image: redis:7.2.5
+    image: redis:8.6.2
     restart: unless-stopped
     networks:
       - homelab-network
