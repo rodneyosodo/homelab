@@ -13,7 +13,7 @@
   tag: "opengist"
   image: "https://raw.githubusercontent.com/thomiceli/opengist/master/public/opengist.svg"
   cron: "*/5 * * * *"
-  defaultStatus: "UP"  
+  defaultStatus: "UP"
   api:
     method: GET
     url: https://gist.rodneyosodo.com
@@ -23,7 +23,7 @@
   tag: "gitea"
   image: "https://about.gitea.com/gitea-text.svg"
   cron: "*/5 * * * *"
-  defaultStatus: "UP"  
+  defaultStatus: "UP"
   api:
     method: GET
     url: https://git.rodneyosodo.com
@@ -33,7 +33,7 @@
   tag: "hedgedoc"
   image: "https://hedgedoc.org/images/banner/hedgedoc_banner_color_horizontal.svg"
   cron: "*/5 * * * *"
-  defaultStatus: "UP"  
+  defaultStatus: "UP"
   api:
     method: GET
     url: https://hedgedoc.rodneyosodo.com
@@ -43,7 +43,7 @@
   tag: "immich"
   image: "https://avatars.githubusercontent.com/u/109746326"
   cron: "*/5 * * * *"
-  defaultStatus: "UP"  
+  defaultStatus: "UP"
   api:
     method: GET
     url: https://immich.rodneyosodo.com
@@ -53,7 +53,7 @@
   tag: "nextcloud"
   image: "https://avatars.githubusercontent.com/u/19211038"
   cron: "*/5 * * * *"
-  defaultStatus: "UP"  
+  defaultStatus: "UP"
   api:
     method: GET
     url: https://nextcloud.rodneyosodo.com
