@@ -1,7 +1,7 @@
 services:
   swagger-editor:
     container_name: swagger-editor
-    image: swaggerapi/swagger-editor:next-v5
+    image: swaggerapi/swagger-editor:v5.3.7
     restart: unless-stopped
     networks:
       - homelab-network
