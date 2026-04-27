@@ -4,7 +4,6 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-      day: "monday"
     groups:
       gh-dependency:
         patterns:
@@ -14,7 +13,6 @@ updates:
     directories: ["docker-compose/*/"]
     schedule:
       interval: "monthly"
-      day: "monday"
     groups:
       docker-dependency:
         patterns:
