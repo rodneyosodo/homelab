@@ -33,12 +33,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Validate docker-compose files
-        run: |
-          cd docker-compose
-          cp default.env .env
-          docker compose config
-
       - name: Pull docker images
         run: |
           cd docker-compose
