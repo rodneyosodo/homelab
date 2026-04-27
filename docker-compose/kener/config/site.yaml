@@ -32,7 +32,7 @@ hero:
   title: rodneyosodo services
   subtitle: Anything and everything that can break, will break. Be prepared.
 footerHTML: |
-  Made using 
+  Made using
   <a href="https://github.com/rajnandan1/kener" target="_blank" rel="noreferrer" class="font-medium underline underline-offset-4">
     Kener
   </a>

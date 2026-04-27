@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      gh-dependency:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "docker-compose"
+    directories: ["docker-compose", "docker-compose/*/"]
+    schedule:
+      interval: "monthly"
+    groups:
+      docker-dependency:
+        patterns:
+          - "*"

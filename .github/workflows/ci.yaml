@@ -1,0 +1,96 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - uses: pre-commit/action@v3.0.1
+
+  docker-compose:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Pull docker images
+        run: |
+          cd docker-compose
+          cp default.env .env
+          docker compose pull
+
+  terraform:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        machines: [bohr, galana, tana, turkwel, yala]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+
+      - name: Terraform fmt check
+        run: terraform fmt -check
+        working-directory: terraform/${{ matrix.machines }}
+
+      - name: Terraform init
+        run: terraform init -backend=false
+        working-directory: terraform/${{ matrix.machines }}
+
+      - name: Terraform validate
+        run: terraform validate
+        working-directory: terraform/${{ matrix.machines }}
+
+  ansible:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - name: Install ansible
+        run: pip install ansible-core
+
+      - name: Run ansible syntax check
+        working-directory: ansible
+        run: |
+          for playbook in playbooks/*.yaml; do
+            echo "Checking $playbook"
+            ansible-playbook --syntax-check "$playbook"
+          done
