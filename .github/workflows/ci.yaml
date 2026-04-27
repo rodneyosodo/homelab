@@ -50,7 +50,7 @@ jobs:
 
     strategy:
       matrix:
-        machines: [bohr, demo, galana, tana, turkwel, yala]
+        machines: [bohr, galana, tana, turkwel, yala]
 
     steps:
       - name: Checkout repository
