@@ -10,7 +10,7 @@ updates:
           - "*"
 
   - package-ecosystem: "docker-compose"
-    directories: ["docker-compose/*/"]
+    directories: ["docker-compose", "docker-compose/*/"]
     schedule:
       interval: "monthly"
     groups:
