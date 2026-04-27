@@ -1,7 +1,7 @@
 services:
   dawarich-app:
     container_name: dawarich-app
-    image: freikin/dawarich:1.3.1
+    image: freikin/dawarich:1.6.1
     volumes:
       - ~/docker-volumes/dawarich/public:/var/app/public
       - ~/docker-volumes/dawarich/watched:/var/app/tmp/imports/watched
@@ -71,7 +71,7 @@ services:
 
   dawarich-sidekiq:
     container_name: dawarich-sidekiq
-    image: freikin/dawarich:1.3.1
+    image: freikin/dawarich:1.6.1
     volumes:
       - ~/docker-volumes/dawarich/public:/var/app/public
       - ~/docker-volumes/dawarich/watched:/var/app/tmp/imports/watched
@@ -155,7 +155,7 @@ services:
 
   dawarich-redis:
     container_name: dawarich-redis
-    image: redis:7.4-alpine
+    image: redis:8.6-alpine
     restart: always
     networks:
       - homelab-network
