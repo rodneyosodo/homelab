@@ -41,7 +41,7 @@ services:
 
   rustfs-redis:
     container_name: rustfs-redis
-    image: redis:8.6-alpine
+    image: redis:7.4-alpine
     restart: unless-stopped
     networks:
       - homelab-network
