@@ -37,7 +37,7 @@ jobs:
         run: |
           cd docker-compose
           cp default.env .env
-          docker compose config -q
+          docker compose config
 
       - name: Pull docker images
         run: |
