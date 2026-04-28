@@ -1,28 +1,22 @@
 TEMPLATE_FILE = compose-template.yaml
 MAIN_COMPOSE = docker-compose.yaml
 
-.PHONY: start
-start:
+start: ## Start docker compose services
 	@docker compose -f $(MAIN_COMPOSE) --env-file .env up -d
 
-.PHONY: restart
-restart:
+restart: ## Restart docker compose services
 	@docker compose -f $(MAIN_COMPOSE) --env-file .env up -d --force-recreate
 
-.PHONY: stop
-stop:
+stop: ## Stop docker compose services
 	@docker compose -f $(MAIN_COMPOSE) --env-file .env down
 
-.PHONY: pull
-pull:
+pull: ## Pull latest images needed by docker compose services
 	@docker compose -f $(MAIN_COMPOSE) --env-file .env pull
 
-.PHONY: clean
-clean:
+clean: ## Stop docker composition and remove orphans
 	@docker compose -f $(MAIN_COMPOSE) --env-file .env down --remove-orphans
 
-.PHONY: generate
-generate:
+generate: ## Generate a compose file for new service
 	@if [ -z "$(service)" ]; then \
 		echo "Usage: make generate service=<service_name>"; \
 		exit 1; \
@@ -37,17 +31,9 @@ generate:
 	@echo "" >> $(MAIN_COMPOSE)
 	@echo "Docker-compose file for $(service) generated"
 
-.PHONY: help
-help:
+help: ## Show this help message
+	@which awk > /dev/null || (echo "awk not found. Please install it from https://www.gnu.org/software/gawk/manual/gawk.html" && exit 1)
+	@echo ""
 	@echo "This Makefile provides a set of commands to manage Docker Compose services."
 	@echo "It allows you to start, stop, restart, pull, and generate new services."
-	@echo ""
-	@echo "Usage: make [target]"
-	@echo ""
-	@echo "Targets:"
-	@echo "  start                           - Start the services"
-	@echo "  restart                         - Restart the services"
-	@echo "  stop                            - Stop the services"
-	@echo "  pull                            - Pull the latest images"
-	@echo "  generate service=<service_name> - Generate a new service eg: make generate service=demo"
-	@echo "  help                            - Display this help message"
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[$$()% a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-28s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
