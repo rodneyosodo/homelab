@@ -85,3 +85,6 @@ include:
   - path: ./rustfs/docker-compose.yaml
     project_directory: ..
     env_file: .env
+  - path: ./ollama/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
