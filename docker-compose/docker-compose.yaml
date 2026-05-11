@@ -88,3 +88,6 @@ include:
   - path: ./ollama/docker-compose.yaml
     project_directory: ..
     env_file: .env
+  - path: ./paperless/docker-compose.yaml
+    project_directory: ..
+    env_file: .env

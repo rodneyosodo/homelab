@@ -1,0 +1,160 @@
+services:
+  paperless:
+    container_name: paperless
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.20.15
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - PAPERLESS_TIME_ZONE=Africa/Nairobi
+      - PAPERLESS_SECRET_KEY=${PAPERLESS_SECRET_KEY}
+      - PAPERLESS_OCR_LANGUAGE=eng
+      - PAPERLESS_REDIS=${PAPERLESS_REDIS_URL}
+      - PAPERLESS_DBENGINE=postgresql
+      - PAPERLESS_DBHOST=paperless-db
+      - PAPERLESS_DBNAME=${PAPERLESS_POSTGRES_DB}
+      - PAPERLESS_DBUSER=${PAPERLESS_POSTGRES_USER}
+      - PAPERLESS_DBPASS=${PAPERLESS_POSTGRES_PASSWORD}
+      - PAPERLESS_TIKA_ENABLED=1
+      - PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3000
+      - PAPERLESS_TIKA_ENDPOINT=http://tika:9998
+    depends_on:
+      - paperless-db
+      - paperless-redis
+      - gotenberg
+      - tika
+    ports:
+      - 5030:8000
+    volumes:
+      - ~/docker-volumes/paperless/data:/usr/src/paperless/data
+      - ~/docker-volumes/paperless/media:/usr/src/paperless/media
+      - ~/docker-volumes/paperless/export:/usr/src/paperless/export
+      - ~/docker-volumes/paperless/consume:/usr/src/paperless/consume
+
+  paperless-db:
+    container_name: paperless-db
+    image: postgres:18
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ~/docker-volumes/paperless/db:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=${PAPERLESS_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${PAPERLESS_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${PAPERLESS_POSTGRES_DB}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U '${PAPERLESS_POSTGRES_USER}' -d '${PAPERLESS_POSTGRES_DB}'",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  paperless-redis:
+    container_name: paperless-redis
+    image: redis:8
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    command: /bin/sh -c "redis-server --requirepass ${PAPERLESS_REDIS_PASSWORD}"
+    volumes:
+      - ~/docker-volumes/paperless/redis:/data
+    environment:
+      - REDIS_PASSWORD=${PAPERLESS_REDIS_PASSWORD}
+
+  gotenberg:
+    container_name: gotenberg
+    image: docker.io/gotenberg/gotenberg:8.27
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    command:
+      - "gotenberg"
+      - "--chromium-disable-javascript=true"
+      - "--chromium-allow-list=file:///tmp/.*"
+
+  tika:
+    container_name: tika
+    image: docker.io/apache/tika:latest
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+
+  paperless-ai:
+    container_name: paperless-ai
+    image: clusterzx/paperless-ai:latest
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      - ollama
+      - paperless
+    ports:
+      - 5031:3000
+    environment:
+      - TZ=Africa/Nairobi
+      - PAPERLESS_API_URL=http://paperless:8000/api
+      - PAPERLESS_API_TOKEN=${PAPERLESS_API_TOKEN}
+      - PAPERLESS_USERNAME=${PAPERLESS_USERNAME}
+      - AI_PROVIDER=ollama
+      - OLLAMA_API_URL=http://ollama:11434
+      - OLLAMA_MODEL=llama3.2:3b
+      - RAG_SERVICE_URL=http://localhost:8000
+      - RAG_SERVICE_ENABLED=true
+      - SCAN_INTERVAL=*/30 * * * *
+      - PAPERLESS_URL=http://paperless:8000/api
+    volumes:
+      - ~/docker-volumes/paperless/ai/data:/app/data
+
+  paperless-gpt:
+    container_name: paperless-gpt
+    image: icereed/paperless-gpt:v0.25.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      - ollama
+      - paperless
+    ports:
+      - 5032:8080
+    environment:
+      - TZ=Africa/Nairobi
+      - PAPERLESS_BASE_URL=http://paperless:8000
+      - PAPERLESS_API_TOKEN=${PAPERLESS_API_TOKEN}
+      - PAPERLESS_PUBLIC_URL=${PAPERLESS_PUBLIC_URL}
+      - LLM_PROVIDER=ollama
+      - LLM_MODEL=llama3.2:3b
+      - OLLAMA_HOST=http://ollama:11434
+      - OLLAMA_CONTEXT_LENGTH=8192
+      - TOKEN_LIMIT=1000
+      - LLM_LANGUAGE=English
+      - OCR_PROVIDER=llm
+      - VISION_LLM_PROVIDER=ollama
+      - VISION_LLM_MODEL=minicpm-v:8b
+      - AUTO_OCR_TAG=paperless-gpt-ocr-auto
+      - AUTO_TAG=paperless-gpt-auto
+      - MANUAL_TAG=paperless-gpt-manual
+      - PDF_OCR_TAGGING=true
+      - PDF_OCR_COMPLETE_TAG=paperless-gpt-ocr-complete
+      - PDF_UPLOAD=false
+      - PDF_REPLACE=false
+      - LOG_LEVEL=info
+    volumes:
+      - ~/docker-volumes/paperless/gpt/prompts:/app/prompts
