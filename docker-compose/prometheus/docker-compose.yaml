@@ -1,7 +1,7 @@
 services:
   prometheus:
     container_name: prometheus
-    image: prom/prometheus:v3.10.0
+    image: prom/prometheus:v3.11.3
     restart: unless-stopped
     networks:
       - homelab-network
