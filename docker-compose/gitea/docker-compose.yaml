@@ -22,6 +22,7 @@ services:
       - GITEA__mailer__USER=${SMTP_NAME}
       - GITEA__mailer__PASSWD="""${SMTP_PASSWORD}"""
       - GITEA__service__DISABLE_REGISTRATION=true
+      - GITEA_RUNNER_REGISTRATION_TOKEN=${GITEA_RUNNER_REGISTRATION_TOKEN}
     volumes:
       - ~/docker-volumes/gitea/data:/data/
       - /etc/timezone:/etc/timezone:ro
@@ -29,6 +30,12 @@ services:
     ports:
       - 4020:3000
       - 4021:22
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://git.rodneyosodo.com"]
+      interval: 10s
+      retries: 3
+      start_period: 30s
+      timeout: 10s
 
   gitea-db:
     container_name: gitea-db
@@ -53,3 +60,22 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  gitea-runner:
+    container_name: gitea-runner
+    image: gitea/runner:1.0.3
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - GITEA_INSTANCE_URL=https://git.rodneyosodo.com
+      - GITEA_RUNNER_REGISTRATION_TOKEN=${GITEA_RUNNER_REGISTRATION_TOKEN}
+    volumes:
+      - ~/docker-volumes/gitea/runner/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      gitea:
+        condition: service_healthy
+        restart: true
