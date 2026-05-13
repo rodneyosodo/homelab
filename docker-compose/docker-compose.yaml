@@ -61,9 +61,6 @@ include:
   - path: ./hedgedoc/docker-compose.yaml
     project_directory: ..
     env_file: .env
-  - path: ./linkwarden/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
   - path: ./kener/docker-compose.yaml
     project_directory: ..
     env_file: .env
