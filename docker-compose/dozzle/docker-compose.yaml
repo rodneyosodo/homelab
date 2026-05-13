@@ -1,7 +1,7 @@
 services:
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v10.5.2
+    image: amir20/dozzle:v10.5.3
     restart: unless-stopped
     networks:
       - homelab-network
@@ -9,7 +9,10 @@ services:
       - no-new-privileges:true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ~/docker-volumes/dozzle/data:/data
     ports:
       - 3070:8080
     environment:
       - DOZZLE_NO_ANALYTICS=true
+      - DOZZLE_ENABLE_ACTIONS=true
+      - DOZZLE_ENABLE_SHELL=true
