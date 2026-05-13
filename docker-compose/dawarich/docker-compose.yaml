@@ -45,7 +45,6 @@ services:
       - SMTP_USERNAME=${SMTP_NAME}
       - SMTP_PASSWORD=${SMTP_PASSWORD}
       - SMTP_FROM=${MAIL_FROM_ADDRESS}
-
     healthcheck:
       test:
         [
@@ -109,7 +108,6 @@ services:
       - SMTP_USERNAME=${SMTP_NAME}
       - SMTP_PASSWORD=${SMTP_PASSWORD}
       - SMTP_FROM=${MAIL_FROM_ADDRESS}
-
     healthcheck:
       test: ["CMD-SHELL", "pgrep -f sidekiq"]
       interval: 10s
@@ -161,11 +159,9 @@ services:
       - homelab-network
     security_opt:
       - no-new-privileges:true
-    command: /bin/sh -c "redis-server --requirepass ${DAWARICH_REDIS_PASSWORD}"
+    command: /bin/sh -c "redis-server --save 900 1 --save 300 10 --appendonly no --requirepass ${DAWARICH_REDIS_PASSWORD}"
     volumes:
       - ~/docker-volumes/dawarich/redis:/data
-    # ports:
-    #   - 5001:6379
     environment:
       - REDIS_PASSWORD=${DAWARICH_REDIS_PASSWORD}
     healthcheck:
