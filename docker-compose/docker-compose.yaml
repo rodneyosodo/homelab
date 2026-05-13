@@ -13,9 +13,6 @@ include:
   - path: ./portainer/docker-compose.yaml
     project_directory: ..
     env_file: .env
-  - path: ./uptime-kuma/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
   - path: ./heimdall/docker-compose.yaml
     project_directory: ..
     env_file: .env
