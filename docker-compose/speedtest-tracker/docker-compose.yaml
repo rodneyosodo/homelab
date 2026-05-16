@@ -1,7 +1,7 @@
 services:
   speedtest-tracker:
     container_name: speedtest-tracker
-    image: linuxserver/speedtest-tracker:1.14.0
+    image: linuxserver/speedtest-tracker:1.14.1
     restart: unless-stopped
     networks:
       - homelab-network
@@ -24,7 +24,7 @@ services:
       - APP_TIMEZONE=Africa/Nairobi
       - DISPLAY_TIMEZONE=Africa/Nairobi
       - SPEEDTEST_SCHEDULE="*/15 * * * *"
-      - SPEEDTEST_SERVERS="9072,39001,14389"
+      - SPEEDTEST_SERVERS="8402,37726,38255"
     volumes:
       - ~/docker-volumes/speedtest-tracker/config:/config
       - ~/docker-volumes/speedtest-tracker/web:/etc/ssl/web
