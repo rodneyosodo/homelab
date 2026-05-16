@@ -1,7 +1,7 @@
 services:
   vaultwarden:
     container_name: vaultwarden
-    image: vaultwarden/server:1.35.8
+    image: vaultwarden/server:1.36.0
     restart: unless-stopped
     networks:
       - homelab-network
