@@ -17,3 +17,8 @@ services:
       - GID=1000
       - OG_EXTERNAL_URL=https://gist.rodneyosodo.com
       - OG_GIT_DEFAULT_BRANCH=main
+      - OG_METRICS_ENABLED=true
+      - OG_METRICS_HOST=0.0.0.0
+      - OG_METRICS_PORT=3021
+      - OG_SSH_GIT_ENABLED=false
+      - OG_LOG_LEVEL=warn
