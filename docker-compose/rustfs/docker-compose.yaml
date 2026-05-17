@@ -38,23 +38,3 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-
-  rustfs-redis:
-    container_name: rustfs-redis
-    image: redis:7.4-alpine
-    restart: unless-stopped
-    networks:
-      - homelab-network
-    security_opt:
-      - no-new-privileges:true
-    command: /bin/sh -c "redis-server --requirepass ${RUSTFS_REDIS_PASSWORD}"
-    volumes:
-      - ~/docker-volumes/rustfs/redis:/data
-    environment:
-      - REDIS_PASSWORD=${RUSTFS_REDIS_PASSWORD}
-    healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 10s
