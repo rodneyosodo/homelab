@@ -15,4 +15,4 @@ scrape_configs:
   - job_name: cloudflared
     static_configs:
       - targets:
-          - bohr:4090
+          - cloudflared:4090

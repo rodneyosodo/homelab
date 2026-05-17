@@ -10,5 +10,6 @@ services:
     ports:
       - 4081:9090
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
       - ./docker-compose/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ~/docker-volumes/prometheus/data:/prometheus
