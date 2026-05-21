@@ -49,8 +49,6 @@ services:
       - ~/docker-volumes/immich/cache:/cache
     healthcheck:
       disable: false
-    devices:
-      - /dev/dri:/dev/dri
 
   immich-postgres:
     container_name: immich-postgres
