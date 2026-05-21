@@ -15,10 +15,17 @@ services:
       - KENER_SECRET_KEY=${KENER_SECRET_KEY}
       - ORIGIN=${KENER_ORIGIN}
       - DATABASE_URL=${KENER_POSTGRES_URL}
+      - REDIS_URL=${KENER_REDIS_URL}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_NAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - SMTP_SENDER=${MAIL_FROM_ADDRESS}
+      - SMTP_SECURE=1
     ports:
       - 4040:4040
     volumes:
-      - ~/docker-volumes/kener/uploads:/app/uploads:rw
+      - ~/docker-volumes/kener/data:/app/database
 
   kener-db:
     container_name: kener-db
@@ -43,3 +50,17 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  kener-redis:
+    container_name: kener-redis
+    image: redis:8-alpine
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    command: /bin/sh -c "redis-server --requirepass ${KENER_REDIS_PASSWORD}"
+    volumes:
+      - ~/docker-volumes/kener/redis:/data
+    environment:
+      - REDIS_PASSWORD=${KENER_REDIS_PASSWORD}
