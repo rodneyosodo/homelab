@@ -13,7 +13,7 @@ services:
       - no-new-privileges:true
     ports:
       - 5000:5000
-      - 9394:9394 # Prometheus exporter, uncomment if needed
+      - 9394:9394
     stdin_open: true
     tty: true
     entrypoint: web-entrypoint.sh
@@ -32,9 +32,11 @@ services:
       - TIME_ZONE=Africa/Nairobi
       - DISTANCE_UNIT=km
       - APPLICATION_PROTOCOL=http
-      - PROMETHEUS_EXPORTER_ENABLED=false
+      - PROMETHEUS_EXPORTER_ENABLED=true
       - PROMETHEUS_EXPORTER_HOST=0.0.0.0
       - PROMETHEUS_EXPORTER_PORT=9394
+      - METRICS_USERNAME=${DAWARICH_METRICS_USERNAME}
+      - METRICS_PASSWORD=${DAWARICH_METRICS_PASSWORD}
       - SECRET_KEY_BASE=${DAWARICH_SECRET_KEY_BASE}
       - RAILS_LOG_TO_STDOUT="true"
       - SELF_HOSTED=true
@@ -95,9 +97,11 @@ services:
       - APPLICATION_HOSTS=${DAWARICH_APPLICATION_HOSTS}
       - BACKGROUND_PROCESSING_CONCURRENCY=10
       - APPLICATION_PROTOCOL=http
-      - PROMETHEUS_EXPORTER_ENABLED=false
-      - PROMETHEUS_EXPORTER_HOST=dawarich-app
+      - PROMETHEUS_EXPORTER_ENABLED=true
+      - PROMETHEUS_EXPORTER_HOST=dawarich-sidekiq
       - PROMETHEUS_EXPORTER_PORT=9394
+      - METRICS_USERNAME=${DAWARICH_METRICS_USERNAME}
+      - METRICS_PASSWORD=${DAWARICH_METRICS_PASSWORD}
       - SECRET_KEY_BASE=${DAWARICH_SECRET_KEY_BASE}
       - RAILS_LOG_TO_STDOUT="true"
       - SELF_HOSTED=true

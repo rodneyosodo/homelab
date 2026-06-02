@@ -21,3 +21,4 @@ scrape_configs:
     static_configs:
       - targets:
           - dawarich-app:9394
+          - dawarich-sidekiq:9394
