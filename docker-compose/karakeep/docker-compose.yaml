@@ -20,6 +20,10 @@ services:
       - MEILI_MASTER_KEY=${KARAKEEP_MEILI_MASTER_KEY}
       - BROWSER_WEB_URL=http://karakeep-chrome:9222
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_API_KEY=ollama
+      - OPENAI_BASE_URL=http://ollama:11434/v1
+      - INFERENCE_TEXT_MODEL=llama3.2:3b
+      - INFERENCE_IMAGE_MODEL=minicpm-v:8b
       - DATA_DIR=/data
       - DISABLE_SIGNUPS=false
       - CRAWLER_STORE_SCREENSHOT=true
