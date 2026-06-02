@@ -15,6 +15,8 @@ services:
       - CMD_DOMAIN=${HEDGEDOC_DOMAIN_URL}
       - CMD_SESSION_SECRET=${HEDGEDOC_SESSION_SECRET}
       - CMD_DB_URL=${HEDGEDOC_POSTGRES_URL}
+      - NODE_ENV=production
+      - DEBUG=false
     volumes:
       - ~/docker-volumes/hedgedoc/uploads:/hedgedoc/public/uploads
     ports:
