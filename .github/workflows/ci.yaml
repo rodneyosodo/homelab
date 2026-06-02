@@ -44,7 +44,7 @@ jobs:
         run: |
           cd docker-compose
           cp default.env .env
-          docker compose pull
+          make validate
 
   terraform:
     runs-on: ubuntu-latest
