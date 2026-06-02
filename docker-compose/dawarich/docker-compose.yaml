@@ -1,7 +1,7 @@
 services:
   dawarich-app:
     container_name: dawarich-app
-    image: freikin/dawarich:1.7.11
+    image: docker.io/freikin/dawarich:1.7.11
     volumes:
       - ~/docker-volumes/dawarich/public:/var/app/public
       - ~/docker-volumes/dawarich/watched:/var/app/tmp/imports/watched
@@ -70,7 +70,7 @@ services:
 
   dawarich-sidekiq:
     container_name: dawarich-sidekiq
-    image: freikin/dawarich:1.7.11
+    image: docker.io/freikin/dawarich:1.7.11
     volumes:
       - ~/docker-volumes/dawarich/public:/var/app/public
       - ~/docker-volumes/dawarich/watched:/var/app/tmp/imports/watched
@@ -127,7 +127,7 @@ services:
 
   dawarich-db:
     container_name: dawarich-db
-    image: postgis/postgis:17-3.5-alpine
+    image: docker.io/postgis/postgis:17-3.5-alpine
     restart: always
     networks:
       - homelab-network
@@ -153,7 +153,7 @@ services:
 
   dawarich-redis:
     container_name: dawarich-redis
-    image: redis:7.4-alpine
+    image: docker.io/redis:7.4-alpine
     restart: always
     networks:
       - homelab-network

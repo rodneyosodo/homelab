@@ -24,7 +24,7 @@ services:
 
   hedgedoc-db:
     container_name: hedgedoc-db
-    image: postgres:16.1
+    image: docker.io/postgres:16.1
     restart: unless-stopped
     networks:
       - homelab-network

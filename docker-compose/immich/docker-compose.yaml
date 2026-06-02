@@ -69,7 +69,7 @@ services:
 
   immich-redis:
     container_name: immich-redis
-    image: redis:7.2.5
+    image: docker.io/redis:7.2.5
     restart: unless-stopped
     networks:
       - homelab-network

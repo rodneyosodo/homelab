@@ -35,7 +35,7 @@ services:
 
   paperless-db:
     container_name: paperless-db
-    image: postgres:18
+    image: docker.io/postgres:18
     restart: unless-stopped
     networks:
       - homelab-network
@@ -59,7 +59,7 @@ services:
 
   paperless-redis:
     container_name: paperless-redis
-    image: redis:8
+    image: docker.io/redis:8
     restart: unless-stopped
     networks:
       - homelab-network
@@ -95,7 +95,7 @@ services:
 
   paperless-ai:
     container_name: paperless-ai
-    image: clusterzx/paperless-ai:latest
+    image: docker.io/clusterzx/paperless-ai:latest
     restart: unless-stopped
     networks:
       - homelab-network
@@ -123,7 +123,7 @@ services:
 
   paperless-gpt:
     container_name: paperless-gpt
-    image: icereed/paperless-gpt:v0.25.1
+    image: docker.io/icereed/paperless-gpt:v0.25.1
     restart: unless-stopped
     networks:
       - homelab-network

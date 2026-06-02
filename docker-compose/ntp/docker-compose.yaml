@@ -1,7 +1,7 @@
 services:
   ntp:
     container_name: ntp
-    image: cturra/ntp:latest
+    image: docker.io/cturra/ntp:latest
     restart: unless-stopped
     networks:
       - homelab-network

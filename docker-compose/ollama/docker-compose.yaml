@@ -1,7 +1,7 @@
 services:
   ollama:
     container_name: ollama
-    image: ollama/ollama:0.24.0
+    image: docker.io/ollama/ollama:0.24.0
     restart: unless-stopped
     networks:
       - homelab-network

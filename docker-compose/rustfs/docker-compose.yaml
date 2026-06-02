@@ -1,7 +1,7 @@
 services:
   rustfs:
     container_name: rustfs
-    image: rustfs/rustfs:latest
+    image: docker.io/rustfs/rustfs:latest
     restart: unless-stopped
     networks:
       - homelab-network

@@ -1,7 +1,7 @@
 services:
   speedtest-tracker:
     container_name: speedtest-tracker
-    image: linuxserver/speedtest-tracker:1.14.3
+    image: docker.io/linuxserver/speedtest-tracker:1.14.3
     restart: unless-stopped
     networks:
       - homelab-network
@@ -33,7 +33,7 @@ services:
 
   speedtest-tracker-db:
     container_name: speedtest-tracker-db
-    image: postgres:16.1
+    image: docker.io/postgres:16.1
     restart: unless-stopped
     networks:
       - homelab-network
