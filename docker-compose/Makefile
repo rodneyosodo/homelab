@@ -31,6 +31,24 @@ generate: ## Generate a compose file for new service
 	@echo "" >> $(MAIN_COMPOSE)
 	@echo "Docker-compose file for $(service) generated"
 
+validate: ## Validate that all images in docker compose config exist in registry
+	@IMAGES=$$(docker compose config --images); \
+	FAILED=0; \
+	for IMG in $$IMAGES; do \
+		echo "Checking if image exists in registry: $$IMG"; \
+		if docker manifest inspect "$$IMG" >/dev/null 2>&1; then \
+			echo "✅ Valid: $$IMG exists in the registry."; \
+		else \
+			echo "❌ Invalid: $$IMG could not be found or accessed."; \
+			FAILED=1; \
+		fi; \
+	done; \
+	if [ $$FAILED -ne 0 ]; then \
+		echo "Error: One or more Docker Compose images are invalid in the registry."; \
+		exit 1; \
+	fi; \
+	echo "All images are valid. Proceeding with CI pipeline."
+
 help: ## Show this help message
 	@which awk > /dev/null || (echo "awk not found. Please install it from https://www.gnu.org/software/gawk/manual/gawk.html" && exit 1)
 	@echo ""
