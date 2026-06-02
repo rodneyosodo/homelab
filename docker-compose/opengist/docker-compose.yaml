@@ -8,7 +8,8 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
-      - 3020:6157 # HTTP port
+      - 3020:6157
+      - 3021:3021
       # - 2222:2222 # SSH port, can be removed if you don't use SSH
     volumes:
       - ~/docker-volumes/opengist:/opengist

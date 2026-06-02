@@ -22,3 +22,13 @@ scrape_configs:
       - targets:
           - dawarich-app:9394
           - dawarich-sidekiq:9394
+
+  - job_name: endlessh
+    static_configs:
+      - targets:
+          - endlessh:2112
+
+  - job_name: opengist
+    static_configs:
+      - targets:
+          - opengist:3021
