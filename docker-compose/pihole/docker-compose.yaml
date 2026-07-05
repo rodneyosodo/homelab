@@ -40,3 +40,22 @@ services:
       - 2052:53/udp
     security_opt:
       - no-new-privileges:true
+
+  pihole-exporter:
+    container_name: pihole-exporter
+    image: docker.io/ekofr/pihole-exporter:v1.2.0
+    restart: unless-stopped
+    networks:
+      homelab-network:
+        ipv4_address: 172.30.0.110
+    environment:
+      - PIHOLE_HOSTNAME=172.30.0.100
+      - PIHOLE_PASSWORD=${PIHOLE_WEBPASSWORD}
+      - PORT=2051
+      - PIHOLE_PORT=80
+      - PIHOLE_PROTOCOL=http
+      - INTERVAL=30s
+    ports:
+      - 2051:2051
+    security_opt:
+      - no-new-privileges:true
