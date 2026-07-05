@@ -1,0 +1,20 @@
+services:
+  victoria-metrics:
+    container_name: victoria-metrics
+    image: docker.io/victoriametrics/victoria-metrics:v1.146.0
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 4082:4082
+    volumes:
+      - ./docker-compose/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ~/docker-volumes/victoria-metrics/data:/storage
+    command:
+      - -storageDataPath=/storage
+      - -retentionPeriod=90d
+      - -promscrape.config=/etc/prometheus/prometheus.yml
+      - -promscrape.config.strictParse=false
+      - -httpListenAddr=:4082

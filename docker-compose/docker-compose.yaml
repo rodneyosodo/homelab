@@ -85,3 +85,12 @@ include:
   - path: ./paperless/docker-compose.yaml
     project_directory: ..
     env_file: .env
+  - path: ./node-exporter/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
+  - path: ./victoria-metrics/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
+  - path: ./grafana/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
