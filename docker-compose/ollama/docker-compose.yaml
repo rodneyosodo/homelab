@@ -16,27 +16,6 @@ services:
       - ~/docker-volumes/ollama/data:/root/.ollama
       - ~/docker-volumes/ollama/models:/ollama-models
 
-  ollama-exporter:
-    container_name: ollama-exporter
-    image: ghcr.io/maravexa/ollama-exporter:v0.1.2
-    restart: unless-stopped
-    networks:
-      - homelab-network
-    security_opt:
-      - no-new-privileges:true
-    environment:
-      - OLLAMA_URL=http://ollama:11434
-      - LISTEN_ADDR=:5021
-      - POLL_INTERVAL=15s
-      - LOG_LEVEL=info
-      - PROXY_ENABLED=true
-      - PROXY_LISTEN_ADDR=:5022
-    ports:
-      - 5021:5021 # Metrics
-      - 5022:5022 # Proxy
-    depends_on:
-      - ollama
-
   open-webui:
     container_name: open-webui
     image: ghcr.io/open-webui/open-webui:v0.9.5
@@ -47,7 +26,7 @@ services:
       - no-new-privileges:true
     environment:
       - TZ=Africa/Nairobi
-      - OLLAMA_BASE_URL=http://ollama-exporter:5022
+      - OLLAMA_BASE_URL=http://ollama:11434
     depends_on:
       - ollama
     ports:

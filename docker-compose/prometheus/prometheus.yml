@@ -42,8 +42,3 @@ scrape_configs:
     static_configs:
       - targets:
           - pihole-exporter:2051
-
-  - job_name: ollama-exporter
-    static_configs:
-      - targets:
-          - ollama-exporter:5021
