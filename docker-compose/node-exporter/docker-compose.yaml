@@ -1,0 +1,20 @@
+services:
+  node-exporter:
+    container_name: node-exporter
+    image: docker.io/prom/node-exporter:v1.11.1
+    restart: unless-stopped
+    network_mode: host
+    pid: host
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /run/udev/data:/run/udev/data:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - --web.listen-address=:5040
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --path.rootfs=/rootfs
+      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
