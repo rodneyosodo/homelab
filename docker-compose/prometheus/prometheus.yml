@@ -32,3 +32,18 @@ scrape_configs:
     static_configs:
       - targets:
           - opengist:3021
+
+  - job_name: node
+    static_configs:
+      - targets:
+          - 192.168.100.32:5040
+
+  - job_name: pihole-exporter
+    static_configs:
+      - targets:
+          - pihole-exporter:2051
+
+  - job_name: ollama-exporter
+    static_configs:
+      - targets:
+          - ollama-exporter:5021
