@@ -73,7 +73,7 @@ services:
 
   gotenberg:
     container_name: gotenberg
-    image: docker.io/gotenberg/gotenberg:8.33
+    image: docker.io/gotenberg/gotenberg:8.34
     restart: unless-stopped
     networks:
       - homelab-network
