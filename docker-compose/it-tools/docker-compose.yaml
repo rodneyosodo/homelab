@@ -1,0 +1,11 @@
+services:
+  it-tools:
+    container_name: it-tools
+    image: docker.io/corentinth/it-tools:latest
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 5050:80

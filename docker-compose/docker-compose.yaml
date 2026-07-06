@@ -94,3 +94,6 @@ include:
   - path: ./grafana/docker-compose.yaml
     project_directory: ..
     env_file: .env
+  - path: ./it-tools/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
