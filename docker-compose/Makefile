@@ -16,7 +16,7 @@ pull: ## Pull latest images needed by docker compose services
 clean: ## Stop docker composition and remove orphans
 	@docker compose -f $(MAIN_COMPOSE) --env-file .env down --remove-orphans
 
-generate: ## Generate a compose file for new service
+generate: ## Generate a compose file for new service i.e \033[33mmake generate service=<service_name>\033[0m
 	@if [ -z "$(service)" ]; then \
 		echo "Usage: make generate service=<service_name>"; \
 		exit 1; \
@@ -54,4 +54,4 @@ help: ## Show this help message
 	@echo ""
 	@echo "This Makefile provides a set of commands to manage Docker Compose services."
 	@echo "It allows you to start, stop, restart, pull, and generate new services."
-	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[$$()% a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-28s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[$$()% a-zA-Z_-]+:.*?##/ { gsub(/\\033/, "\033", $$2); printf "  \033[36m%-28s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
