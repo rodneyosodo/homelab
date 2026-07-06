@@ -1,0 +1,21 @@
+services:
+  obsidian:
+    container_name: obsidian
+    image: lscr.io/linuxserver/obsidian:1.12.7
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    shm_size: 1gb
+    volumes:
+      - ~/docker-volumes/obsidian/config:/config
+    ports:
+      - 5080:5080
+      - 5081:5081
+    environment:
+      - TZ=Africa/Nairobi
+      - PGID=1000
+      - PUID=1000
+      - CUSTOM_PORT=5080
+      - CUSTOM_HTTPS_PORT=5081
