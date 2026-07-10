@@ -1,0 +1,47 @@
+services:
+  trek:
+    container_name: trek
+    image: docker.io/mauriceboe/trek:3.2.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+    tmpfs:
+      - /tmp:noexec,nosuid,size=128m
+    ports:
+      - "5090:5090"
+    environment:
+      - NODE_ENV=production
+      - PORT=5090
+      - ENCRYPTION_KEY=${TREK_ENCRYPTION_KEY}
+      - TZ=Africa/Nairobi
+      - LOG_LEVEL=info
+      - DEFAULT_LANGUAGE=en
+      - SESSION_DURATION=30d
+      - SESSION_DURATION_REMEMBER=30d
+      - ALLOWED_ORIGINS=${TREK_PUBLIC_URL}
+      - FORCE_HTTPS=true
+      - HSTS_INCLUDE_SUBDOMAINS=true
+      - COOKIE_SECURE=false
+      - TRUST_PROXY=1
+      - ALLOW_INTERNAL_NETWORK=true
+      - APP_URL=${TREK_PUBLIC_URL}
+      - ADMIN_EMAIL=${TREK_ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${TREK_ADMIN_PASSWORD}
+    volumes:
+      - ~/docker-volumes/trek/data:/app/data
+      - ~/docker-volumes/trek/uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
