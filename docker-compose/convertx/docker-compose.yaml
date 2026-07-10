@@ -1,0 +1,20 @@
+services:
+  convertx:
+    container_name: convertx
+    image: ghcr.io/c4illin/convertx:v0.18.0
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "6010:3000"
+    environment:
+      - ACCOUNT_REGISTRATION=false
+      - JWT_SECRET=${CONVERTX_JWT_SECRET}
+      - HTTP_ALLOWED=true
+      - ALLOW_UNAUTHENTICATED=false
+      - AUTO_DELETE_EVERY_N_HOURS=24
+      - TZ=Africa/Nairobi
+    volumes:
+      - ~/docker-volumes/convertx/data:/app/data

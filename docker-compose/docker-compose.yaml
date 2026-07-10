@@ -103,3 +103,6 @@ include:
   - path: ./trek/docker-compose.yaml
     project_directory: ..
     env_file: .env
+  - path: ./convertx/docker-compose.yaml
+    project_directory: ..
+    env_file: .env
