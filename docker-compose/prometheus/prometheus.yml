@@ -10,18 +10,12 @@ scrape_configs:
     scheme: http
     static_configs:
       - targets:
-          - localhost:9090
+          - localhost:4082
 
   - job_name: cloudflared
     static_configs:
       - targets:
           - cloudflared:4090
-
-  - job_name: dawarich-app
-    static_configs:
-      - targets:
-          - dawarich-app:9394
-          - dawarich-sidekiq:9394
 
   - job_name: endlessh
     static_configs:
