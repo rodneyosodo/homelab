@@ -70,9 +70,6 @@ include:
   - path: ./karakeep/docker-compose.yaml
     project_directory: ..
     env_file: .env
-  - path: ./prometheus/docker-compose.yaml
-    project_directory: ..
-    env_file: .env
   - path: ./dawarich/docker-compose.yaml
     project_directory: ..
     env_file: .env

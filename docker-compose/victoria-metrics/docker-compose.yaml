@@ -10,7 +10,7 @@ services:
     ports:
       - 4082:4082
     volumes:
-      - ./docker-compose/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./docker-compose/victoria-metrics/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ~/docker-volumes/victoria-metrics/data:/storage
     command:
       - -storageDataPath=/storage
