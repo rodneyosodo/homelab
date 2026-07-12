@@ -18,7 +18,7 @@ services:
       - immich-redis
       - immich-postgres
     environment:
-      - IMMICH_VERSION=v2.3.1
+      - IMMICH_VERSION=v3
       - TZ=Africa/Nairobi
       - REDIS_HOSTNAME=immich-redis
       - REDIS_PORT=6379
@@ -52,7 +52,7 @@ services:
 
   immich-postgres:
     container_name: immich-postgres
-    image: ghcr.io/immich-app/postgres:16-vectorchord0.4.3-pgvectors0.2.0
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
     restart: unless-stopped
     networks:
       - homelab-network
@@ -64,12 +64,13 @@ services:
       - POSTGRES_DB=${IMMICH_POSTGRES_DB}
       - POSTGRES_INITDB_ARGS="--data-checksums"
       - DB_STORAGE_TYPE=HDD
+    shm_size: 128mb
     volumes:
       - ~/docker-volumes/immich/postgres-data:/var/lib/postgresql/data
 
   immich-redis:
     container_name: immich-redis
-    image: docker.io/redis:8.8.0
+    image: docker.io/redis:7.2.5
     restart: unless-stopped
     networks:
       - homelab-network
