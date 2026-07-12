@@ -1,7 +1,7 @@
 services:
   pihole:
     container_name: pihole
-    image: docker.io/pihole/pihole:2026.05.0
+    image: docker.io/pihole/pihole:2026.06.0
     restart: unless-stopped
     networks:
       homelab-network:
