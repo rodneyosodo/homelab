@@ -1,0 +1,45 @@
+services:
+  bajeti-backend:
+    container_name: bajeti-backend
+    image: ghcr.io/rodneyosodo/bajeti/backend:0.2.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 6020:6020
+    volumes:
+      - ~/docker-volumes/bajeti/db:/app/data
+    environment:
+      BAJETI_PORT: 6020
+      BAJETI_DB_FILE_NAME: /app/data/bajeti.db
+      BAJETI_FRONTEND_URL: ${BAJETI_FRONTEND_URL}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -qO- http://127.0.0.1:6020/ | grep -qc 'Bajeti API'",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  bajeti-dashboard:
+    container_name: bajeti-dashboard
+    image: ghcr.io/rodneyosodo/bajeti/dashboard:0.2.1
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 6021:80
+    environment:
+      VITE_BETTER_AUTH_URL: ${VITE_BETTER_AUTH_URL}
+    depends_on:
+      bajeti-backend:
+        condition: service_healthy
