@@ -36,6 +36,8 @@ services:
       - APP_URL=${TREK_PUBLIC_URL}
       - ADMIN_EMAIL=${TREK_ADMIN_EMAIL}
       - ADMIN_PASSWORD=${TREK_ADMIN_PASSWORD}
+      - MCP_RATE_LIMIT=10000
+      - MCP_MAX_SESSION_PER_USER=1000
     volumes:
       - ~/docker-volumes/trek/data:/app/data
       - ~/docker-volumes/trek/uploads:/app/uploads
