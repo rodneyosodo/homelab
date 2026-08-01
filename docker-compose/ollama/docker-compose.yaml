@@ -1,7 +1,7 @@
 services:
   ollama:
     container_name: ollama
-    image: docker.io/ollama/ollama:0.31.1
+    image: docker.io/ollama/ollama:0.32.5
     restart: unless-stopped
     networks:
       - homelab-network
@@ -18,7 +18,7 @@ services:
 
   open-webui:
     container_name: open-webui
-    image: ghcr.io/open-webui/open-webui:v0.10.2
+    image: ghcr.io/open-webui/open-webui:v0.11.0
     restart: unless-stopped
     networks:
       - homelab-network
