@@ -1,7 +1,7 @@
 services:
   bajeti-backend:
     container_name: bajeti-backend
-    image: ghcr.io/rodneyosodo/bajeti/backend:0.3.2
+    image: ghcr.io/rodneyosodo/bajeti/backend:0.4.0
     restart: unless-stopped
     networks:
       - homelab-network
@@ -25,6 +25,9 @@ services:
       BAJETI_BACKUP_DIR: /app/data/backups
       BAJETI_BACKUP_RETENTION_DAYS: 30
       BAJETI_BACKUP_CRON_SCHEDULE: 0 2 * * *
+      BAJETI_TELEGRAM_BOT_TOKEN: ${BAJETI_TELEGRAM_BOT_TOKEN}
+      BAJETI_TELEGRAM_WEBHOOK_SECRET: ${BAJETI_TELEGRAM_WEBHOOK_SECRET}
+      BAJETI_TELEGRAM_WEBHOOK_PATH: ${BAJETI_TELEGRAM_WEBHOOK_PATH:-/api/telegram/webhook}
     healthcheck:
       test:
         [
@@ -38,7 +41,7 @@ services:
 
   bajeti-dashboard:
     container_name: bajeti-dashboard
-    image: ghcr.io/rodneyosodo/bajeti/dashboard:0.3.2
+    image: ghcr.io/rodneyosodo/bajeti/dashboard:0.4.0
     restart: unless-stopped
     networks:
       - homelab-network
