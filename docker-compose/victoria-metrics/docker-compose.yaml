@@ -1,7 +1,7 @@
 services:
   victoria-metrics:
     container_name: victoria-metrics
-    image: docker.io/victoriametrics/victoria-metrics:v1.146.0
+    image: docker.io/victoriametrics/victoria-metrics:v1.149.0
     restart: unless-stopped
     networks:
       - homelab-network
