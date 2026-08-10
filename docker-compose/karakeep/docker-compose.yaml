@@ -31,7 +31,7 @@ services:
 
   karakeep-chrome:
     container_name: karakeep-chrome
-    image: docker.io/zenika-hub/alpine-chrome:124
+    image: docker.io/zenika/alpine-chrome:124
     restart: unless-stopped
     networks:
       - homelab-network
