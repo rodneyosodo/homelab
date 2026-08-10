@@ -1,7 +1,7 @@
 services:
   mealie:
     container_name: mealie
-    image: docker.io/hkotel/mealie:v3.20.1
+    image: docker.io/hkotel/mealie:v3.22.0
     restart: unless-stopped
     networks:
       - homelab-network

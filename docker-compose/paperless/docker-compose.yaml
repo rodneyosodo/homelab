@@ -1,7 +1,7 @@
 services:
   paperless:
     container_name: paperless
-    image: ghcr.io/paperless-ngx/paperless-ngx:2.20.15
+    image: ghcr.io/paperless-ngx/paperless-ngx:3.0.5
     restart: unless-stopped
     networks:
       - homelab-network
@@ -123,7 +123,7 @@ services:
 
   paperless-gpt:
     container_name: paperless-gpt
-    image: docker.io/icereed/paperless-gpt:v0.25.1
+    image: docker.io/icereed/paperless-gpt:v0.27.0
     restart: unless-stopped
     networks:
       - homelab-network
