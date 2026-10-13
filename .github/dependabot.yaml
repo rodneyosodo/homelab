@@ -19,6 +19,4 @@ updates:
           - "*"
     ignore:
       - dependency-name: "redis"
-        versions: ["*"]
       - dependency-name: "postgres"
-        versions: ["*"]
