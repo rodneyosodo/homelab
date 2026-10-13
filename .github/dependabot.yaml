@@ -17,3 +17,8 @@ updates:
       docker-dependency:
         patterns:
           - "*"
+    ignore:
+      - dependency-name: "redis"
+        versions: ["*"]
+      - dependency-name: "postgres"
+        versions: ["*"]
