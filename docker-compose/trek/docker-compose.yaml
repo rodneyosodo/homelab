@@ -1,7 +1,7 @@
 services:
   trek:
     container_name: trek
-    image: docker.io/mauriceboe/trek:4.1.1
+    image: docker.io/mauriceboe/trek:4.3.3
     restart: unless-stopped
     networks:
       - homelab-network
