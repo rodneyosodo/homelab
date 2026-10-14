@@ -1,0 +1,21 @@
+services:
+  clacks:
+    image: ghcr.io/rodneyosodo/clacks:v0.1.0
+    container_name: clacks
+    restart: unless-stopped
+    networks:
+      - homelab-network
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ~/docker-volumes/clacks/data:/data
+    ports:
+      - 6030:8080
+    environment:
+      CLACKS_LOG_LEVEL: info
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
