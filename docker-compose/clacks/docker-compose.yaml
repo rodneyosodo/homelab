@@ -1,6 +1,6 @@
 services:
   clacks:
-    image: ghcr.io/rodneyosodo/clacks:v0.1.0
+    image: ghcr.io/rodneyosodo/clacks:v0.2.0
     container_name: clacks
     restart: unless-stopped
     networks:
