@@ -1,5 +1,14 @@
 TEMPLATE_FILE = compose-template.yaml
 MAIN_COMPOSE = docker-compose.yaml
+# Minimum number of days a release must have been published before update-images picks it up.
+MIN_AGE_DAYS ?= 7
+# Extra comma separated image names to skip (on top of .github/dependabot.yaml ignores).
+IGNORE ?=
+# Comma separated image names to restrict the image check to.
+ONLY ?=
+# Maximum concurrent registry requests.
+JOBS ?= 32
+UPDATE_IMAGES = go run ../scripts/update-images/main.go -root .. -min-age $(MIN_AGE_DAYS) -ignore "$(IGNORE)" -only "$(ONLY)" -jobs $(JOBS)
 
 start: ## Start docker compose services
 	@docker compose -f $(MAIN_COMPOSE) --env-file .env up -d
@@ -48,6 +57,13 @@ validate: ## Validate that all images in docker compose config exist in registry
 		exit 1; \
 	fi; \
 	echo "All images are valid. Proceeding with CI pipeline."
+
+check-images: ## Report image updates older than MIN_AGE_DAYS without changing files
+	@$(UPDATE_IMAGES) -dry-run
+
+update-images: ## Bump images to the latest release older than MIN_AGE_DAYS i.e \033[33mmake update-images MIN_AGE_DAYS=14\033[0m
+	@$(UPDATE_IMAGES)
+	@git --no-pager diff --stat -- .
 
 help: ## Show this help message
 	@which awk > /dev/null || (echo "awk not found. Please install it from https://www.gnu.org/software/gawk/manual/gawk.html" && exit 1)
