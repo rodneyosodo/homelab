@@ -1,7 +1,7 @@
 services:
   karakeep-app:
     container_name: karakeep-app
-    image: ghcr.io/karakeep-app/karakeep:0.33.2
+    image: ghcr.io/karakeep-app/karakeep:0.34.0
     restart: unless-stopped
     networks:
       - homelab-network
@@ -47,7 +47,7 @@ services:
 
   karakeep-meilisearch:
     container_name: karakeep-meilisearch
-    image: docker.io/getmeili/meilisearch:v1.54.3
+    image: docker.io/getmeili/meilisearch:v1.55.0
     restart: unless-stopped
     networks:
       - homelab-network
