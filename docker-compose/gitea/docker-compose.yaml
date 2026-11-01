@@ -63,7 +63,7 @@ services:
 
   gitea-runner:
     container_name: gitea-runner
-    image: docker.io/gitea/runner:5.1.1
+    image: docker.io/gitea/runner:5.2.4
     restart: unless-stopped
     networks:
       - homelab-network

@@ -43,7 +43,7 @@ services:
 
   pihole-exporter:
     container_name: pihole-exporter
-    image: docker.io/ekofr/pihole-exporter:v1.2.0
+    image: docker.io/ekofr/pihole-exporter:v1.3.0
     restart: unless-stopped
     networks:
       homelab-network:
