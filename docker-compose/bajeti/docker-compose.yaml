@@ -1,7 +1,7 @@
 services:
   bajeti-backend:
     container_name: bajeti-backend
-    image: ghcr.io/rodneyosodo/bajeti/backend:0.4.0
+    image: ghcr.io/rodneyosodo/bajeti/backend:0.4.1
     restart: unless-stopped
     networks:
       - homelab-network
@@ -41,7 +41,7 @@ services:
 
   bajeti-dashboard:
     container_name: bajeti-dashboard
-    image: ghcr.io/rodneyosodo/bajeti/dashboard:0.4.0
+    image: ghcr.io/rodneyosodo/bajeti/dashboard:0.4.1
     restart: unless-stopped
     networks:
       - homelab-network
